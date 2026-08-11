@@ -279,3 +279,100 @@ footer {
     flex-direction: column;
   }
 }
+
+.chord-diagram {
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.chord-diagram h3 {
+  margin: 0;
+  font-size: 2.5rem;
+}
+
+.chord-full-name {
+  margin-top: 4px;
+  margin-bottom: 20px;
+  color: #71717a;
+}
+
+.string-numbers {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+
+  width: 240px;
+  margin: 0 auto 8px;
+
+  color: #71717a;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.fretboard {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(4, 55px);
+
+  width: 240px;
+  margin: 0 auto;
+
+  border-top: 5px solid #18181b;
+  border-left: 1px solid #71717a;
+  border-right: 1px solid #71717a;
+}
+
+.fret-position {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-right: 1px solid #71717a;
+  border-bottom: 2px solid #a1a1aa;
+}
+
+.fret-position:nth-child(6n) {
+  border-right: 0;
+}
+
+.finger-dot {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 30px;
+  height: 30px;
+
+  background: #7c3aed;
+  color: white;
+
+  border-radius: 50%;
+
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+.chord-instructions {
+  margin-top: 25px;
+
+  padding: 16px;
+
+  background: #fafafa;
+
+  border-radius: 14px;
+
+  text-align: left;
+}
+
+.chord-instructions p {
+  margin: 8px 0;
+
+  color: #52525b;
+}
+

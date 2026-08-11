@@ -1,3 +1,5 @@
+import ChordDiagram from './components/ChordDiagram/ChordDiagram'
+
 function App() {
   return (
     <main className="app">
@@ -38,21 +40,7 @@ function App() {
         </div>
 
         <div className="chord-area">
-          <div className="chord-name">
-            G
-          </div>
-
-          <div className="diagram-placeholder">
-            <span className="guitar">🎸</span>
-
-            <strong>
-              Diagrama do acorde
-            </strong>
-
-            <small>
-              Em breve vamos desenhar o acorde aqui
-            </small>
-          </div>
+          <ChordDiagram chord="G" />
         </div>
 
         <div className="instructions">
