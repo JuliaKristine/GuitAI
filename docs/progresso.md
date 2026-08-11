@@ -252,3 +252,53 @@ ChordDiagram
     ↓
 diagrama visual
 
+---
+
+## Etapa 7 — Primeira aula interativa
+
+### Status
+
+✅ Concluída
+
+### Implementado
+
+O GuitAI passou a possuir uma estrutura de aula passo a passo.
+
+Foi criada a primeira aula para iniciantes com a sequência:
+
+G → Em → C → D
+
+### Funcionalidades
+
+- Navegação entre os acordes.
+- Botão para avançar.
+- Botão para retornar.
+- Indicação da etapa atual.
+- Barra de progresso.
+- Instruções específicas para cada acorde.
+- Dicas didáticas.
+- Tela de conclusão.
+- Opção de repetir a aula.
+
+### Arquitetura
+
+Foi criado o arquivo:
+
+`src/data/lessons.ts`
+
+Ele contém os dados pedagógicos das aulas.
+
+Também foi criado:
+
+`src/components/LessonPlayer/LessonPlayer.tsx`
+
+Responsável por controlar a execução da aula.
+
+```text
+lessons.ts
+     ↓
+LessonPlayer
+     ↓
+ChordDiagram
+     ↓
+Aula visual

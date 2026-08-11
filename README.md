@@ -95,9 +95,13 @@ O primeiro marco funcional será fazer o sistema receber um acorde e gerar autom
 
 ### Fase 2 — Aula de guitarra
 
-- [ ] Criar sequências de acordes
-- [ ] Criar controle de progresso
-- [ ] Adicionar ritmo
+- [x] Criar sequência de acordes
+- [x] Criar botão próximo acorde
+- [x] Criar botão acorde anterior
+- [x] Mostrar progresso da aula
+- [x] Criar tela de conclusão
+- [ ] Ensinar troca entre acordes
+- [ ] Adicionar padrão de batida
 - [ ] Adicionar BPM
 - [ ] Criar modo de prática
 

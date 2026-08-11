@@ -580,3 +580,296 @@ footer {
   outline-offset: 3px;
 }
 
+.lesson-player {
+  max-width: 680px;
+
+  margin: 55px auto 0;
+  padding: 32px;
+
+  background: #ffffff;
+
+  border: 1px solid #e4e4e7;
+  border-radius: 24px;
+
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.06);
+}
+
+.lesson-player-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  gap: 20px;
+
+  padding-bottom: 24px;
+
+  border-bottom: 1px solid #f4f4f5;
+}
+
+.lesson-player-header h2 {
+  margin: 6px 0;
+
+  color: #27272a;
+
+  font-size: 1.5rem;
+}
+
+.lesson-player-header p {
+  max-width: 440px;
+
+  margin: 0;
+
+  color: #71717a;
+
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* Progresso */
+
+.lesson-progress {
+  margin: 25px 0 30px;
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+
+  margin-bottom: 9px;
+
+  color: #71717a;
+
+  font-size: 0.8rem;
+}
+
+.progress-info strong {
+  color: #7c3aed;
+}
+
+.progress-track {
+  width: 100%;
+  height: 9px;
+
+  overflow: hidden;
+
+  background: #ede9fe;
+
+  border-radius: 100px;
+}
+
+.progress-bar {
+  height: 100%;
+
+  background: #7c3aed;
+
+  border-radius: 100px;
+
+  transition: width 0.3s ease;
+}
+
+/* Texto da etapa */
+
+.lesson-step-text {
+  display: flex;
+
+  gap: 14px;
+
+  margin-bottom: 30px;
+  padding: 18px;
+
+  background: #fafafa;
+
+  border-radius: 16px;
+
+  text-align: left;
+}
+
+.step-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  width: 38px;
+  height: 38px;
+
+  background: #7c3aed;
+  color: #ffffff;
+
+  border-radius: 50%;
+
+  font-weight: 800;
+}
+
+.lesson-step-text h3 {
+  margin: 0 0 5px;
+
+  color: #27272a;
+
+  font-size: 1rem;
+}
+
+.lesson-step-text p {
+  margin: 0;
+
+  color: #71717a;
+
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.lesson-chord {
+  padding: 10px 0 20px;
+}
+
+/* Dica */
+
+.teacher-tip {
+  display: flex;
+
+  gap: 12px;
+
+  margin-top: 20px;
+  padding: 16px;
+
+  background: #fffbeb;
+
+  border: 1px solid #fde68a;
+  border-radius: 14px;
+
+  text-align: left;
+}
+
+.teacher-tip strong {
+  color: #78350f;
+
+  font-size: 0.85rem;
+}
+
+.teacher-tip p {
+  margin: 4px 0 0;
+
+  color: #92400e;
+
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+/* Navegação */
+
+.lesson-navigation {
+  display: flex;
+
+  gap: 12px;
+
+  margin-top: 25px;
+}
+
+.previous-button,
+.next-button {
+  padding: 14px 20px;
+
+  border-radius: 13px;
+
+  font: inherit;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.previous-button {
+  background: #ffffff;
+  color: #52525b;
+
+  border: 2px solid #e4e4e7;
+}
+
+.previous-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.next-button {
+  flex: 1;
+
+  background: #7c3aed;
+  color: #ffffff;
+
+  border: 2px solid #7c3aed;
+}
+
+.next-button:hover {
+  background: #6d28d9;
+}
+
+/* Aula concluída */
+
+.lesson-completed {
+  text-align: center;
+}
+
+.lesson-complete-icon {
+  display: block;
+
+  margin-bottom: 10px;
+
+  font-size: 4rem;
+}
+
+.lesson-completed h2 {
+  margin: 10px 0;
+
+  font-size: 2rem;
+}
+
+.lesson-completed > p {
+  color: #71717a;
+}
+
+.completed-chords {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  gap: 10px;
+
+  margin: 30px 0;
+}
+
+.completed-chords span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 55px;
+  height: 55px;
+
+  background: #f3e8ff;
+  color: #7c3aed;
+
+  border-radius: 15px;
+
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+@media (max-width: 600px) {
+  .lesson-player {
+    padding: 22px;
+  }
+
+  .lesson-player-header {
+    flex-direction: column;
+  }
+
+  .lesson-navigation {
+    flex-direction: column-reverse;
+  }
+
+  .previous-button,
+  .next-button {
+    width: 100%;
+  }
+}
