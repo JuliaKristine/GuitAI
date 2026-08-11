@@ -302,3 +302,53 @@ LessonPlayer
 ChordDiagram
      ↓
 Aula visual
+
+---
+
+## Etapa 8 — Ensino de troca entre acordes
+
+### Status
+
+✅ Concluída
+
+### Implementado
+
+O GuitAI passou a ensinar não apenas a formação dos acordes,
+mas também a movimentação necessária para trocar entre eles.
+
+Foram adicionadas orientações específicas para as transições:
+
+- G → Em
+- Em → C
+- C → D
+
+### Componente criado
+
+Foi criado:
+
+`src/components/ChordTransition/ChordTransition.tsx`
+
+O componente apresenta visualmente as instruções necessárias
+para realizar uma troca de acorde.
+
+### Orientações utilizadas
+
+A interface utiliza símbolos simples:
+
+- 🟢 dedo pode permanecer;
+- 🟡 dedo deve ser movimentado;
+- ⚪ dedo deve ser retirado;
+- ➕ dedo deve ser adicionado;
+- 🚫 corda que não deve ser tocada.
+
+### Arquitetura
+
+```text
+lessons.ts
+     ↓
+ChordTransition
+     ↓
+LessonPlayer
+     ↓
+Aluno
+

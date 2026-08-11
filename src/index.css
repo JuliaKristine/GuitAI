@@ -873,3 +873,108 @@ footer {
     width: 100%;
   }
 }
+
+.chord-transition {
+  margin: 20px 0 30px;
+  padding: 20px;
+
+  background: #faf5ff;
+
+  border: 1px solid #e9d5ff;
+  border-radius: 18px;
+
+  text-align: left;
+}
+
+.transition-title {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  margin-bottom: 18px;
+}
+
+.transition-title > span {
+  font-size: 1.8rem;
+}
+
+.transition-title small {
+  color: #7c3aed;
+
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.transition-title h4 {
+  margin: 3px 0 0;
+
+  color: #27272a;
+
+  font-size: 1.2rem;
+}
+
+.transition-title h4 span {
+  color: #7c3aed;
+}
+
+.transition-steps {
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+}
+
+.transition-step {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 12px;
+
+  background: #ffffff;
+
+  border-radius: 12px;
+}
+
+.transition-number {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  flex-shrink: 0;
+
+  width: 30px;
+  height: 30px;
+
+  background: #7c3aed;
+  color: white;
+
+  border-radius: 50%;
+
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.transition-step p {
+  margin: 0;
+
+  color: #52525b;
+
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.transition-reminder {
+  margin: 16px 0 0;
+
+  color: #7c3aed;
+
+  font-size: 0.8rem;
+  font-weight: 700;
+
+  text-align: center;
+}
+

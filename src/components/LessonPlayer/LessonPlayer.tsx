@@ -1,8 +1,7 @@
 import { useState } from 'react'
-
 import ChordDiagram from '../ChordDiagram/ChordDiagram'
-
 import type { Lesson } from '../../data/lessons'
+import ChordTransition from '../ChordTransition/ChordTransition'
 
 type LessonPlayerProps = {
   lesson: Lesson
@@ -124,6 +123,12 @@ function LessonPlayer({ lesson }: LessonPlayerProps) {
           <p>{step.instruction}</p>
         </div>
       </div>
+
+        {step.transition && (
+            <ChordTransition
+            transition={step.transition}
+            />
+        )}
 
       <div className="lesson-chord">
         <ChordDiagram chord={step.chord} />
