@@ -1,60 +1,82 @@
-import './App.css'
-
 function App() {
   return (
     <main className="app">
-      <header className="hero">
-        <div className="brand">
+      <section className="hero">
+        <div className="logo">
           Guit<span>AI</span>
         </div>
 
-        <p className="tagline">Sua música vira aula.</p>
+        <p className="tagline">
+          Sua música vira aula.
+        </p>
 
         <h1>
           Aprenda guitarra tocando
-          <strong> as músicas que você ama.</strong>
+          <span> as músicas que você ama.</span>
         </h1>
 
         <p className="description">
-          O guitAI transforma músicas em aulas simples e visuais,
-          mostrando acordes, dedos, cordas e cada passo necessário
-          para você começar a tocar.
+          O GuitAI transforma músicas em aulas simples e visuais,
+          mostrando exatamente onde colocar os dedos, quais cordas
+          tocar e como fazer cada acorde.
         </p>
-      </header>
+      </section>
 
       <section className="lesson-card">
         <div className="lesson-header">
           <div>
-            <span className="label">PRIMEIRA AULA</span>
+            <span className="lesson-label">
+              PRIMEIRA AULA
+            </span>
+
             <h2>Vamos aprender um acorde?</h2>
           </div>
 
-          <span className="level">🌱 Iniciante</span>
+          <span className="level">
+            🌱 Iniciante
+          </span>
         </div>
 
-        <div className="chord-preview">
-          <div className="chord-name">G</div>
+        <div className="chord-area">
+          <div className="chord-name">
+            G
+          </div>
 
-          <div className="chord-placeholder">
-            🎸
-            <span>Diagrama do acorde</span>
+          <div className="diagram-placeholder">
+            <span className="guitar">🎸</span>
+
+            <strong>
+              Diagrama do acorde
+            </strong>
+
+            <small>
+              Em breve vamos desenhar o acorde aqui
+            </small>
           </div>
         </div>
 
         <div className="instructions">
-          <p>👆 Vamos mostrar onde colocar cada dedo.</p>
-          <p>🎵 Você também verá quais cordas deve tocar.</p>
-          <p>🐢 Tudo explicado passo a passo.</p>
+          <p>
+            👆 Vamos mostrar onde colocar cada dedo.
+          </p>
+
+          <p>
+            🎵 Você verá exatamente quais cordas tocar.
+          </p>
+
+          <p>
+            🐢 Tudo será ensinado passo a passo.
+          </p>
         </div>
 
-        <button className="start-button">
+        <button type="button" className="start-button">
           Começar a aprender
           <span>→</span>
         </button>
       </section>
 
       <footer>
-        <p>guitAI • Aprenda acorde por acorde.</p>
+        GuitAI • Aprenda acorde por acorde.
       </footer>
     </main>
   )

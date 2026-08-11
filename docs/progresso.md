@@ -1,6 +1,6 @@
-# 📈 Progresso do guitAI
+# 📈 Progresso do GuitAI
 
-Este documento registra a evolução do desenvolvimento do guitAI.
+Este documento registra a evolução do desenvolvimento do GuitAI.
 
 ---
 
@@ -12,12 +12,12 @@ Este documento registra a evolução do desenvolvimento do guitAI.
 
 ### Implementado
 
-* Projeto criado com React.
-* TypeScript configurado.
-* Vite utilizado como ferramenta de desenvolvimento.
-* Git inicializado.
-* Estrutura inicial de documentação criada.
-* README inicial criado.
+- Projeto criado com Vite e TypeScript.
+- React adicionado ao projeto.
+- Configuração do React realizada com `@vitejs/plugin-react`.
+- Arquivos principais convertidos para TSX.
+- Git inicializado.
+- Estrutura inicial de documentação criada.
 
 ### Objetivo
 
@@ -33,44 +33,46 @@ Preparar a base técnica para o desenvolvimento da aplicação.
 
 ### Implementado
 
-* Remoção da interface padrão do Vite.
-* Criação da primeira identidade visual do guitAI.
-* Criação da tela inicial da aplicação.
-* Apresentação da proposta do produto.
-* Criação do card da primeira aula.
-* Indicação do nível iniciante.
-* Espaço preparado para o futuro diagrama de acordes.
-* Layout responsivo para dispositivos menores.
+- Remoção da interface padrão do Vite.
+- Criação da identidade inicial do GuitAI.
+- Criação da tela inicial da aplicação.
+- Apresentação da proposta do produto.
+- Criação do card da primeira aula.
+- Identificação do nível iniciante.
+- Espaço reservado para o diagrama de acordes.
+- Layout responsivo.
 
 ### Tecnologias utilizadas
 
-* React
-* TypeScript
-* CSS
+- React
+- TypeScript
+- Vite
+- CSS
 
 ### Resultado
 
-A aplicação agora possui sua primeira interface própria.
+O GuitAI agora possui sua primeira interface própria.
 
-O usuário já consegue visualizar a proposta do guitAI e a estrutura de uma futura aula de guitarra.
+A aplicação apresenta sua proposta educacional e já possui a estrutura visual que futuramente mostrará os acordes e as instruções de guitarra.
 
-O diagrama exibido atualmente é apenas um placeholder e será substituído por um componente capaz de desenhar acordes dinamicamente.
+O diagrama atual ainda é apenas um espaço reservado.
 
 ---
 
 ## Próxima etapa
 
-### Etapa 3 — Estrutura dos acordes
+### Etapa 3 — Estrutura de dados dos acordes
 
-O próximo objetivo é representar acordes através de dados.
+O próximo objetivo será ensinar ao sistema como representar um acorde.
 
-Exemplo:
+O primeiro acorde implementado será:
 
-```text
-G
-├── dedo 1 → corda 5 → casa 2
-├── dedo 2 → corda 6 → casa 3
-└── dedo 3 → corda 1 → casa 3
-```
+**G — Sol maior**
 
-Esses dados serão utilizados posteriormente pelo componente visual responsável por desenhar o braço da guitarra.
+O sistema deverá conhecer:
+
+- quais dedos utilizar;
+- em quais cordas posicioná-los;
+- em quais casas posicioná-los;
+- quais cordas devem ser tocadas;
+- quais cordas devem ser evitadas.
