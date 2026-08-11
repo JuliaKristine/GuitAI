@@ -2,6 +2,7 @@ import { useState } from 'react'
 import ChordDiagram from '../ChordDiagram/ChordDiagram'
 import type { Lesson } from '../../data/lessons'
 import ChordTransition from '../ChordTransition/ChordTransition'
+import RhythmTrainer from '../RhythmTrainer/RhythmTrainer'
 
 type LessonPlayerProps = {
   lesson: Lesson
@@ -142,6 +143,8 @@ function LessonPlayer({ lesson }: LessonPlayerProps) {
           <p>{step.tip}</p>
         </div>
       </div>
+
+        <RhythmTrainer rhythm={lesson.rhythm} />
 
       <div className="lesson-navigation">
         <button

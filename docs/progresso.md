@@ -352,3 +352,58 @@ LessonPlayer
      ↓
 Aluno
 
+---
+
+## Etapa 9 — Ritmo visual e controle de BPM
+
+### Status
+
+✅ Concluída
+
+### Implementado
+
+Foi criado o primeiro sistema de treinamento de ritmo do GuitAI.
+
+A primeira aula agora possui um padrão simples de quatro
+batidas para baixo.
+
+Padrão:
+
+1 → ↓  
+2 → ↓  
+3 → ↓  
+4 → ↓
+
+### Componente criado
+
+`src/components/RhythmTrainer/RhythmTrainer.tsx`
+
+O componente é responsável por:
+
+- apresentar o padrão de batida;
+- destacar visualmente cada tempo;
+- controlar a execução da prática;
+- permitir alterar a velocidade;
+- apresentar o valor atual de BPM.
+
+### BPM
+
+A velocidade pode ser ajustada entre:
+
+40 BPM e 120 BPM.
+
+O valor inicial da primeira aula é:
+
+60 BPM.
+
+### Arquitetura
+
+```text
+lessons.ts
+     ↓
+RhythmPattern
+     ↓
+RhythmTrainer
+     ↓
+animação das batidas
+

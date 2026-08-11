@@ -101,9 +101,9 @@ O primeiro marco funcional será fazer o sistema receber um acorde e gerar autom
 - [x] Mostrar progresso da aula
 - [x] Criar tela de conclusão
 - [x] Ensinar troca entre acordes
-- [ ] Adicionar padrão de batida
-- [ ] Adicionar BPM
-- [ ] Criar metrônomo
+- [x] Adicionar padrão de batida
+- [x] Adicionar controle de BPM
+- [ ] Adicionar metrônomo
 - [ ] Criar modo de prática
 
 ### Fase 3 — Inteligência Artificial

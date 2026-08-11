@@ -4,6 +4,14 @@ export type ChordTransition = {
   instructions: string[]
 }
 
+export type StrumDirection = 'down' | 'up'
+
+export type RhythmPattern = {
+  name: string
+  bpm: number
+  beats: StrumDirection[]
+}
+
 export type LessonStep = {
   chord: string
   title: string
@@ -16,6 +24,7 @@ export type Lesson = {
   id: string
   title: string
   description: string
+  rhythm: RhythmPattern
   steps: LessonStep[]
 }
 
@@ -26,6 +35,18 @@ export const firstLesson: Lesson = {
 
   description:
     'Aprenda quatro acordes simples e pratique a troca entre eles.',
+
+  rhythm: {
+    name: 'Batida iniciante',
+    bpm: 60,
+
+    beats: [
+      'down',
+      'down',
+      'down',
+      'down',
+    ],
+  },
 
   steps: [
     {
