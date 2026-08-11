@@ -1,32 +1,122 @@
-# React + TypeScript + Vite
+# 🎸 GuitAI
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+> Sua música vira aula.
 
-Currently, two official plugins are available:
+O GuitAI é uma aplicação educacional que tem como objetivo transformar músicas em aulas visuais e simplificadas de guitarra.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+A proposta é permitir que uma pessoa escolha uma música que deseja aprender e receba uma versão adaptada ao seu nível de experiência, com acordes simplificados, diagramas visuais, posicionamento dos dedos, indicação das cordas e instruções passo a passo.
 
-## React Compiler
+## 🎯 Objetivo
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Tornar o aprendizado de guitarra mais simples, visual e acessível, especialmente para iniciantes.
 
-## Expanding the Oxlint configuration
+Em vez de apresentar apenas cifras tradicionais, o GuitAI pretende ensinar como executar cada acorde e, futuramente, transformar músicas em aulas personalizadas.
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+## 🎸 Experiência planejada
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
-```
+Para cada acorde, o sistema deverá apresentar:
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+- nome do acorde;
+- desenho do braço da guitarra;
+- posição dos dedos;
+- número das casas;
+- cordas que devem ser tocadas;
+- cordas que não devem ser tocadas;
+- instruções simples;
+- sequência de acordes;
+- padrão de ritmo.
+
+## 🚀 MVP
+
+A primeira versão do GuitAI será focada no ensino visual de acordes básicos.
+
+Acordes iniciais:
+
+- G
+- C
+- D
+- Em
+- Am
+
+O primeiro marco funcional será fazer o sistema receber um acorde e gerar automaticamente seu diagrama visual.
+
+## 🛠️ Tecnologias
+
+### Atualmente
+
+- React
+- TypeScript
+- Vite
+- CSS
+- Git
+- GitHub
+
+### Planejadas
+
+- Python
+- FastAPI
+- PostgreSQL
+- Inteligência Artificial
+- Spotify Web API
+- Processamento de áudio
+
+## 📌 Status
+
+🚧 Projeto em desenvolvimento.
+
+### Concluído
+
+- [x] Configuração inicial
+- [x] React + TypeScript + Vite
+- [x] Estrutura de documentação
+- [x] Primeira interface do GuitAI
+- [x] Estrutura de dados dos acordes
+- [x] Primeiro diagrama visual
+- [x] Acorde G (Sol maior)
+- [x] Posicionamento dos dedos
+
+## 🗺️ Roadmap
+
+### Fase 1 — Visualizador de acordes
+
+- [x] Criar interface inicial
+- [x] Criar estrutura de dados dos acordes
+- [x] Criar componente de diagrama
+- [x] Indicar dedos
+- [x] Indicar cordas abertas
+- [x] Indicar cordas que não devem ser tocadas
+- [x] Criar instruções para iniciantes
+- [x] Implementar G (Sol maior)
+- [x] Implementar C (Dó maior)
+- [ ] Implementar D (Ré maior)
+- [ ] Implementar Em (Mi menor)
+- [ ] Implementar Am (Lá menor)
+
+### Fase 2 — Aula de guitarra
+
+- [ ] Criar sequências de acordes
+- [ ] Criar controle de progresso
+- [ ] Adicionar ritmo
+- [ ] Adicionar BPM
+- [ ] Criar modo de prática
+
+### Fase 3 — Inteligência Artificial
+
+- [ ] Simplificar progressões
+- [ ] Adaptar músicas ao nível do aluno
+- [ ] Gerar instruções
+- [ ] Criar professor virtual
+
+### Fase 4 — Spotify
+
+- [ ] Autenticação
+- [ ] Pesquisa de músicas
+- [ ] Seleção da música
+- [ ] Integração com o motor musical
+
+### Fase 5 — Reconhecimento do instrumento
+
+- [ ] Capturar áudio pelo microfone
+- [ ] Identificar acordes tocados
+- [ ] Comparar execução
+- [ ] Dar feedback ao aluno
