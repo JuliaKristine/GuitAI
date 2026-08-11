@@ -77,4 +77,95 @@ export const chords: Record<string, Chord> = {
       1: 'play',
     },
   },
+
+  D: {
+    name: 'D',
+    displayName: 'Ré maior',
+
+    fingers: [
+      {
+        finger: 1,
+        string: 3,
+        fret: 2,
+      },
+      {
+        finger: 2,
+        string: 1,
+        fret: 2,
+      },
+      {
+        finger: 3,
+        string: 2,
+        fret: 3,
+      },
+    ],
+
+    strings: {
+      6: 'mute',
+      5: 'mute',
+      4: 'play',
+      3: 'play',
+      2: 'play',
+      1: 'play',
+    },
+  },
+
+  Em: {
+    name: 'Em',
+    displayName: 'Mi menor',
+
+    fingers: [
+      {
+        finger: 1,
+        string: 5,
+        fret: 2,
+      },
+      {
+        finger: 2,
+        string: 4,
+        fret: 2,
+      },
+    ],
+
+    strings: {
+      6: 'play',
+      5: 'play',
+      4: 'play',
+      3: 'play',
+      2: 'play',
+      1: 'play',
+    },
+  },
+
+  Am: {
+    name: 'Am',
+    displayName: 'Lá menor',
+
+    fingers: [
+      {
+        finger: 1,
+        string: 2,
+        fret: 1,
+      },
+      {
+        finger: 2,
+        string: 4,
+        fret: 2,
+      },
+      {
+        finger: 3,
+        string: 3,
+        fret: 2,
+      },
+    ],
+
+    strings: {
+      6: 'mute',
+      5: 'play',
+      4: 'play',
+      3: 'play',
+      2: 'play',
+      1: 'play',
+    },
+  },
 }

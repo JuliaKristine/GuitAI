@@ -214,3 +214,41 @@ ChordDiagram
         ▼
 Diagrama visual
 
+---
+
+## Etapa 6 — Biblioteca inicial de acordes
+
+### Status
+
+✅ Concluída
+
+### Implementado
+
+Foi criado o primeiro conjunto de acordes destinado a iniciantes.
+
+Acordes disponíveis:
+
+- G — Sol maior
+- C — Dó maior
+- D — Ré maior
+- Em — Mi menor
+- Am — Lá menor
+
+Também foi implementada a geração dinâmica dos botões de seleção.
+
+Os botões agora são criados automaticamente a partir dos acordes
+cadastrados no arquivo `chords.ts`.
+
+### Arquitetura
+
+```text
+chords.ts
+    ↓
+lista de acordes
+    ↓
+seletor automático
+    ↓
+ChordDiagram
+    ↓
+diagrama visual
+

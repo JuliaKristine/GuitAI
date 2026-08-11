@@ -88,9 +88,10 @@ O primeiro marco funcional será fazer o sistema receber um acorde e gerar autom
 - [x] Criar instruções para iniciantes
 - [x] Implementar G (Sol maior)
 - [x] Implementar C (Dó maior)
-- [ ] Implementar D (Ré maior)
-- [ ] Implementar Em (Mi menor)
-- [ ] Implementar Am (Lá menor)
+- [x] Implementar D (Ré maior)
+- [x] Implementar Em (Mi menor)
+- [x] Implementar Am (Lá menor)
+- [x] Criar seletor automático de acordes
 
 ### Fase 2 — Aula de guitarra
 
