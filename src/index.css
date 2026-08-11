@@ -521,3 +521,62 @@ footer {
   text-align: center;
 }
 
+.chord-selector {
+  margin-top: 28px;
+  text-align: center;
+}
+
+.chord-selector p {
+  margin-bottom: 10px;
+
+  color: #71717a;
+
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.chord-buttons {
+  display: flex;
+  justify-content: center;
+
+  gap: 10px;
+}
+
+.chord-buttons button {
+  width: 48px;
+  height: 48px;
+
+  background: #ffffff;
+  color: #52525b;
+
+  border: 2px solid #e4e4e7;
+  border-radius: 12px;
+
+  font-weight: 800;
+  font-size: 1rem;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.chord-buttons button:hover {
+  border-color: #7c3aed;
+}
+
+.chord-buttons button.active {
+  background: #7c3aed;
+  color: #ffffff;
+
+  border-color: #7c3aed;
+}
+
+.chord-buttons button:focus {
+  outline: none;
+}
+
+.chord-buttons button:focus-visible {
+  outline: 3px solid #c4b5fd;
+  outline-offset: 3px;
+}
+

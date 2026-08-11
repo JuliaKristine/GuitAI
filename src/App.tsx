@@ -1,6 +1,9 @@
+import { useState } from 'react'
 import ChordDiagram from './components/ChordDiagram/ChordDiagram'
 
 function App() {
+  const [selectedChord, setSelectedChord] = useState('G')
+  
   return (
     <main className="app">
       <section className="hero">
@@ -39,8 +42,30 @@ function App() {
           </span>
         </div>
 
+        <div className="chord-selector">
+          <p>Escolha um acorde:</p>
+
+        <div className="chord-buttons">
+          <button
+          type="button"
+          className={selectedChord === 'G' ? 'active' : ''}
+          onClick={() => setSelectedChord('G')}
+          >
+            G
+          </button>
+
+          <button
+            type="button"
+            className={selectedChord === 'C' ? 'active' : ''}
+            onClick={() => setSelectedChord('C')}
+            >
+              C
+            </button>
+          </div>
+        </div>
+
         <div className="chord-area">
-          <ChordDiagram chord="G" />
+          <ChordDiagram chord={selectedChord} />
         </div>
 
         <div className="instructions">

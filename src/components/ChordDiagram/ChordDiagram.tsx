@@ -21,6 +21,12 @@ function ChordDiagram({ chord }: ChordDiagramProps) {
   const strings = [6, 5, 4, 3, 2, 1]
   const frets = [1, 2, 3, 4]
 
+  const playableStrings = strings.filter(
+  (string) => chordData.strings[string] === 'play'
+)
+
+const firstPlayableString = Math.max(...playableStrings)
+
   const isStringFretted = (stringNumber: number) => {
     return chordData.fingers.some(
       (position) => position.string === stringNumber
@@ -134,7 +140,7 @@ function ChordDiagram({ chord }: ChordDiagramProps) {
       </div>
 
       <div className="play-instruction">
-        🎵 Agora passe a palheta pelas 6 cordas.
+        🎵 Comece na corda {firstPlayableString} e toque até a corda 1.
       </div>
     </div>
   )

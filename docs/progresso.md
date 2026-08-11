@@ -165,3 +165,52 @@ Adicionar novos acordes para validar se o componente consegue
 representar diferentes formações automaticamente.
 
 O próximo acorde será C (Dó maior).
+
+---
+
+## Etapa 5 — Múltiplos acordes e seleção dinâmica
+
+### Status
+
+✅ Concluída
+
+### Implementado
+
+- Adição do acorde C (Dó maior).
+- Criação da seleção dinâmica de acordes.
+- Alternância entre G e C sem recarregar a aplicação.
+- Validação da reutilização do componente `ChordDiagram`.
+- Implementação do símbolo `×` para cordas que não devem ser tocadas.
+- Geração automática da instrução de palhetada.
+- Identificação automática da primeira corda que deve ser tocada.
+
+### Acorde C — Dó maior
+
+Posições:
+
+- Dedo 1 — Indicador → corda 2, casa 1
+- Dedo 2 — Médio → corda 4, casa 2
+- Dedo 3 — Anelar → corda 5, casa 3
+- Corda 6 → não tocar
+- Cordas 3 e 1 → tocar soltas
+
+### Validação da arquitetura
+
+O componente `ChordDiagram` não precisou possuir uma versão específica
+para cada acorde.
+
+Os dados são armazenados em `chords.ts` e o componente utiliza essas
+informações para gerar o diagrama automaticamente.
+
+```text
+chords.ts
+   │
+   ├── G
+   └── C
+        │
+        ▼
+ChordDiagram
+        │
+        ▼
+Diagrama visual
+

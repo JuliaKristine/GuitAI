@@ -45,4 +45,36 @@ export const chords: Record<string, Chord> = {
       1: 'play',
     },
   },
+
+  C: {
+    name: 'C',
+    displayName: 'Dó maior',
+
+    fingers: [
+      {
+        finger: 1,
+        string: 2,
+        fret: 1,
+      },
+      {
+        finger: 2,
+        string: 4,
+        fret: 2,
+      },
+      {
+        finger: 3,
+        string: 5,
+        fret: 3,
+      },
+    ],
+
+    strings: {
+      6: 'mute',
+      5: 'play',
+      4: 'play',
+      3: 'play',
+      2: 'play',
+      1: 'play',
+    },
+  },
 }
