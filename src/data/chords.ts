@@ -4,11 +4,13 @@ export type FingerPosition = {
   fret: number
 }
 
+export type StringStatus = 'play' | 'mute'
+
 export type Chord = {
   name: string
   displayName: string
   fingers: FingerPosition[]
-  strings: ('play' | 'mute')[]
+  strings: Record<number, StringStatus>
 }
 
 export const chords: Record<string, Chord> = {
@@ -34,13 +36,13 @@ export const chords: Record<string, Chord> = {
       },
     ],
 
-    strings: [
-      'play',
-      'play',
-      'play',
-      'play',
-      'play',
-      'play',
-    ],
+    strings: {
+      6: 'play',
+      5: 'play',
+      4: 'play',
+      3: 'play',
+      2: 'play',
+      1: 'play',
+    },
   },
 }

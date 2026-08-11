@@ -120,3 +120,48 @@ ChordDiagram.tsx
 App.tsx
     ↓
 Interface
+
+---
+
+## Etapa 4 — Melhorias didáticas no diagrama
+
+### Status
+
+✅ Concluída
+
+### Implementado
+
+- Adição da numeração das cordas.
+- Adição da numeração das casas.
+- Identificação visual de cordas soltas.
+- Preparação para identificação de cordas que não devem ser tocadas.
+- Criação de legenda para os símbolos do diagrama.
+- Identificação dos dedos pelo nome:
+  - Indicador
+  - Médio
+  - Anelar
+  - Mindinho
+- Melhoria da apresentação das instruções.
+- Adição da orientação de palhetada.
+- Melhoria do espaçamento e legibilidade do diagrama.
+
+### Convenções visuais
+
+O GuitAI utiliza:
+
+- `○` para indicar uma corda que deve ser tocada solta.
+- `×` para indicar uma corda que não deve ser tocada.
+- Números de `1` a `4` para representar os dedos da mão.
+
+### Resultado
+
+O diagrama do acorde G agora apresenta informações suficientes
+para que um usuário iniciante consiga identificar as cordas,
+as casas e a posição correta dos dedos.
+
+### Próxima etapa
+
+Adicionar novos acordes para validar se o componente consegue
+representar diferentes formações automaticamente.
+
+O próximo acorde será C (Dó maior).

@@ -282,66 +282,117 @@ footer {
 
 .chord-diagram {
   width: 100%;
-  max-width: 320px;
-  margin: 0 auto;
   text-align: center;
 }
 
-.chord-diagram h3 {
+.chord-title h3 {
   margin: 0;
-  font-size: 2.5rem;
+
+  font-size: 2rem;
+  color: #18181b;
 }
 
-.chord-full-name {
-  margin-top: 4px;
-  margin-bottom: 20px;
+.chord-title p {
+  margin: 4px 0 24px;
+
   color: #71717a;
+  font-size: 0.9rem;
 }
+
+.diagram-wrapper {
+  width: 290px;
+  margin: 0 auto;
+}
+
+/* Números das cordas */
 
 .string-numbers {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
 
-  width: 240px;
-  margin: 0 auto 8px;
+  width: 252px;
+
+  margin-left: 28px;
+  margin-bottom: 5px;
 
   color: #71717a;
-  font-size: 0.8rem;
+
+  font-size: 0.75rem;
   font-weight: 700;
 }
 
-.fretboard {
+/* Corda solta / não tocar */
+
+.string-status {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: repeat(4, 55px);
 
-  width: 240px;
-  margin: 0 auto;
+  width: 252px;
 
-  border-top: 5px solid #18181b;
-  border-left: 1px solid #71717a;
-  border-right: 1px solid #71717a;
+  min-height: 25px;
+
+  margin-left: 28px;
+  margin-bottom: 5px;
+
+  color: #7c3aed;
+
+  font-size: 1.1rem;
+  font-weight: 800;
 }
 
-.fret-position {
-  position: relative;
+/* Área do braço */
 
+.fretboard-area {
+  display: flex;
+  align-items: stretch;
+}
+
+.fret-labels {
+  display: grid;
+  grid-template-rows: repeat(4, 48px);
+
+  width: 28px;
+
+  color: #71717a;
+
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.fret-labels span {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/* Braço da guitarra */
+
+.fretboard {
+  display: grid;
+
+  grid-template-columns: repeat(6, 42px);
+  grid-template-rows: repeat(4, 48px);
+
+  width: 252px;
+
+  border-top: 5px solid #18181b;
+  border-left: 2px solid #71717a;
+}
+
+/* Cada espaço */
+
+.fret-position {
   display: flex;
   align-items: center;
   justify-content: center;
 
-  border-right: 1px solid #71717a;
+  border-right: 2px solid #71717a;
   border-bottom: 2px solid #a1a1aa;
 }
 
-.fret-position:nth-child(6n) {
-  border-right: 0;
-}
+/* Dedos */
 
 .finger-dot {
-  position: relative;
-  z-index: 2;
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -356,23 +407,117 @@ footer {
 
   font-size: 0.9rem;
   font-weight: 800;
+
+  box-shadow:
+    0 3px 8px rgba(124, 58, 237, 0.25);
 }
 
-.chord-instructions {
-  margin-top: 25px;
+/* Legenda */
 
-  padding: 16px;
+.diagram-legend {
+  display: flex;
+  justify-content: center;
+
+  gap: 25px;
+
+  margin: 18px 0 28px;
+
+  color: #71717a;
+
+  font-size: 0.8rem;
+}
+
+.diagram-legend strong {
+  color: #7c3aed;
+  font-size: 1rem;
+}
+
+/* Guia dos dedos */
+
+.finger-guide {
+  padding: 20px;
 
   background: #fafafa;
 
-  border-radius: 14px;
+  border-radius: 18px;
 
   text-align: left;
 }
 
-.chord-instructions p {
-  margin: 8px 0;
+.finger-guide h4 {
+  margin: 0 0 18px;
 
-  color: #52525b;
+  color: #27272a;
+
+  font-size: 0.95rem;
+}
+
+.finger-list {
+  display: flex;
+  flex-direction: column;
+
+  gap: 12px;
+}
+
+.finger-instruction {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 10px 0;
+
+  border-bottom: 1px solid #e4e4e7;
+}
+
+.finger-instruction:last-child {
+  border-bottom: none;
+}
+
+.finger-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  width: 34px;
+  height: 34px;
+
+  background: #7c3aed;
+  color: white;
+
+  border-radius: 50%;
+
+  font-weight: 800;
+}
+
+.finger-instruction strong {
+  color: #27272a;
+}
+
+.finger-instruction p {
+  margin: 3px 0 0;
+
+  color: #71717a;
+
+  font-size: 0.82rem;
+}
+
+/* Instrução para tocar */
+
+.play-instruction {
+  margin-top: 16px;
+  padding: 14px 18px;
+
+  background: #f3e8ff;
+  color: #6d28d9;
+
+  border-radius: 14px;
+
+  font-size: 0.9rem;
+  font-weight: 700;
+
+  text-align: center;
 }
 

@@ -235,3 +235,85 @@ footer {
     flex-direction: column;
   }
 }
+
+.string-status {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+
+  width: 240px;
+  margin: 0 auto 5px;
+
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+.string-open {
+  color: #7c3aed;
+}
+
+.string-muted {
+  color: #ef4444;
+}
+
+.fret-number {
+  position: absolute;
+  left: -24px;
+
+  color: #a1a1aa;
+
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.legend {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+
+  margin-top: 15px;
+
+  color: #71717a;
+
+  font-size: 0.75rem;
+}
+
+.chord-instructions h4 {
+  margin: 0 0 15px;
+
+  color: #27272a;
+}
+
+.chord-instructions p {
+  display: flex;
+  flex-direction: column;
+
+  gap: 3px;
+
+  padding: 10px 0;
+  margin: 0;
+
+  border-bottom: 1px solid #e4e4e7;
+}
+
+.chord-instructions p:last-child {
+  border-bottom: 0;
+}
+
+.chord-instructions p span {
+  color: #71717a;
+
+  font-size: 0.85rem;
+}
+
+.play-instruction {
+  margin-top: 15px;
+  padding: 14px;
+
+  background: #f3e8ff;
+  color: #6d28d9;
+
+  border-radius: 12px;
+
+  font-size: 0.9rem;
+  font-weight: 700;
+}
