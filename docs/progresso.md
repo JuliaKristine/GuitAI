@@ -820,4 +820,58 @@ DemoSong
         ▼                ▼
   LessonPlayer      PracticeMode
 
-  
+  ---
+
+## Etapa 18 — Busca de músicas
+
+### Status
+
+✅ Concluída
+
+### Implementado
+
+Foi criada uma interface de busca de músicas.
+
+O aluno agora pode pesquisar utilizando:
+
+- nome da música;
+- nome do artista.
+
+### Funcionamento atual da música;
+- nome do artista.
+
+### Funcionamento atual
+
+A busca utiliza localmente as músicas de
+demonstração disponíveis no GuitAI.
+
+Os resultados apresentam:
+
+- título;
+- artista;
+- nível;
+- progressão de acordes;
+- botão para iniciar o aprendizado.
+
+### Novo componente
+
+Foi criado:
+
+`SongSearch`
+
+Responsável pela interface e filtragem
+dos resultados de busca.
+
+### Fluxo
+
+```text
+Busca
+  ↓
+Resultados
+  ↓
+Música selecionada
+  ↓
+Lesson
+  ↓
+Aula / Prática
+

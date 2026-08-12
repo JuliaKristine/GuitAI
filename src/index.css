@@ -2358,3 +2358,382 @@ footer {
   }
 }
 
+/* ========================================
+   Busca de músicas
+======================================== */
+
+.song-search {
+  margin-bottom: 28px;
+  padding: 24px;
+
+  background: #ffffff;
+
+  border: 1px solid #e4e4e7;
+  border-radius: 22px;
+}
+
+.song-search-header {
+  margin-bottom: 20px;
+}
+
+.song-search-label {
+  color: #7c3aed;
+
+  font-size: 0.65rem;
+  font-weight: 900;
+  letter-spacing: 1.4px;
+}
+
+.song-search-header h2 {
+  margin: 5px 0;
+
+  color: #27272a;
+
+  font-size: 1.35rem;
+}
+
+.song-search-header p {
+  margin: 0;
+
+  color: #71717a;
+
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+/* Campo */
+
+.song-search-box {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+}
+
+.song-search-icon {
+  position: absolute;
+
+  left: 16px;
+
+  font-size: 1rem;
+
+  pointer-events: none;
+}
+
+.song-search-box input {
+  width: 100%;
+
+  padding:
+    15px
+    48px
+    15px
+    48px;
+
+  background: #fafafa;
+  color: #27272a;
+
+  border: 2px solid #e4e4e7;
+  border-radius: 15px;
+
+  outline: none;
+
+  font-size: 0.9rem;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.song-search-box input:focus {
+  border-color: #7c3aed;
+
+  box-shadow:
+    0 0 0 4px #ede9fe;
+}
+
+.song-search-box input::placeholder {
+  color: #a1a1aa;
+}
+
+.song-search-clear {
+  position: absolute;
+
+  right: 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 30px;
+  height: 30px;
+
+  padding: 0;
+
+  background: #e4e4e7;
+  color: #52525b;
+
+  border: none;
+  border-radius: 50%;
+
+  cursor: pointer;
+
+  font-size: 1.2rem;
+}
+
+.song-search-clear:hover {
+  background: #d4d4d8;
+}
+
+/* Informação */
+
+.song-search-info {
+  margin: 12px 2px 16px;
+
+  color: #71717a;
+
+  font-size: 0.72rem;
+}
+
+/* Resultados */
+
+.song-search-results {
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+}
+
+.song-result {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 18px;
+
+  padding: 16px;
+
+  background: #fafafa;
+
+  border: 2px solid transparent;
+  border-radius: 16px;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.song-result.active {
+  background: #f5f3ff;
+
+  border-color: #c4b5fd;
+}
+
+.song-result-main {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 13px;
+
+  min-width: 0;
+  flex: 1;
+}
+
+.song-result-emoji {
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 46px;
+  height: 46px;
+
+  background: #ffffff;
+
+  border-radius: 13px;
+
+  font-size: 1.5rem;
+}
+
+.song-result-info {
+  min-width: 0;
+}
+
+.song-result-title {
+  display: flex;
+  flex-direction: column;
+
+  gap: 2px;
+}
+
+.song-result-title strong {
+  color: #27272a;
+
+  font-size: 0.9rem;
+}
+
+.song-result-title span {
+  color: #a1a1aa;
+
+  font-size: 0.7rem;
+}
+
+.song-result-info > p {
+  margin: 7px 0 9px;
+
+  color: #71717a;
+
+  font-size: 0.73rem;
+  line-height: 1.4;
+}
+
+.song-result-details {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  gap: 7px;
+}
+
+.song-result-difficulty {
+  padding: 4px 7px;
+
+  background: #ede9fe;
+  color: #7c3aed;
+
+  border-radius: 7px;
+
+  font-size: 0.62rem;
+  font-weight: 800;
+}
+
+.song-result-progression {
+  color: #52525b;
+
+  font-size: 0.68rem;
+  font-weight: 800;
+}
+
+/* Botão */
+
+.song-result-button {
+  flex-shrink: 0;
+
+  padding: 10px 13px;
+
+  background: #7c3aed;
+  color: #ffffff;
+
+  border: none;
+  border-radius: 11px;
+
+  cursor: pointer;
+
+  font-size: 0.72rem;
+  font-weight: 800;
+
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.song-result-button:hover {
+  transform: translateY(-1px);
+}
+
+.song-result-button.selected {
+  background: #ede9fe;
+  color: #7c3aed;
+}
+
+/* Sem resultado */
+
+.song-search-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 35px 20px;
+
+  background: #fafafa;
+
+  border-radius: 16px;
+
+  text-align: center;
+}
+
+.song-search-empty > span {
+  font-size: 2rem;
+}
+
+.song-search-empty strong {
+  margin-top: 8px;
+
+  color: #27272a;
+}
+
+.song-search-empty p {
+  margin: 5px 0 14px;
+
+  color: #71717a;
+
+  font-size: 0.78rem;
+}
+
+.song-search-empty button {
+  padding: 9px 13px;
+
+  background: #ede9fe;
+  color: #7c3aed;
+
+  border: none;
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  font-weight: 800;
+}
+
+/* Futuro Spotify */
+
+.song-search-future {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  margin-top: 16px;
+  padding: 11px;
+
+  background: #f5f3ff;
+
+  border-radius: 12px;
+}
+
+.song-search-future p {
+  margin: 0;
+
+  color: #6d28d9;
+
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+/* Mobile */
+
+@media (max-width: 650px) {
+  .song-search {
+    padding: 17px;
+  }
+
+  .song-result {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .song-result-button {
+    width: 100%;
+  }
+}
+

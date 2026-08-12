@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import LessonPlayer from "./components/LessonPlayer/LessonPlayer";
 import PracticeMode from "./components/PracticeMode/PracticeMode";
-import SongSelector from "./components/SongSelector/SongSelector";
+import SongSearch from "./components/SongSearch/SongSearch";
 
 import { demoSongs } from "./data/songs";
 
@@ -28,15 +28,10 @@ function App() {
     setSelectedSongId(songId);
 
     /*
-     * Quando escolhe outra música,
-     * voltamos para a aula.
+     * Sempre começamos pela aula
+     * ao escolher uma nova música.
      */
     setMode("lesson");
-
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
   }
 
   return (
@@ -52,17 +47,25 @@ function App() {
           <h1>Aprenda guitarra tocando as músicas que você ama.</h1>
 
           <p>
-            Escolha uma música, aprenda os acordes passo a passo e pratique no
+            Procure uma música, aprenda os acordes passo a passo e pratique no
             seu ritmo.
           </p>
         </div>
       </header>
 
       <main className="main-content">
+        {/* Busca */}
+
+        <SongSearch
+          songs={demoSongs}
+          selectedSongId={selectedSong.id}
+          onSelectSong={selectSong}
+        />
+
         {/* Música selecionada */}
 
         <section className="selected-song">
-          <span className="selected-song-label">TOCANDO AGORA</span>
+          <span className="selected-song-label">🎵 MÚSICA SELECIONADA</span>
 
           <div className="selected-song-info">
             <span className="selected-song-emoji">{selectedSong.emoji}</span>
@@ -81,15 +84,7 @@ function App() {
           </div>
         </section>
 
-        {/* Escolher música */}
-
-        <SongSelector
-          songs={demoSongs}
-          selectedSongId={selectedSong.id}
-          onSelectSong={selectSong}
-        />
-
-        {/* Aula / prática */}
+        {/* Modos */}
 
         <div className="mode-selector">
           <button
@@ -110,6 +105,8 @@ function App() {
             🎸 Prática
           </button>
         </div>
+
+        {/* Conteúdo */}
 
         {mode === "lesson" ? (
           <LessonPlayer

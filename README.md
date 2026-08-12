@@ -120,11 +120,12 @@ O primeiro marco funcional será fazer o sistema receber um acorde e gerar autom
 
 ### Fase 4 — Spotify
 
-- [ ] Autenticação
-- [ ] Pesquisa de músicas
-- [ ] Seleção da música
-- [ ] Integração com o motor musical
-
+- [x] Músicas de demonstração
+- [x] Busca de músicas
+- [ ] Camada de serviço de músicas
+- [ ] Preparar estados de carregamento e erro
+- [ ] Criar backend inicial
+- [ ] Integrar busca real do Spotify
 ### Fase 5 — Reconhecimento do instrumento
 
 - [ ] Capturar áudio pelo microfone
