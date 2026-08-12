@@ -111,7 +111,7 @@ O primeiro marco funcional será fazer o sistema receber um acorde e gerar autom
 
 - [x] Avisar antecipadamente a próxima troca
 - [x] Criar contagem regressiva para troca
-- [ ] Criar contagem antes da prática
+- [x] Criar contagem antes da prática
 - [ ] Criar níveis de velocidade
 - [ ] Criar diferentes padrões de batida
 - [ ] Adaptar dificuldade

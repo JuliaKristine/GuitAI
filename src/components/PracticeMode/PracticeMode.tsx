@@ -8,6 +8,8 @@ type PracticeModeProps = {
   lesson: Lesson;
 };
 
+type CountInValue = 3 | 2 | 1 | "go" | null;
+
 function PracticeMode({ lesson }: PracticeModeProps) {
   const [bpm, setBpm] = useState(lesson.rhythm.bpm);
 
@@ -16,6 +18,8 @@ function PracticeMode({ lesson }: PracticeModeProps) {
   const [activeBeat, setActiveBeat] = useState(-1);
 
   const [currentChordIndex, setCurrentChordIndex] = useState(0);
+
+  const [countIn, setCountIn] = useState<CountInValue>(null);
 
   const audioContextRef = useRef<AudioContext | null>(null);
 
@@ -26,7 +30,7 @@ function PracticeMode({ lesson }: PracticeModeProps) {
 
   const lastBeatIndex = lesson.rhythm.beats.length - 1;
 
-  const countdown =
+  const transitionCountdown =
     isPlaying && activeBeat >= 1
       ? lesson.rhythm.beats.length - activeBeat
       : null;
@@ -41,6 +45,43 @@ function PracticeMode({ lesson }: PracticeModeProps) {
     }
   }
 
+  // Contagem inicial: 3 → 2 → 1 → VAI!
+  useEffect(() => {
+    if (countIn === null) {
+      return;
+    }
+
+    if (countIn === "go") {
+      const goTimer = window.setTimeout(() => {
+        setCountIn(null);
+      }, 600);
+
+      return () => {
+        window.clearTimeout(goTimer);
+      };
+    }
+
+    const timer = window.setTimeout(() => {
+      if (countIn === 3) {
+        setCountIn(2);
+        return;
+      }
+
+      if (countIn === 2) {
+        setCountIn(1);
+        return;
+      }
+
+      setCountIn("go");
+      setIsPlaying(true);
+    }, 1000);
+
+    return () => {
+      window.clearTimeout(timer);
+    };
+  }, [countIn]);
+
+  // Metrônomo + troca automática de acordes
   useEffect(() => {
     if (!isPlaying) {
       setActiveBeat(-1);
@@ -102,6 +143,7 @@ function PracticeMode({ lesson }: PracticeModeProps) {
     };
   }, [isPlaying, bpm, lesson.rhythm.beats.length, lesson.steps.length]);
 
+  // Fecha o sistema de áudio ao sair do componente
   useEffect(() => {
     return () => {
       if (audioContextRef.current) {
@@ -111,17 +153,19 @@ function PracticeMode({ lesson }: PracticeModeProps) {
   }, []);
 
   async function startPractice() {
+    setIsPlaying(false);
     setCurrentChordIndex(0);
     setActiveBeat(-1);
 
     await prepareAudio();
 
-    setIsPlaying(true);
+    setCountIn(3);
   }
 
   function stopPractice() {
     setIsPlaying(false);
     setActiveBeat(-1);
+    setCountIn(null);
   }
 
   return (
@@ -137,7 +181,6 @@ function PracticeMode({ lesson }: PracticeModeProps) {
 
         <div className="bpm-display">
           <strong>{bpm}</strong>
-
           <span>BPM</span>
         </div>
       </div>
@@ -167,7 +210,23 @@ function PracticeMode({ lesson }: PracticeModeProps) {
         </p>
       </div>
 
-      {countdown !== null && (
+      {countIn !== null && (
+        <div className="count-in-card" aria-live="assertive">
+          <span className="count-in-label">PREPARE-SE 🎸</span>
+
+          <strong key={countIn} className="count-in-number">
+            {countIn === "go" ? "VAI!" : countIn}
+          </strong>
+
+          <p>
+            {countIn === "go"
+              ? `Comece tocando ${currentChord}!`
+              : `Posicione os dedos no acorde ${currentChord}.`}
+          </p>
+        </div>
+      )}
+
+      {transitionCountdown !== null && countIn === null && (
         <div className="chord-warning">
           <span className="warning-icon">⚠️</span>
 
@@ -178,7 +237,7 @@ function PracticeMode({ lesson }: PracticeModeProps) {
 
             <p>
               Troca em
-              <span className="countdown-number">{countdown}</span>
+              <span className="countdown-number">{transitionCountdown}</span>
             </p>
           </div>
         </div>
@@ -204,17 +263,19 @@ function PracticeMode({ lesson }: PracticeModeProps) {
       </div>
 
       <div className="practice-message">
-        {!isPlaying && (
+        {countIn !== null && <>🎸 Prepare sua mão antes de começar.</>}
+
+        {!isPlaying && countIn === null && (
           <>🐢 Comece devagar e tente manter todas as batidas iguais.</>
         )}
 
-        {isPlaying && activeBeat < lastBeatIndex && (
+        {isPlaying && countIn === null && activeBeat < lastBeatIndex && (
           <>
             🎵 Toque <strong>{currentChord}</strong> acompanhando o metrônomo.
           </>
         )}
 
-        {isPlaying && activeBeat === lastBeatIndex && (
+        {isPlaying && countIn === null && activeBeat === lastBeatIndex && (
           <>
             ⚠️ Prepare os dedos para <strong>{nextChord}</strong>!
           </>
@@ -241,7 +302,7 @@ function PracticeMode({ lesson }: PracticeModeProps) {
         />
       </div>
 
-      {!isPlaying ? (
+      {!isPlaying && countIn === null ? (
         <button
           type="button"
           className="practice-start-button"
@@ -255,7 +316,9 @@ function PracticeMode({ lesson }: PracticeModeProps) {
           className="practice-stop-button"
           onClick={stopPractice}
         >
-          ■ Parar prática
+          {countIn !== null && !isPlaying
+            ? "■ Cancelar contagem"
+            : "■ Parar prática"}
         </button>
       )}
     </section>

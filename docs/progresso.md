@@ -519,3 +519,60 @@ Criar uma contagem inicial antes do metrônomo começar:
 
 3 → 2 → 1 → tocar.
 
+---
+
+## Etapa 13 — Contagem inicial da prática
+
+### Status
+
+✅ Concluída
+
+### Implementado
+
+Foi adicionada uma contagem inicial antes do início
+do modo de prática.
+
+A sequência apresentada ao aluno é:
+
+3 → 2 → 1 → VAI!
+
+Somente após a contagem o metrônomo começa a tocar.
+
+### Funcionalidades
+
+- Contagem regressiva antes da prática.
+- Preparação visual para o primeiro acorde.
+- Indicação do acorde inicial.
+- Mensagem "VAI!" sincronizada com o início.
+- Possibilidade de cancelar a contagem.
+- Início do metrônomo somente após a preparação.
+
+### Objetivo pedagógico
+
+Dar ao aluno tempo suficiente para posicionar
+corretamente os dedos antes que o ritmo comece.
+
+Isso evita que o iniciante tenha que montar o
+primeiro acorde enquanto o metrônomo já está tocando.
+
+### Fluxo
+
+3  
+↓  
+2  
+↓  
+1  
+↓  
+VAI!  
+↓  
+G  
+↓ ↓ ↓ ↓  
+↓  
+Em  
+↓ ↓ ↓ ↓
+
+### Próxima etapa
+
+Criar níveis de velocidade para que o aluno
+não precise entender BPM logo no início.
+

@@ -1586,3 +1586,73 @@ footer {
   font-weight: 800;
 }
 
+/* Contagem antes da prática */
+
+.count-in-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin: 10px 0 25px;
+  padding: 24px;
+
+  background: #f3e8ff;
+
+  border: 2px solid #d8b4fe;
+  border-radius: 20px;
+
+  text-align: center;
+}
+
+.count-in-label {
+  color: #7c3aed;
+
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.count-in-number {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  min-width: 90px;
+  min-height: 90px;
+
+  margin: 12px 0;
+
+  color: #7c3aed;
+
+  font-size: 4rem;
+  line-height: 1;
+  font-weight: 900;
+
+  animation: countPulse 0.35s ease;
+}
+
+.count-in-card p {
+  margin: 0;
+
+  color: #6d28d9;
+
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+@keyframes countPulse {
+  0% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+
+  70% {
+    transform: scale(1.12);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
