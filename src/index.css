@@ -2737,3 +2737,128 @@ footer {
   }
 }
 
+/* ========================================
+   Estado de carregamento da busca
+======================================== */
+
+.song-search-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 14px;
+
+  margin-top: 16px;
+  padding: 28px 20px;
+
+  background: #fafafa;
+
+  border-radius: 16px;
+
+  text-align: left;
+}
+
+.search-spinner {
+  display: inline-flex;
+
+  font-size: 1.8rem;
+
+  animation:
+    searchPulse 0.8s
+    ease-in-out infinite alternate;
+}
+
+.song-search-loading strong {
+  display: block;
+
+  color: #7c3aed;
+
+  font-size: 0.85rem;
+}
+
+.song-search-loading p {
+  margin: 3px 0 0;
+
+  color: #71717a;
+
+  font-size: 0.72rem;
+}
+
+@keyframes searchPulse {
+  from {
+    opacity: 0.4;
+
+    transform:
+      scale(0.85)
+      rotate(-8deg);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      scale(1.1)
+      rotate(8deg);
+  }
+}
+
+
+/* ========================================
+   Estado de erro da busca
+======================================== */
+
+.song-search-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin-top: 16px;
+  padding: 28px 20px;
+
+  background: #fff7ed;
+
+  border: 1px solid #fed7aa;
+  border-radius: 16px;
+
+  text-align: center;
+}
+
+.search-error-icon {
+  margin-bottom: 8px;
+
+  font-size: 2rem;
+}
+
+.song-search-error strong {
+  color: #9a3412;
+
+  font-size: 0.9rem;
+}
+
+.song-search-error p {
+  margin: 5px 0 14px;
+
+  color: #9a3412;
+
+  font-size: 0.75rem;
+}
+
+.song-search-error button {
+  padding: 9px 14px;
+
+  background: #ffffff;
+  color: #9a3412;
+
+  border: 1px solid #fed7aa;
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.song-search-error button:hover {
+  background: #ffedd5;
+}
+

@@ -909,3 +909,72 @@ Interface
    ↓
 demoSongs
 
+---
+
+## Etapa 20 — Busca assíncrona
+
+### Status
+
+✅ Concluída
+
+### Implementado
+
+A busca de músicas passou a funcionar de forma
+assíncrona, simulando o comportamento de uma API.
+
+### Novos estados
+
+A interface agora suporta:
+
+- carregamento;
+- resultado;
+- nenhum resultado;
+- erro;
+- tentativa novamente.
+
+### Debounce
+
+Foi adicionada uma pequena espera após a digitação
+antes de executar a busca.
+
+Isso evita executar uma nova operação para cada
+tecla pressionada.
+
+### Proteção contra respostas antigas
+
+Foi criado um controle de identificação das buscas.
+
+Caso duas pesquisas sejam executadas em sequência,
+uma resposta antiga não pode sobrescrever o
+resultado da pesquisa mais recente.
+
+### Normalização da pesquisa
+
+A busca também passou a ignorar diferenças de:
+
+- letras maiúsculas e minúsculas;
+- acentos.
+
+Exemplo:
+
+`eletrica`
+
+pode encontrar:
+
+`Noite Elétrica`
+
+### Arquitetura
+
+```text
+SongSearch
+   ↓
+debounce
+   ↓
+loading
+   ↓
+songService
+   ↓
+Promise
+   ↓
+sucesso / erro
+
