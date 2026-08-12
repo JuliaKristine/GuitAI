@@ -735,3 +735,89 @@ configuração adequada para cada aluno.
 Criar músicas de demonstração utilizando o motor
 educacional existente.
 
+---
+
+## Etapa 17 — Músicas de demonstração
+
+### Status
+
+✅ Concluída
+
+### Implementado
+
+O GuitAI deixou de trabalhar apenas com uma aula fixa
+e passou a possuir uma estrutura de músicas.
+
+Foi criada a entidade `DemoSong`, contendo:
+
+- título;
+- artista;
+- descrição;
+- dificuldade;
+- progressão de acordes;
+- aula correspondente.
+
+### Músicas disponíveis
+
+#### 🌱 Primeiros Passos
+
+Artista: GuitAI Demo
+
+Progressão:
+
+G → Em → C → D
+
+#### 🚗 Estrada Aberta
+
+Artista: The Purple Strings
+
+Progressão:
+
+Em → C → G → D
+
+#### ⚡ Noite Elétrica
+
+Artista: Neon Chords
+
+Progressão:
+
+G → D → Em → C
+
+### Novo componente
+
+Foi criado:
+
+`SongSelector`
+
+responsável por permitir que o aluno escolha
+qual música deseja aprender.
+
+### Integração
+
+A música selecionada agora alimenta tanto:
+
+- LessonPlayer;
+- PracticeMode.
+
+Ao trocar de música, os componentes educacionais
+são reiniciados automaticamente.
+
+### Arquitetura
+
+```text
+DemoSong
+   │
+   ├── informações da música
+   │
+   └── Lesson
+         │
+         ├── acordes
+         ├── ritmo
+         ├── BPM
+         └── instruções
+                │
+        ┌───────┴────────┐
+        ▼                ▼
+  LessonPlayer      PracticeMode
+
+  
