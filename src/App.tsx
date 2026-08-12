@@ -4,32 +4,47 @@ import LessonPlayer from "./components/LessonPlayer/LessonPlayer";
 import PracticeMode from "./components/PracticeMode/PracticeMode";
 import SongSearch from "./components/SongSearch/SongSearch";
 
-import { demoSongs } from "./data/songs";
+import { songService } from "./services/songService";
 
 type AppMode = "lesson" | "practice";
+
+const availableSongs = songService.getAllSongs();
 
 function App() {
   const [mode, setMode] = useState<AppMode>("lesson");
 
-  const [selectedSongId, setSelectedSongId] = useState(demoSongs[0]?.id ?? "");
+  const [selectedSongId, setSelectedSongId] = useState(
+    availableSongs[0]?.id ?? "",
+  );
 
   const selectedSong =
-    demoSongs.find((song) => song.id === selectedSongId) ?? demoSongs[0];
+    songService.getSongById(selectedSongId) ?? availableSongs[0];
 
   if (!selectedSong) {
     return (
       <main className="app">
-        <p>Nenhuma música de demonstração foi encontrada.</p>
+        <p>Nenhuma música disponível no momento.</p>
       </main>
     );
   }
 
   function selectSong(songId: string) {
-    setSelectedSongId(songId);
+    const song = songService.getSongById(songId);
 
     /*
-     * Sempre começamos pela aula
-     * ao escolher uma nova música.
+     * Não altera o estado caso
+     * a música não exista.
+     */
+    if (!song) {
+      return;
+    }
+
+    setSelectedSongId(song.id);
+
+    /*
+     * Quando uma nova música
+     * é selecionada, iniciamos
+     * novamente pela aula.
      */
     setMode("lesson");
   }
@@ -39,7 +54,8 @@ function App() {
       <header className="hero">
         <div className="hero-content">
           <div className="logo">
-            Guit<span>AI</span>
+            Guit
+            <span>AI</span>
           </div>
 
           <span className="hero-tag">Sua música vira aula.</span>
@@ -57,7 +73,6 @@ function App() {
         {/* Busca */}
 
         <SongSearch
-          songs={demoSongs}
           selectedSongId={selectedSong.id}
           onSelectSong={selectSong}
         />
@@ -84,7 +99,7 @@ function App() {
           </div>
         </section>
 
-        {/* Modos */}
+        {/* Aula / Prática */}
 
         <div className="mode-selector">
           <button

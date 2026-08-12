@@ -875,3 +875,37 @@ Lesson
   ↓
 Aula / Prática
 
+---
+
+## Etapa 19 — Camada de serviço de músicas
+
+### Status
+
+✅ Concluída
+
+### Implementado
+
+Foi criada uma camada de serviço responsável
+pelo acesso às músicas do GuitAI.
+
+Arquivo criado:
+
+`src/services/songService.ts`
+
+### Responsabilidades
+
+O serviço possui atualmente as operações:
+
+- listar músicas;
+- encontrar uma música por ID;
+- pesquisar músicas;
+- filtrar por título;
+- filtrar por artista.
+
+### Arquitetura anterior
+
+```text
+Interface
+   ↓
+demoSongs
+

@@ -122,7 +122,7 @@ O primeiro marco funcional será fazer o sistema receber um acorde e gerar autom
 
 - [x] Músicas de demonstração
 - [x] Busca de músicas
-- [ ] Camada de serviço de músicas
+- [x] Camada de serviço de músicas
 - [ ] Preparar estados de carregamento e erro
 - [ ] Criar backend inicial
 - [ ] Integrar busca real do Spotify

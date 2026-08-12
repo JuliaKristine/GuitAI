@@ -1,33 +1,19 @@
 import { useMemo, useState } from "react";
 
-import type { DemoSong } from "../../data/songs";
+import { songService } from "../../services/songService";
 
 type SongSearchProps = {
-  songs: DemoSong[];
   selectedSongId: string;
+
   onSelectSong: (songId: string) => void;
 };
 
-function SongSearch({ songs, selectedSongId, onSelectSong }: SongSearchProps) {
+function SongSearch({ selectedSongId, onSelectSong }: SongSearchProps) {
   const [query, setQuery] = useState("");
 
-  const normalizedQuery = query.trim().toLowerCase();
+  const results = useMemo(() => songService.searchSongs(query), [query]);
 
-  const results = useMemo(() => {
-    if (!normalizedQuery) {
-      return songs;
-    }
-
-    return songs.filter((song) => {
-      const title = song.title.toLowerCase();
-
-      const artist = song.artist.toLowerCase();
-
-      return (
-        title.includes(normalizedQuery) || artist.includes(normalizedQuery)
-      );
-    });
-  }, [songs, normalizedQuery]);
+  const normalizedQuery = query.trim();
 
   function clearSearch() {
     setQuery("");
