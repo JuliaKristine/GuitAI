@@ -1511,3 +1511,78 @@ footer {
   }
 }
 
+/* Aviso da próxima troca */
+
+.chord-warning {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 18px;
+
+  margin: 10px 0 25px;
+  padding: 18px 22px;
+
+  background: #fffbeb;
+
+  border: 2px solid #fde68a;
+  border-radius: 18px;
+
+  text-align: left;
+}
+
+.warning-icon {
+  font-size: 2rem;
+}
+
+.warning-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.warning-label {
+  color: #92400e;
+
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.warning-content > strong {
+  margin: 3px 0;
+
+  color: #7c3aed;
+
+  font-size: 1.8rem;
+}
+
+.warning-content p {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  margin: 0;
+
+  color: #92400e;
+
+  font-size: 0.8rem;
+}
+
+.countdown-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 30px;
+  height: 30px;
+
+  background: #7c3aed;
+  color: #ffffff;
+
+  border-radius: 50%;
+
+  font-size: 1rem;
+  font-weight: 800;
+}
+

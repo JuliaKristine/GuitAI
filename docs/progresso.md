@@ -466,3 +466,56 @@ PracticeMode
           ↓
         aluno
 
+---
+
+## Etapa 12 — Preparação antecipada para troca de acordes
+
+### Status
+
+✅ Concluída
+
+### Implementado
+
+O modo de prática passou a avisar o aluno antes
+da próxima troca de acorde.
+
+Durante os últimos tempos de cada acorde, o GuitAI
+mostra qual acorde será tocado em seguida e apresenta
+uma contagem regressiva.
+
+### Exemplo
+
+G → Em
+
+Durante a execução do G:
+
+- 3 tempos restantes → preparar Em
+- 2 tempos restantes → preparar Em
+- 1 tempo restante → preparar Em
+- próximo tempo → Em
+
+### Funcionalidades
+
+- Identificação automática do próximo acorde.
+- Aviso visual antecipado.
+- Contagem regressiva 3, 2, 1.
+- Aviso especial na última batida.
+- Sincronização com BPM.
+- Funcionamento contínuo durante toda a progressão.
+
+### Objetivo pedagógico
+
+Dar tempo para o iniciante visualizar e preparar
+mentalmente a próxima posição antes que a troca
+realmente aconteça.
+
+Isso reduz a sensação de surpresa durante a prática
+e aproxima o comportamento do GuitAI de um professor
+guiando o aluno em tempo real.
+
+### Próxima etapa
+
+Criar uma contagem inicial antes do metrônomo começar:
+
+3 → 2 → 1 → tocar.
+
