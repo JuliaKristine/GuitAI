@@ -407,3 +407,62 @@ RhythmTrainer
      ↓
 animação das batidas
 
+---
+
+## Etapa 11 — Modo Prática
+
+### Status
+
+✅ Concluída
+
+### Implementado
+
+Foi criado o primeiro modo de prática do GuitAI.
+
+O aluno agora pode praticar uma progressão
+completa de acordes acompanhando o metrônomo.
+
+### Progressão inicial
+
+G → Em → C → D
+
+Cada acorde permanece ativo durante um ciclo
+de quatro batidas.
+
+Após o quarto tempo, o sistema seleciona
+automaticamente o próximo acorde.
+
+### Funcionalidades
+
+- Modo Aula.
+- Modo Prática.
+- Alternância entre os dois modos.
+- Progressão automática de acordes.
+- Destaque do acorde atual.
+- Visualização do próximo acorde.
+- Diagrama atualizado automaticamente.
+- Metrônomo sincronizado.
+- Indicador visual das batidas.
+- Controle de BPM.
+- Início e interrupção da prática.
+
+### Componente criado
+
+`src/components/PracticeMode/PracticeMode.tsx`
+
+### Arquitetura
+
+```text
+Lesson
+   ↓
+Progressão
+   ↓
+PracticeMode
+   │
+   ├── ChordDiagram
+   ├── RhythmPattern
+   ├── BPM
+   └── Web Audio
+          ↓
+        aluno
+

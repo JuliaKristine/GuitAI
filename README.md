@@ -103,15 +103,18 @@ O primeiro marco funcional será fazer o sistema receber um acorde e gerar autom
 - [x] Ensinar troca entre acordes
 - [x] Adicionar padrão de batida
 - [x] Adicionar controle de BPM
-- [ ] Adicionar metrônomo
-- [ ] Criar modo de prática
+- [x] Adicionar metrônomo
+- [x] Criar modo de prática
+- [x] Sincronizar troca de acordes com o ritmo
 
 ### Fase 3 — Inteligência Artificial
 
-- [ ] Simplificar progressões
-- [ ] Adaptar músicas ao nível do aluno
-- [ ] Gerar instruções
-- [ ] Criar professor virtual
+- [ ] Avisar antecipadamente a próxima troca
+- [ ] Criar contagem antes da prática
+- [ ] Criar níveis de velocidade
+- [ ] Criar diferentes padrões de batida
+- [ ] Adaptar dificuldade
+- [ ] Criar músicas de demonstração
 
 ### Fase 4 — Spotify
 

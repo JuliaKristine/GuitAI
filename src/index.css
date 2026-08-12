@@ -1206,3 +1206,308 @@ footer {
   }
 }
 
+/* Seleção de modo */
+
+.mode-selector {
+  display: flex;
+  justify-content: center;
+
+  gap: 10px;
+
+  max-width: 680px;
+
+  margin: 35px auto -25px;
+}
+
+.mode-button {
+  padding: 11px 20px;
+
+  background: #ffffff;
+  color: #71717a;
+
+  border: 2px solid #e4e4e7;
+  border-radius: 12px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.mode-button:hover {
+  border-color: #c4b5fd;
+
+  color: #7c3aed;
+}
+
+.mode-button.active {
+  background: #7c3aed;
+  color: #ffffff;
+
+  border-color: #7c3aed;
+}
+
+
+/* Modo prática */
+
+.practice-mode {
+  max-width: 680px;
+
+  margin: 55px auto 0;
+  padding: 32px;
+
+  background: #ffffff;
+
+  border: 1px solid #e4e4e7;
+  border-radius: 24px;
+
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.06);
+}
+
+.practice-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  gap: 20px;
+
+  padding-bottom: 24px;
+
+  border-bottom: 1px solid #f4f4f5;
+}
+
+.practice-header h2 {
+  margin: 6px 0;
+
+  color: #27272a;
+
+  font-size: 1.5rem;
+}
+
+.practice-header p {
+  margin: 0;
+
+  color: #71717a;
+
+  font-size: 0.85rem;
+}
+
+
+/* Progressão */
+
+.practice-progression {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  gap: 10px;
+
+  margin: 26px 0;
+}
+
+.practice-chord {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 52px;
+  height: 52px;
+
+  background: #f4f4f5;
+  color: #71717a;
+
+  border: 2px solid transparent;
+  border-radius: 14px;
+
+  font-weight: 800;
+
+  transition: 0.2s ease;
+}
+
+.practice-chord.active {
+  background: #f3e8ff;
+  color: #7c3aed;
+
+  border-color: #7c3aed;
+
+  transform: translateY(-3px);
+}
+
+
+/* Acorde atual */
+
+.practice-current {
+  margin-bottom: 20px;
+
+  text-align: center;
+}
+
+.practice-current > span {
+  display: block;
+
+  color: #7c3aed;
+
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.practice-current > strong {
+  display: block;
+
+  margin: 5px 0;
+
+  color: #18181b;
+
+  font-size: 3rem;
+}
+
+.practice-current p {
+  margin: 0;
+
+  color: #71717a;
+
+  font-size: 0.8rem;
+}
+
+.practice-current p b {
+  color: #7c3aed;
+}
+
+
+/* Diagrama */
+
+.practice-diagram {
+  padding: 15px 0 25px;
+}
+
+
+/* Batidas */
+
+.practice-beats {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  gap: 10px;
+
+  margin-top: 10px;
+}
+
+.practice-beat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 12px;
+
+  background: #fafafa;
+
+  border: 2px solid #e4e4e7;
+  border-radius: 13px;
+
+  transition: 0.15s ease;
+}
+
+.practice-beat small {
+  color: #a1a1aa;
+
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.practice-beat strong {
+  color: #7c3aed;
+
+  font-size: 2rem;
+}
+
+.practice-beat.active {
+  background: #7c3aed;
+
+  border-color: #7c3aed;
+
+  transform: translateY(-4px);
+}
+
+.practice-beat.active small,
+.practice-beat.active strong {
+  color: #ffffff;
+}
+
+
+/* Mensagem */
+
+.practice-message {
+  margin-top: 18px;
+  padding: 14px;
+
+  background: #fafafa;
+
+  border-radius: 12px;
+
+  color: #71717a;
+
+  font-size: 0.8rem;
+
+  text-align: center;
+}
+
+.practice-message strong {
+  color: #7c3aed;
+}
+
+
+/* Botões */
+
+.practice-start-button,
+.practice-stop-button {
+  width: 100%;
+
+  margin-top: 20px;
+  padding: 15px;
+
+  border: none;
+  border-radius: 13px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.practice-start-button {
+  background: #7c3aed;
+  color: #ffffff;
+}
+
+.practice-start-button:hover {
+  background: #6d28d9;
+}
+
+.practice-stop-button {
+  background: #27272a;
+  color: #ffffff;
+}
+
+.practice-stop-button:hover {
+  background: #18181b;
+}
+
+
+@media (max-width: 600px) {
+  .practice-mode {
+    padding: 22px;
+  }
+
+  .practice-header {
+    flex-direction: column;
+  }
+
+  .mode-selector {
+    margin-top: 25px;
+  }
+}
+
