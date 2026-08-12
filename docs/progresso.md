@@ -978,3 +978,55 @@ Promise
    ↓
 sucesso / erro
 
+---
+
+## Etapa 21 — Backend inicial com FastAPI
+
+### Status
+
+✅ Concluída
+
+### Implementado
+
+Foi criado o primeiro backend do GuitAI utilizando
+Python e FastAPI.
+
+### Estrutura
+
+`backend/app/main.py`
+
+`backend/requirements.txt`
+
+### Endpoints
+
+#### GET /health
+
+Permite verificar se a API está funcionando.
+
+#### GET /songs/search
+
+Permite pesquisar músicas por:
+
+- título;
+- artista.
+
+### Integração
+
+O frontend React passou a realizar uma requisição
+HTTP real para o backend.
+
+Fluxo atual:
+
+```text
+SongSearch
+   ↓
+songService
+   ↓
+HTTP
+   ↓
+FastAPI
+   ↓
+busca
+   ↓
+resultado
+

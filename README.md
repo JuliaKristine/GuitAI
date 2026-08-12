@@ -124,7 +124,8 @@ O primeiro marco funcional será fazer o sistema receber um acorde e gerar autom
 - [x] Busca de músicas
 - [x] Camada de serviço de músicas
 - [x] Preparar estados de carregamento e erro
-- [ ] Criar backend inicial
+- [x] Criar backend inicial
+- [ ] Estruturar backend em serviços e rotas
 - [ ] Integrar busca real do Spotify
 ### Fase 5 — Reconhecimento do instrumento
 

@@ -1,20 +1,18 @@
 import { demoSongs, type DemoSong } from "../data/songs";
 
-const SEARCH_DELAY = 600;
+const API_BASE_URL = import.meta.env.VITE_API_URL ?? "http://localhost:8000";
 
-function normalizeText(value: string) {
-  return value
-    .trim()
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "");
-}
+type SongSearchApiItem = {
+  id: string;
+  title: string;
+  artist: string;
+};
 
-function wait(milliseconds: number) {
-  return new Promise<void>((resolve) => {
-    window.setTimeout(resolve, milliseconds);
-  });
-}
+type SongSearchApiResponse = {
+  query: string;
+  count: number;
+  items: SongSearchApiItem[];
+};
 
 function getAllSongs(): DemoSong[] {
   return demoSongs;
@@ -25,25 +23,30 @@ function getSongById(songId: string): DemoSong | undefined {
 }
 
 async function searchSongs(query: string): Promise<DemoSong[]> {
-  /*
-   * Simula o tempo que futuramente
-   * será gasto chamando nosso backend.
-   */
-  await wait(SEARCH_DELAY);
+  const parameters = new URLSearchParams({
+    q: query,
+  });
 
-  const normalizedQuery = normalizeText(query);
+  const response = await fetch(
+    `${API_BASE_URL}/songs/search?${parameters.toString()}`,
+  );
 
-  if (!normalizedQuery) {
-    return demoSongs;
+  if (!response.ok) {
+    throw new Error(`Erro HTTP ${response.status}`);
   }
 
-  return demoSongs.filter((song) => {
-    const title = normalizeText(song.title);
+  const data = (await response.json()) as SongSearchApiResponse;
 
-    const artist = normalizeText(song.artist);
-
-    return title.includes(normalizedQuery) || artist.includes(normalizedQuery);
-  });
+  /*
+   * Nesta fase transitória o backend
+   * realiza a busca e devolve os IDs.
+   *
+   * A aula completa ainda está armazenada
+   * no frontend.
+   */
+  return data.items
+    .map((item) => demoSongs.find((song) => song.id === item.id))
+    .filter((song): song is DemoSong => Boolean(song));
 }
 
 export const songService = {
