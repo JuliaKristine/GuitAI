@@ -1,8 +1,8 @@
-import unicodedata
-
-from fastapi import FastAPI, Query
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
+
+from app.routes.health import router as health_router
+from app.routes.songs import router as songs_router
 
 
 app = FastAPI(
@@ -12,9 +12,6 @@ app = FastAPI(
 )
 
 
-# Permite que o frontend React
-# converse com o backend durante
-# o desenvolvimento local.
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -27,93 +24,19 @@ app.add_middleware(
 )
 
 
-class SongSummary(BaseModel):
-    id: str
-    title: str
-    artist: str
-
-
-class SongSearchResponse(BaseModel):
-    query: str
-    count: int
-    items: list[SongSummary]
-
-
-songs = [
-    SongSummary(
-        id="primeiros-passos",
-        title="Primeiros Passos",
-        artist="GuitAI Demo",
-    ),
-    SongSummary(
-        id="estrada-aberta",
-        title="Estrada Aberta",
-        artist="The Purple Strings",
-    ),
-    SongSummary(
-        id="noite-eletrica",
-        title="Noite Elétrica",
-        artist="Neon Chords",
-    ),
-]
-
-
-def normalize_text(value: str) -> str:
-    normalized = unicodedata.normalize(
-        "NFD",
-        value,
-    )
-
-    without_accents = "".join(
-        character
-        for character in normalized
-        if unicodedata.category(character)
-        != "Mn"
-    )
-
-    return (
-        without_accents
-        .strip()
-        .lower()
-    )
-
-
-@app.get("/health")
-def health():
+@app.get("/")
+def root():
     return {
-        "status": "ok",
-        "service": "guitai-api",
+        "name": "GuitAI API",
+        "status": "online",
+        "docs": "/docs",
     }
 
 
-@app.get(
-    "/songs/search",
-    response_model=SongSearchResponse,
+app.include_router(
+    health_router
 )
-def search_songs(
-    q: str = Query(
-        default="",
-        max_length=100,
-    ),
-):
-    normalized_query = normalize_text(q)
 
-    if not normalized_query:
-        results = songs
-    else:
-        results = [
-            song
-            for song in songs
-            if (
-                normalized_query
-                in normalize_text(song.title)
-                or normalized_query
-                in normalize_text(song.artist)
-            )
-        ]
-
-    return SongSearchResponse(
-        query=q,
-        count=len(results),
-        items=results,
-    )
+app.include_router(
+    songs_router
+)

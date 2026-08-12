@@ -1030,3 +1030,32 @@ busca
    ↓
 resultado
 
+---
+
+## Etapa 22 — Organização do backend
+
+### Status
+
+✅ Concluída
+
+### Objetivo
+
+Organizar o backend FastAPI em camadas,
+evitando concentrar todas as responsabilidades
+no arquivo `main.py`.
+
+### Nova estrutura
+
+```text
+backend/app/
+├── main.py
+├── routes/
+│   ├── health.py
+│   └── songs.py
+├── services/
+│   └── song_service.py
+├── schemas/
+│   └── song.py
+└── data/
+    └── songs.py
+

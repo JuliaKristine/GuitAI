@@ -120,13 +120,15 @@ O primeiro marco funcional será fazer o sistema receber um acorde e gerar autom
 
 ### Fase 4 — Spotify
 
-- [x] Músicas de demonstração
-- [x] Busca de músicas
-- [x] Camada de serviço de músicas
+- [x] Criar músicas de demonstração
+- [x] Criar busca de músicas
+- [x] Criar camada de serviço de músicas
 - [x] Preparar estados de carregamento e erro
-- [x] Criar backend inicial
-- [ ] Estruturar backend em serviços e rotas
+- [x] Criar backend inicial com FastAPI
+- [x] Estruturar backend em serviços e rotas
+- [ ] Preparar configuração do backend
 - [ ] Integrar busca real do Spotify
+
 ### Fase 5 — Reconhecimento do instrumento
 
 - [ ] Capturar áudio pelo microfone
