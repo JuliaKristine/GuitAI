@@ -134,3 +134,56 @@ export const firstLesson: Lesson = {
     },
   ],
 }
+
+export type PracticeRhythm = {
+  id: string
+  name: string
+  emoji: string
+  description: string
+  beats: StrumDirection[]
+}
+
+export const practiceRhythms: PracticeRhythm[] = [
+  {
+    id: 'easy',
+    name: 'Batida fácil',
+    emoji: '🥁',
+    description:
+      'Quatro batidas para baixo. Ideal para quem está começando.',
+    beats: [
+      'down',
+      'down',
+      'down',
+      'down',
+    ],
+  },
+
+  {
+    id: 'pop',
+    name: 'Pop',
+    emoji: '🎵',
+    description:
+      'Mistura movimentos para baixo e para cima.',
+    beats: [
+      'down',
+      'down',
+      'up',
+      'up',
+    ],
+  },
+
+  {
+    id: 'rock',
+    name: 'Rock',
+    emoji: '🤘',
+    description:
+      'Uma batida alternada com mais movimento.',
+    beats: [
+      'down',
+      'up',
+      'down',
+      'up',
+    ],
+  },
+]
+

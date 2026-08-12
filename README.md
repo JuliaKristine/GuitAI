@@ -113,8 +113,9 @@ O primeiro marco funcional será fazer o sistema receber um acorde e gerar autom
 - [x] Criar contagem regressiva para troca
 - [x] Criar contagem antes da prática
 - [x] Criar níveis de velocidade
-- [ ] Criar diferentes padrões de batida
-- [ ] Adaptar dificuldade
+- [x] Criar diferentes padrões de batida
+- [x] Corrigir metrônomo do modo Aula
+- [x] Adaptar dificuldade automaticamente
 - [ ] Criar músicas de demonstração
 
 ### Fase 4 — Spotify

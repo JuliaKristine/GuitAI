@@ -620,3 +620,118 @@ gerencia o tempo correspondente.
 Criar diferentes padrões de batida para que o aluno
 avance além das quatro batidas simples para baixo.
 
+---
+
+## Etapa 15 — Padrões de batida e ajustes no metrônomo
+
+### Status
+
+✅ Concluída
+
+### Implementado
+
+O modo de prática passou a permitir diferentes padrões de batida.
+
+Padrões disponíveis:
+
+- 🥁 Batida fácil — ↓ ↓ ↓ ↓
+- 🎵 Pop — ↓ ↓ ↑ ↑
+- 🤘 Rock — ↓ ↑ ↓ ↑
+
+Também foram mantidos os níveis de velocidade:
+
+- 🐢 Bem devagar — 40 BPM
+- 🌱 Aprendendo — 60 BPM
+- 🎸 Normal — 80 BPM
+- 🚀 Desafio — 100 BPM
+
+### Correções
+
+Foi corrigido o metrônomo da página Aula.
+
+O botão "Praticar ritmo" agora:
+
+- inicia o metrônomo sonoro;
+- sincroniza o som com as batidas visuais;
+- destaca o primeiro tempo;
+- permite parar e iniciar novamente;
+- mantém o controle de BPM.
+
+### Resultado
+
+O GuitAI agora possui dois ambientes funcionais:
+
+- Aula: ensino passo a passo com treinamento de ritmo.
+- Prática: progressão automática de acordes com metrônomo,
+  níveis de velocidade e diferentes padrões de batida.
+
+### Próxima etapa
+
+Criar níveis de dificuldade que combinem automaticamente
+acordes, ritmo e velocidade.
+
+---
+
+## Etapa 16 — Dificuldade adaptativa
+
+### Status
+
+✅ Concluída
+
+### Implementado
+
+Foi criado o primeiro sistema de perfis de dificuldade
+do GuitAI.
+
+O sistema agora consegue adaptar automaticamente:
+
+- acordes disponíveis;
+- progressão de prática;
+- velocidade inicial;
+- padrão de batida.
+
+### Níveis
+
+#### 🧸 Iniciante absoluto
+
+- G e Em
+- 40 BPM
+- Batida fácil
+
+#### 🌱 Iniciante
+
+- G, Em, C e D
+- 60 BPM
+- Batida fácil
+
+#### 🎸 Em evolução
+
+- G, Em, C e D
+- 80 BPM
+- Batida Pop
+
+### Arquitetura
+
+Foi criado:
+
+`src/data/difficulty.ts`
+
+Responsável por armazenar os perfis pedagógicos.
+
+Também foi criado:
+
+`DifficultySelector`
+
+para permitir a escolha do nível na interface.
+
+### Objetivo
+
+Criar a base para que futuramente a Inteligência
+Artificial consiga selecionar automaticamente uma
+configuração adequada para cada aluno.
+
+### Próxima etapa
+
+Criar músicas de demonstração utilizando o motor
+educacional existente.
+

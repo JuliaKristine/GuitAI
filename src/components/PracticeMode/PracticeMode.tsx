@@ -1,16 +1,19 @@
 import { useEffect, useRef, useState } from "react";
-
 import ChordDiagram from "../ChordDiagram/ChordDiagram";
-
+import DifficultySelector from "../DifficultySelector/DifficultySelector";
+import { practiceRhythms } from "../../data/lessons";
+import {
+  defaultDifficultyProfile,
+  difficultyProfiles,
+} from "../../data/difficulty";
 import type { Lesson } from "../../data/lessons";
+import type { DifficultyId, SpeedLevelId } from "../../data/difficulty";
 
 type PracticeModeProps = {
   lesson: Lesson;
 };
 
 type CountInValue = 3 | 2 | 1 | "go" | null;
-
-type SpeedLevelId = "very-slow" | "learning" | "normal" | "challenge";
 
 type SpeedLevel = {
   id: SpeedLevelId;
@@ -54,7 +57,12 @@ const defaultSpeed: SpeedLevel = {
 };
 
 function PracticeMode({ lesson }: PracticeModeProps) {
-  const [speedLevel, setSpeedLevel] = useState<SpeedLevelId>("learning");
+  const [difficultyId, setDifficultyId] =
+    useState<DifficultyId>("absolute-beginner");
+
+  const [speedLevel, setSpeedLevel] = useState<SpeedLevelId>("very-slow");
+
+  const [selectedRhythmId, setSelectedRhythmId] = useState("easy");
 
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -66,19 +74,48 @@ function PracticeMode({ lesson }: PracticeModeProps) {
 
   const audioContextRef = useRef<AudioContext | null>(null);
 
+  const selectedDifficulty =
+    difficultyProfiles.find((difficulty) => difficulty.id === difficultyId) ??
+    defaultDifficultyProfile;
+
+  const practiceSteps = lesson.steps.filter((step) =>
+    selectedDifficulty.chords.includes(step.chord),
+  );
+
   const selectedSpeed =
     speedLevels.find((level) => level.id === speedLevel) ?? defaultSpeed;
 
+  const selectedRhythm = practiceRhythms.find(
+    (rhythm) => rhythm.id === selectedRhythmId,
+  );
+
+  if (!selectedRhythm) {
+    return (
+      <section className="practice-mode">
+        <p>Nenhum padrão de ritmo foi encontrado.</p>
+      </section>
+    );
+  }
+
+  if (practiceSteps.length === 0) {
+    return (
+      <section className="practice-mode">
+        <p>Nenhum acorde disponível para este nível.</p>
+      </section>
+    );
+  }
+
   const bpm = selectedSpeed.bpm;
 
-  const currentStep = lesson.steps[currentChordIndex];
+  const currentStep = practiceSteps[currentChordIndex];
 
-  const nextStep = lesson.steps[(currentChordIndex + 1) % lesson.steps.length];
+  const nextStep =
+    practiceSteps[(currentChordIndex + 1) % practiceSteps.length];
 
   if (!currentStep || !nextStep) {
     return (
       <section className="practice-mode">
-        <p>Não foi possível carregar os acordes da aula.</p>
+        <p>Não foi possível carregar os acordes.</p>
       </section>
     );
   }
@@ -87,12 +124,12 @@ function PracticeMode({ lesson }: PracticeModeProps) {
 
   const nextChord = nextStep.chord;
 
-  const lastBeatIndex = lesson.rhythm.beats.length - 1;
+  const beats = selectedRhythm.beats;
+
+  const lastBeatIndex = beats.length - 1;
 
   const transitionCountdown =
-    isPlaying && activeBeat >= 1
-      ? lesson.rhythm.beats.length - activeBeat
-      : null;
+    isPlaying && activeBeat >= 1 ? beats.length - activeBeat : null;
 
   async function prepareAudio() {
     if (
@@ -108,6 +145,24 @@ function PracticeMode({ lesson }: PracticeModeProps) {
   }
 
   /*
+   * Quando muda o nível,
+   * o GuitAI adapta automaticamente:
+   *
+   * - velocidade
+   * - ritmo
+   * - progressão
+   */
+  useEffect(() => {
+    setSpeedLevel(selectedDifficulty.speedLevel);
+
+    setSelectedRhythmId(selectedDifficulty.rhythmId);
+
+    setCurrentChordIndex(0);
+
+    setActiveBeat(-1);
+  }, [selectedDifficulty.speedLevel, selectedDifficulty.rhythmId]);
+
+  /*
    * Contagem inicial
    *
    * 3 → 2 → 1 → VAI!
@@ -118,12 +173,12 @@ function PracticeMode({ lesson }: PracticeModeProps) {
     }
 
     if (countIn === "go") {
-      const goTimer = window.setTimeout(() => {
+      const timer = window.setTimeout(() => {
         setCountIn(null);
       }, 600);
 
       return () => {
-        window.clearTimeout(goTimer);
+        window.clearTimeout(timer);
       };
     }
 
@@ -139,6 +194,7 @@ function PracticeMode({ lesson }: PracticeModeProps) {
       }
 
       setCountIn("go");
+
       setIsPlaying(true);
     }, 1000);
 
@@ -150,8 +206,8 @@ function PracticeMode({ lesson }: PracticeModeProps) {
   /*
    * Metrônomo
    *
-   * Também controla a troca automática
-   * entre os acordes.
+   * Também controla a troca
+   * automática dos acordes.
    */
   useEffect(() => {
     if (!isPlaying) {
@@ -165,7 +221,7 @@ function PracticeMode({ lesson }: PracticeModeProps) {
       return;
     }
 
-    const beatsPerChord = lesson.rhythm.beats.length;
+    const beatsPerChord = beats.length;
 
     if (beatsPerChord === 0) {
       return;
@@ -180,13 +236,6 @@ function PracticeMode({ lesson }: PracticeModeProps) {
 
       const gain = context.createGain();
 
-      /*
-       * Primeiro tempo:
-       * som mais agudo.
-       *
-       * Outros tempos:
-       * som mais grave.
-       */
       oscillator.frequency.value = currentBeat === 0 ? 1200 : 850;
 
       gain.gain.setValueAtTime(0.18, context.currentTime);
@@ -202,29 +251,18 @@ function PracticeMode({ lesson }: PracticeModeProps) {
       oscillator.stop(context.currentTime + 0.06);
     }
 
-    /*
-     * Primeira batida.
-     */
     setActiveBeat(0);
 
     playClick(0, audioContext);
 
-    /*
-     * Próximas batidas.
-     */
     const interval = window.setInterval(() => {
       beatIndex = (beatIndex + 1) % beatsPerChord;
 
       setActiveBeat(beatIndex);
 
-      /*
-       * Quando volta para a
-       * primeira batida, troca
-       * automaticamente o acorde.
-       */
       if (beatIndex === 0) {
         setCurrentChordIndex(
-          (currentIndex) => (currentIndex + 1) % lesson.steps.length,
+          (currentIndex) => (currentIndex + 1) % practiceSteps.length,
         );
       }
 
@@ -234,11 +272,11 @@ function PracticeMode({ lesson }: PracticeModeProps) {
     return () => {
       window.clearInterval(interval);
     };
-  }, [isPlaying, bpm, lesson.rhythm.beats.length, lesson.steps.length]);
+  }, [isPlaying, bpm, beats, practiceSteps.length]);
 
   /*
-   * Fecha o AudioContext quando
-   * o componente sai da tela.
+   * Fecha o áudio
+   * quando sai do componente.
    */
   useEffect(() => {
     return () => {
@@ -272,13 +310,17 @@ function PracticeMode({ lesson }: PracticeModeProps) {
 
   return (
     <section className="practice-mode">
+      {/* Cabeçalho */}
+
       <div className="practice-header">
         <div>
           <span className="lesson-label">🎸 MODO PRÁTICA</span>
 
           <h2>Pratique a progressão</h2>
 
-          <p>Toque quatro batidas e troque para o próximo acorde.</p>
+          <p>
+            O GuitAI adapta os acordes, o ritmo e a velocidade ao seu nível.
+          </p>
         </div>
 
         <div className="bpm-display">
@@ -288,10 +330,18 @@ function PracticeMode({ lesson }: PracticeModeProps) {
         </div>
       </div>
 
+      {/* Dificuldade */}
+
+      <DifficultySelector
+        selectedDifficulty={difficultyId}
+        onChange={setDifficultyId}
+        disabled={isPlaying || countIn !== null}
+      />
+
       {/* Progressão */}
 
       <div className="practice-progression">
-        {lesson.steps.map((step, index) => (
+        {practiceSteps.map((step, index) => (
           <div
             key={`${step.chord}-${index}`}
             className={
@@ -335,7 +385,7 @@ function PracticeMode({ lesson }: PracticeModeProps) {
         </div>
       )}
 
-      {/* Aviso de próxima troca */}
+      {/* Aviso de troca */}
 
       {transitionCountdown !== null && countIn === null && (
         <div className="chord-warning">
@@ -363,7 +413,7 @@ function PracticeMode({ lesson }: PracticeModeProps) {
       {/* Batidas */}
 
       <div className="practice-beats">
-        {lesson.rhythm.beats.map((direction, index) => (
+        {beats.map((direction, index) => (
           <div
             key={index}
             className={
@@ -377,18 +427,18 @@ function PracticeMode({ lesson }: PracticeModeProps) {
         ))}
       </div>
 
-      {/* Mensagem do professor */}
+      {/* Mensagem */}
 
       <div className="practice-message">
         {countIn !== null && <>🎸 Prepare sua mão antes de começar.</>}
 
         {!isPlaying && countIn === null && (
-          <>🐢 Comece devagar e tente manter todas as batidas iguais.</>
+          <>🐢 Escolha seu nível e comece com calma.</>
         )}
 
         {isPlaying && countIn === null && activeBeat < lastBeatIndex && (
           <>
-            🎵 Toque <strong>{currentChord}</strong> acompanhando o metrônomo.
+            🎵 Toque <strong>{currentChord}</strong> seguindo as setas.
           </>
         )}
 
@@ -399,7 +449,47 @@ function PracticeMode({ lesson }: PracticeModeProps) {
         )}
       </div>
 
-      {/* Níveis de velocidade */}
+      {/* Ritmo */}
+
+      <div className="rhythm-selector">
+        <div className="rhythm-selector-header">
+          <div>
+            <span className="rhythm-selector-label">BATIDA</span>
+
+            <h3>Escolha o ritmo</h3>
+          </div>
+        </div>
+
+        <div className="rhythm-options">
+          {practiceRhythms.map((rhythm) => (
+            <button
+              key={rhythm.id}
+              type="button"
+              className={
+                selectedRhythmId === rhythm.id
+                  ? "rhythm-option active"
+                  : "rhythm-option"
+              }
+              onClick={() => setSelectedRhythmId(rhythm.id)}
+              disabled={isPlaying || countIn !== null}
+            >
+              <span className="rhythm-option-emoji">{rhythm.emoji}</span>
+
+              <strong>{rhythm.name}</strong>
+
+              <span className="rhythm-preview">
+                {rhythm.beats
+                  .map((direction) => (direction === "down" ? "↓" : "↑"))
+                  .join(" ")}
+              </span>
+            </button>
+          ))}
+        </div>
+
+        <p className="rhythm-help">{selectedRhythm.description}</p>
+      </div>
+
+      {/* Velocidade */}
 
       <div className="speed-selector">
         <div className="speed-selector-header">
@@ -446,7 +536,7 @@ function PracticeMode({ lesson }: PracticeModeProps) {
         </p>
       </div>
 
-      {/* Iniciar / Parar */}
+      {/* Começar / Parar */}
 
       {!isPlaying && countIn === null ? (
         <button
