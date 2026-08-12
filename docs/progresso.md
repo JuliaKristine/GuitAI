@@ -576,3 +576,47 @@ Em
 Criar níveis de velocidade para que o aluno
 não precise entender BPM logo no início.
 
+---
+
+## Etapa 14 — Níveis de velocidade
+
+### Status
+
+✅ Concluída
+
+### Implementado
+
+O controle técnico de BPM do modo de prática foi
+transformado em níveis de velocidade mais fáceis
+de compreender.
+
+### Níveis
+
+- 🐢 Bem devagar — 40 BPM
+- 🌱 Aprendendo — 60 BPM
+- 🎸 Normal — 80 BPM
+- 🚀 Desafio — 100 BPM
+
+### Funcionamento
+
+O aluno escolhe um nível utilizando uma linguagem
+simples enquanto o GuitAI converte internamente
+essa escolha para BPM.
+
+Durante a execução da prática, a alteração de
+velocidade fica bloqueada para evitar mudanças
+acidentais no ritmo.
+
+### Objetivo pedagógico
+
+Evitar que iniciantes precisem compreender conceitos
+técnicos de velocidade logo no início do aprendizado.
+
+O aluno escolhe uma dificuldade intuitiva e o sistema
+gerencia o tempo correspondente.
+
+### Próxima etapa
+
+Criar diferentes padrões de batida para que o aluno
+avance além das quatro batidas simples para baixo.
+
