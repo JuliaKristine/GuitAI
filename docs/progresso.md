@@ -1219,3 +1219,68 @@ FastAPI       CORS        Serviços externos
                               ↓
                            Spotify
 
+---
+
+## Etapa 24 — Autenticação com Spotify
+
+### Status
+
+✅ Concluída
+
+### Implementado
+
+Foi criada a primeira integração real entre
+o backend do GuitAI e o Spotify Web API.
+
+### Autenticação
+
+Foi utilizado o fluxo:
+
+Client Credentials
+
+Esse fluxo permite que o backend se autentique
+como aplicação sem expor as credenciais ao frontend.
+
+### Segurança
+
+As credenciais ficam armazenadas somente em:
+
+`backend/.env`
+
+As seguintes informações não são enviadas ao React:
+
+- Spotify Client ID
+- Spotify Client Secret
+- Access Token
+
+### Serviço criado
+
+`backend/app/services/spotify_service.py`
+
+Responsabilidades:
+
+- solicitar access token;
+- reutilizar token ainda válido;
+- controlar expiração;
+- tratar erros de autenticação.
+
+### Endpoint criado
+
+`GET /spotify/status`
+
+Permite verificar se a comunicação com o Spotify
+está funcionando sem expor o access token.
+
+### Arquitetura
+
+```text
+React
+  ↓
+GuitAI Backend
+  ↓
+Spotify Service
+  ↓
+Spotify Accounts
+  ↓
+Access Token
+

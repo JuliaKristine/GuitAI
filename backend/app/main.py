@@ -4,14 +4,21 @@ from fastapi.middleware.cors import (
 )
 
 from app.config import get_settings
+
 from app.routes.config import (
     router as config_router,
 )
+
 from app.routes.health import (
     router as health_router,
 )
+
 from app.routes.songs import (
     router as songs_router,
+)
+
+from app.routes.spotify import (
+    router as spotify_router,
 )
 
 
@@ -56,4 +63,8 @@ app.include_router(
 
 app.include_router(
     config_router
+)
+
+app.include_router(
+    spotify_router
 )
