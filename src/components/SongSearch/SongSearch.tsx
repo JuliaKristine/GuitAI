@@ -2,7 +2,9 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 import { songService } from "../../services/songService";
 
-import type { DemoSong } from "../../data/songs";
+import { spotifyService } from "../../services/spotifyService";
+
+import type { SpotifyTrack } from "../../services/spotifyService";
 
 type SongSearchProps = {
   selectedSongId: string;
@@ -10,24 +12,20 @@ type SongSearchProps = {
   onSelectSong: (songId: string) => void;
 };
 
+const demoSongs = songService.getAllSongs();
+
 function SongSearch({ selectedSongId, onSelectSong }: SongSearchProps) {
   const [query, setQuery] = useState("");
 
-  const [results, setResults] = useState<DemoSong[]>([]);
+  const [spotifyResults, setSpotifyResults] = useState<SpotifyTrack[]>([]);
 
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [error, setError] = useState<string | null>(null);
 
-  /*
-   * Cada busca ganha um número.
-   *
-   * Isso evita que uma busca antiga
-   * sobrescreva uma busca mais nova.
-   */
   const requestIdRef = useRef(0);
 
-  const search = useCallback(async (searchQuery: string) => {
+  const searchSpotify = useCallback(async (searchQuery: string) => {
     const requestId = ++requestIdRef.current;
 
     setIsLoading(true);
@@ -35,27 +33,27 @@ function SongSearch({ selectedSongId, onSelectSong }: SongSearchProps) {
     setError(null);
 
     try {
-      const songs = await songService.searchSongs(searchQuery);
+      const tracks = await spotifyService.searchTracks(searchQuery);
 
-      /*
-       * Só atualiza se esta ainda
-       * for a busca mais recente.
-       */
       if (requestId !== requestIdRef.current) {
         return;
       }
 
-      setResults(songs);
+      setSpotifyResults(tracks);
     } catch (searchError) {
       if (requestId !== requestIdRef.current) {
         return;
       }
 
-      console.error("Erro ao buscar músicas:", searchError);
+      console.error("Erro na busca do Spotify:", searchError);
 
-      setResults([]);
+      setSpotifyResults([]);
 
-      setError("Não foi possível buscar as músicas.");
+      if (searchError instanceof Error) {
+        setError(searchError.message);
+      } else {
+        setError("Não foi possível buscar músicas.");
+      }
     } finally {
       if (requestId === requestIdRef.current) {
         setIsLoading(false);
@@ -63,28 +61,42 @@ function SongSearch({ selectedSongId, onSelectSong }: SongSearchProps) {
     }
   }, []);
 
-  /*
-   * Debounce:
-   *
-   * esperamos 350ms após a pessoa
-   * parar de digitar antes da busca.
-   */
   useEffect(() => {
+    const cleanQuery = query.trim();
+
+    if (!cleanQuery) {
+      requestIdRef.current += 1;
+
+      setSpotifyResults([]);
+
+      setIsLoading(false);
+
+      setError(null);
+
+      return;
+    }
+
     const timer = window.setTimeout(() => {
-      void search(query);
-    }, 350);
+      void searchSpotify(cleanQuery);
+    }, 400);
 
     return () => {
       window.clearTimeout(timer);
     };
-  }, [query, search]);
+  }, [query, searchSpotify]);
 
   function clearSearch() {
     setQuery("");
   }
 
   function retrySearch() {
-    void search(query);
+    const cleanQuery = query.trim();
+
+    if (!cleanQuery) {
+      return;
+    }
+
+    void searchSpotify(cleanQuery);
   }
 
   const hasQuery = query.trim().length > 0;
@@ -96,10 +108,8 @@ function SongSearch({ selectedSongId, onSelectSong }: SongSearchProps) {
 
         <h2>Que música você quer aprender?</h2>
 
-        <p>Procure pelo nome da música ou pelo artista.</p>
+        <p>Digite uma música ou artista para pesquisar no Spotify.</p>
       </div>
-
-      {/* Campo de busca */}
 
       <div className="song-search-box">
         <span className="song-search-icon" aria-hidden="true">
@@ -110,7 +120,7 @@ function SongSearch({ selectedSongId, onSelectSong }: SongSearchProps) {
           type="search"
           value={query}
           onChange={(event) => setQuery(event.target.value)}
-          placeholder="Digite uma música ou artista..."
+          placeholder="Ex.: Wonderwall, Taylor Swift..."
           aria-label="Buscar música ou artista"
         />
 
@@ -126,27 +136,88 @@ function SongSearch({ selectedSongId, onSelectSong }: SongSearchProps) {
         )}
       </div>
 
-      {/* Carregamento */}
+      {/* DEMOS */}
 
-      {isLoading && (
-        <div className="song-search-loading" aria-live="polite">
+      {!hasQuery && (
+        <>
+          <div className="song-search-info">
+            <span>🎸 Músicas de demonstração</span>
+          </div>
+
+          <div className="song-search-results">
+            {demoSongs.map((song) => {
+              const isSelected = selectedSongId === song.id;
+
+              return (
+                <article
+                  key={song.id}
+                  className={isSelected ? "song-result active" : "song-result"}
+                >
+                  <div className="song-result-main">
+                    <span className="song-result-emoji">{song.emoji}</span>
+
+                    <div className="song-result-info">
+                      <div className="song-result-title">
+                        <strong>{song.title}</strong>
+
+                        <span>{song.artist}</span>
+                      </div>
+
+                      <p>{song.description}</p>
+
+                      <div className="song-result-details">
+                        <span className="song-result-difficulty">
+                          {song.difficulty}
+                        </span>
+
+                        <span className="song-result-progression">
+                          {song.progression.join(" → ")}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <button
+                    type="button"
+                    className={
+                      isSelected
+                        ? "song-result-button selected"
+                        : "song-result-button"
+                    }
+                    onClick={() => onSelectSong(song.id)}
+                  >
+                    {isSelected
+                      ? "✓ Música selecionada"
+                      : "🎸 Aprender esta música"}
+                  </button>
+                </article>
+              );
+            })}
+          </div>
+        </>
+      )}
+
+      {/* LOADING */}
+
+      {hasQuery && isLoading && (
+        <div className="song-search-loading">
           <span className="search-spinner">🎵</span>
 
           <div>
-            <strong>Buscando músicas...</strong>
+            <strong>Buscando no Spotify...</strong>
 
-            <p>Só um instante.</p>
+            <p>Procurando músicas no catálogo.</p>
           </div>
         </div>
       )}
 
-      {/* Erro */}
+      {/* ERRO */}
 
-      {!isLoading && error !== null && (
+      {hasQuery && !isLoading && error !== null && (
         <div className="song-search-error" role="alert">
           <span className="search-error-icon">😕</span>
 
-          <strong>Ops! Algo deu errado.</strong>
+          <strong>Não conseguimos buscar.</strong>
 
           <p>{error}</p>
 
@@ -156,95 +227,99 @@ function SongSearch({ selectedSongId, onSelectSong }: SongSearchProps) {
         </div>
       )}
 
-      {/* Resultado */}
+      {/* RESULTADOS SPOTIFY */}
 
-      {!isLoading && error === null && (
+      {hasQuery && !isLoading && error === null && (
         <>
           <div className="song-search-info">
-            {hasQuery ? (
-              <span>
-                {results.length === 1
-                  ? "1 música encontrada"
-                  : `${results.length} músicas encontradas`}
-              </span>
-            ) : (
-              <span>Músicas disponíveis para demonstração</span>
-            )}
+            <span>
+              {spotifyResults.length === 1
+                ? "1 faixa encontrada no Spotify"
+                : `${spotifyResults.length} faixas encontradas no Spotify`}
+            </span>
           </div>
 
-          {results.length > 0 ? (
+          {spotifyResults.length > 0 ? (
             <div className="song-search-results">
-              {results.map((song) => {
-                const isSelected = selectedSongId === song.id;
+              {spotifyResults.map((track) => (
+                <article key={track.id} className="spotify-result">
+                  <div className="spotify-result-main">
+                    {track.image_url ? (
+                      <img
+                        className="spotify-result-cover"
+                        src={track.image_url}
+                        alt={`Capa de ${track.album}`}
+                      />
+                    ) : (
+                      <div className="spotify-result-cover-placeholder">🎵</div>
+                    )}
 
-                return (
-                  <article
-                    key={song.id}
-                    className={
-                      isSelected ? "song-result active" : "song-result"
-                    }
-                  >
-                    <div className="song-result-main">
-                      <span className="song-result-emoji">{song.emoji}</span>
+                    <div className="spotify-result-info">
+                      <div className="spotify-result-title">
+                        <strong>{track.title}</strong>
 
-                      <div className="song-result-info">
-                        <div className="song-result-title">
-                          <strong>{song.title}</strong>
-
-                          <span>{song.artist}</span>
-                        </div>
-
-                        <p>{song.description}</p>
-
-                        <div className="song-result-details">
-                          <span className="song-result-difficulty">
-                            {song.difficulty}
-                          </span>
-
-                          <span className="song-result-progression">
-                            {song.progression.join(" → ")}
-                          </span>
-                        </div>
+                        {track.explicit && (
+                          <span className="explicit-badge">E</span>
+                        )}
                       </div>
-                    </div>
 
-                    <button
-                      type="button"
-                      className={
-                        isSelected
-                          ? "song-result-button selected"
-                          : "song-result-button"
-                      }
-                      onClick={() => onSelectSong(song.id)}
-                    >
-                      {isSelected
-                        ? "✓ Música selecionada"
-                        : "🎸 Aprender esta música"}
-                    </button>
-                  </article>
-                );
-              })}
+                      <span className="spotify-result-artist">
+                        {track.artist}
+                      </span>
+
+                      <span className="spotify-result-album">
+                        {track.album}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="spotify-result-actions">
+                    {track.spotify_url && (
+                      <a
+                        className="spotify-open-button"
+                        href={track.spotify_url}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        🟢 Abrir no Spotify
+                      </a>
+                    )}
+                  </div>
+                </article>
+              ))}
             </div>
           ) : (
             <div className="song-search-empty">
               <span>🎵</span>
 
-              <strong>Nenhuma música encontrada</strong>
+              <strong>Nenhuma faixa encontrada</strong>
 
-              <p>Tente pesquisar outro título ou artista.</p>
+              <p>Tente pesquisar outro nome ou artista.</p>
 
               <button type="button" onClick={clearSearch}>
                 Limpar busca
               </button>
             </div>
           )}
+
+          {spotifyResults.length > 0 && (
+            <div className="spotify-search-note">
+              <span>🎸</span>
+
+              <p>
+                A busca real já está conectada. Na próxima etapa vamos
+                transformar uma faixa selecionada em uma música do GuitAI pronta
+                para receber aula.
+              </p>
+            </div>
+          )}
         </>
       )}
 
       <div className="song-search-future">
-        <span>✨</span>
+        <span>🟢</span>
 
-        <p>Em breve você poderá buscar músicas diretamente pelo Spotify.</p>
+        <p>Busca conectada ao catálogo do Spotify.</p>
       </div>
     </section>
   );

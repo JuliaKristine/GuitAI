@@ -129,7 +129,10 @@ O primeiro marco funcional será fazer o sistema receber um acorde e gerar autom
 - [x] Preparar configuração segura do backend
 - [x] Configurar aplicação Spotify
 - [x] Criar autenticação do backend com Spotify
-- [ ] Integrar busca real do Spotify
+- [x] Integrar busca real do Spotify
+- [ ] Selecionar uma faixa real
+- [ ] Criar representação interna da música
+- [ ] Preparar geração de aula
 
 ### Fase 5 — Reconhecimento do instrumento
 

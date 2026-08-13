@@ -1284,3 +1284,77 @@ Spotify Accounts
   ↓
 Access Token
 
+---
+
+## Etapa 25 — Busca real do Spotify
+
+### Status
+
+✅ Concluída
+
+### Implementado
+
+O GuitAI passou a pesquisar músicas reais
+utilizando o catálogo do Spotify Web API.
+
+### Backend
+
+Foi criado o endpoint:
+
+`GET /spotify/search`
+
+A rota recebe uma pesquisa e solicita
+resultados ao Spotify utilizando o token
+obtido pelo backend.
+
+### Informações retornadas
+
+Cada resultado inclui:
+
+- Spotify ID;
+- título;
+- artista;
+- álbum;
+- capa;
+- URL no Spotify;
+- duração;
+- indicação de conteúdo explícito.
+
+### Mercado
+
+A busca inicial utiliza:
+
+`BR`
+
+como mercado configurável.
+
+A variável pode ser alterada através de:
+
+`SPOTIFY_MARKET`
+
+### Segurança
+
+O frontend não recebe:
+
+- Client ID;
+- Client Secret;
+- Access Token.
+
+Todo acesso ao Spotify é realizado pelo
+backend.
+
+### Fluxo
+
+```text
+SongSearch
+    ↓
+spotifyService
+    ↓
+FastAPI
+    ↓
+Spotify Service
+    ↓
+Spotify Web API
+    ↓
+Resultados
+

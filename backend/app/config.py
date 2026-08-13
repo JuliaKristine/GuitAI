@@ -40,6 +40,8 @@ class Settings(BaseSettings):
 
     spotify_client_secret: str | None = None
 
+    spotify_market: str = "BR"
+
     model_config = SettingsConfigDict(
         env_file=str(ENV_FILE),
         env_file_encoding="utf-8",
