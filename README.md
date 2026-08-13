@@ -126,7 +126,9 @@ O primeiro marco funcional será fazer o sistema receber um acorde e gerar autom
 - [x] Preparar estados de carregamento e erro
 - [x] Criar backend inicial com FastAPI
 - [x] Estruturar backend em serviços e rotas
-- [ ] Preparar configuração do backend
+- [x] Preparar configuração segura do backend
+- [ ] Configurar aplicação Spotify
+- [ ] Criar autenticação do backend com Spotify
 - [ ] Integrar busca real do Spotify
 
 ### Fase 5 — Reconhecimento do instrumento

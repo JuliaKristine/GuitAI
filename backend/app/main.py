@@ -1,23 +1,35 @@
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
+from fastapi.middleware.cors import (
+    CORSMiddleware,
+)
 
-from app.routes.health import router as health_router
-from app.routes.songs import router as songs_router
+from app.config import get_settings
+from app.routes.config import (
+    router as config_router,
+)
+from app.routes.health import (
+    router as health_router,
+)
+from app.routes.songs import (
+    router as songs_router,
+)
+
+
+settings = get_settings()
 
 
 app = FastAPI(
-    title="GuitAI API",
-    description="Backend da plataforma GuitAI.",
-    version="0.1.0",
+    title=settings.app_name,
+    description=settings.app_description,
+    version=settings.app_version,
 )
 
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-    ],
+    allow_origins=(
+        settings.cors_origin_list
+    ),
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -27,8 +39,9 @@ app.add_middleware(
 @app.get("/")
 def root():
     return {
-        "name": "GuitAI API",
+        "name": settings.app_name,
         "status": "online",
+        "environment": settings.app_env,
         "docs": "/docs",
     }
 
@@ -39,4 +52,8 @@ app.include_router(
 
 app.include_router(
     songs_router
+)
+
+app.include_router(
+    config_router
 )

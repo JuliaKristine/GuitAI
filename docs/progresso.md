@@ -1059,3 +1059,163 @@ backend/app/
 └── data/
     └── songs.py
 
+---
+
+## Etapa 23 — Configuração segura do backend
+
+### Status
+
+✅ Concluída
+
+### Objetivo
+
+Preparar o backend para trabalhar com
+configurações externas e credenciais privadas.
+
+### Implementado
+
+Foi criada uma camada de configuração utilizando
+Pydantic Settings.
+
+Arquivo:
+
+`backend/app/config.py`
+
+### Variáveis configuráveis
+
+Atualmente o backend suporta:
+
+- APP_NAME
+- APP_DESCRIPTION
+- APP_VERSION
+- APP_ENV
+- CORS_ORIGINS
+- SPOTIFY_CLIENT_ID
+- SPOTIFY_CLIENT_SECRET
+
+### Arquivos de ambiente
+
+Foi criado:
+
+`backend/.env.example`
+
+Esse arquivo documenta quais configurações são
+necessárias e pode ser versionado no GitHub.
+
+Também é utilizado localmente:
+
+`backend/.env`
+
+O arquivo `.env` não deve ser versionado.
+
+### Segurança
+
+Credenciais de serviços externos não serão
+armazenadas diretamente no código-fonte.
+
+O Client Secret do Spotify deverá existir apenas
+na configuração privada do ambiente.
+
+### Endpoint de diagnóstico
+
+Foi criado:
+
+`GET /config/status`
+
+A rota informa se a integração do Spotify está
+configurada sem expor as credenciais.
+
+### Arquitetura
+
+```text
+.env
+  ↓
+Settings
+  ↓
+config.py
+  ↓
+┌──────────────┬───────────────┐
+▼              ▼               ▼
+FastAPI       CORS        Serviços externos
+                              ↓
+                           Spotify---
+
+## Etapa 23 — Configuração segura do backend
+
+### Status
+
+✅ Concluída
+
+### Objetivo
+
+Preparar o backend para trabalhar com
+configurações externas e credenciais privadas.
+
+### Implementado
+
+Foi criada uma camada de configuração utilizando
+Pydantic Settings.
+
+Arquivo:
+
+`backend/app/config.py`
+
+### Variáveis configuráveis
+
+Atualmente o backend suporta:
+
+- APP_NAME
+- APP_DESCRIPTION
+- APP_VERSION
+- APP_ENV
+- CORS_ORIGINS
+- SPOTIFY_CLIENT_ID
+- SPOTIFY_CLIENT_SECRET
+
+### Arquivos de ambiente
+
+Foi criado:
+
+`backend/.env.example`
+
+Esse arquivo documenta quais configurações são
+necessárias e pode ser versionado no GitHub.
+
+Também é utilizado localmente:
+
+`backend/.env`
+
+O arquivo `.env` não deve ser versionado.
+
+### Segurança
+
+Credenciais de serviços externos não serão
+armazenadas diretamente no código-fonte.
+
+O Client Secret do Spotify deverá existir apenas
+na configuração privada do ambiente.
+
+### Endpoint de diagnóstico
+
+Foi criado:
+
+`GET /config/status`
+
+A rota informa se a integração do Spotify está
+configurada sem expor as credenciais.
+
+### Arquitetura
+
+```text
+.env
+  ↓
+Settings
+  ↓
+config.py
+  ↓
+┌──────────────┬───────────────┐
+▼              ▼               ▼
+FastAPI       CORS        Serviços externos
+                              ↓
+                           Spotify
+
