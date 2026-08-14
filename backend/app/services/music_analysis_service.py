@@ -1,3 +1,11 @@
+from app.config import (
+    get_settings,
+)
+
+from app.providers.demo_music_analysis import (
+    DemoMusicAnalysisProvider,
+)
+
 from app.providers.music_analysis_base import (
     MusicAnalysisProvider,
 )
@@ -11,14 +19,26 @@ from app.schemas.music_analysis import (
 )
 
 
-_provider: MusicAnalysisProvider = (
+_demo_provider = (
+    DemoMusicAnalysisProvider()
+)
+
+_unavailable_provider = (
     UnavailableMusicAnalysisProvider()
 )
 
 
 def get_music_analysis_provider(
 ) -> MusicAnalysisProvider:
-    return _provider
+    settings = get_settings()
+
+    if (
+        settings.music_analysis_provider
+        == "demo"
+    ):
+        return _demo_provider
+
+    return _unavailable_provider
 
 
 async def analyze_song(

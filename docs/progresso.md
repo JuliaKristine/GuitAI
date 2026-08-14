@@ -1602,3 +1602,91 @@ MusicAnalysisProvider
     ↓
 MusicAnalysisResult
 
+---
+
+## Etapa 30 — DemoMusicAnalysisProvider
+
+### Status
+
+✅ Concluída
+
+### Objetivo
+
+Criar uma primeira fonte controlada de dados
+musicais para desenvolver o motor pedagógico
+sem atribuir dados inventados a músicas reais.
+
+### Provider
+
+Foi criado:
+
+`DemoMusicAnalysisProvider`
+
+O provider utiliza exclusivamente dados das
+músicas fictícias do GuitAI.
+
+### Dados disponíveis
+
+#### Primeiros Passos
+
+- G
+- Em
+- C
+- D
+- 60 BPM
+- 4/4
+
+#### Estrada Aberta
+
+- Em
+- C
+- G
+- D
+- 70 BPM
+- 4/4
+
+#### Noite Elétrica
+
+- G
+- D
+- Em
+- C
+- 80 BPM
+- 4/4
+
+### Segurança
+
+O provider demo não fornece análises para
+faixas reais do Spotify.
+
+Caso receba um Spotify ID, retorna:
+
+`status: unavailable`
+
+### Configuração
+
+Em desenvolvimento pode ser utilizado:
+
+`MUSIC_ANALYSIS_PROVIDER=demo`
+
+O padrão seguro continua sendo:
+
+`MUSIC_ANALYSIS_PROVIDER=unavailable`
+
+### Pipeline validado
+
+Uma música demo agora pode seguir:
+
+```text
+LessonGeneration
+    ↓
+pending
+    ↓
+processing
+    ↓
+DemoMusicAnalysisProvider
+    ↓
+ready
+    ↓
+analysis_ready
+
