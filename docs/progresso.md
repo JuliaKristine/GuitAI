@@ -1358,3 +1358,32 @@ Spotify Web API
     ↓
 Resultados
 
+---
+
+## Etapa 26 — Faixa Spotify para GuitAISong
+
+### Status
+
+✅ Concluída
+
+### Implementado
+
+O GuitAI passou a permitir a seleção de uma
+faixa real encontrada no Spotify.
+
+Foi adicionado o botão:
+
+`🎸 Aprender esta música`
+
+### Pipeline
+
+A seleção agora segue o fluxo:
+
+```text
+SpotifyTrack
+    ↓
+POST /songs/prepare
+    ↓
+GuitAISong
+    ↓
+waiting_for_lesson

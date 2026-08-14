@@ -1,7 +1,24 @@
-from fastapi import APIRouter, Query
+from fastapi import (
+    APIRouter,
+    Query,
+)
 
-from app.schemas.song import SongSearchResponse
-from app.services.song_service import search_songs
+from app.schemas.guitai_song import (
+    GuitAISongResponse,
+    SpotifyTrackInput,
+)
+
+from app.schemas.song import (
+    SongSearchResponse,
+)
+
+from app.services.guitai_song_service import (
+    prepare_spotify_song,
+)
+
+from app.services.song_service import (
+    search_songs,
+)
 
 
 router = APIRouter(
@@ -26,4 +43,16 @@ def search(
         query=q,
         count=len(results),
         items=results,
+    )
+
+
+@router.post(
+    "/prepare",
+    response_model=GuitAISongResponse,
+)
+def prepare_song(
+    track: SpotifyTrackInput,
+):
+    return prepare_spotify_song(
+        track
     )

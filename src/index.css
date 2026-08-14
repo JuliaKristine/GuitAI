@@ -3062,3 +3062,298 @@ footer {
   }
 }
 
+/* ========================================
+   Aprender faixa real do Spotify
+======================================== */
+
+.spotify-result-actions {
+  display: flex;
+  flex-direction: column;
+
+  gap: 8px;
+}
+
+.spotify-learn-button {
+  padding: 10px 13px;
+
+  background: #7c3aed;
+  color: #ffffff;
+
+  border: none;
+  border-radius: 11px;
+
+  cursor: pointer;
+
+  font-size: 0.7rem;
+  font-weight: 800;
+
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.spotify-learn-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.spotify-learn-button:disabled {
+  opacity: 0.55;
+
+  cursor: wait;
+}
+
+.song-prepare-error {
+  margin-bottom: 12px;
+  padding: 12px 14px;
+
+  background: #fff7ed;
+  color: #9a3412;
+
+  border: 1px solid #fed7aa;
+  border-radius: 12px;
+
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+
+/* ========================================
+   Música interna do GuitAI
+======================================== */
+
+.prepared-song {
+  padding: 26px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #faf5ff,
+      #f5f3ff
+    );
+
+  border: 1px solid #ddd6fe;
+  border-radius: 22px;
+}
+
+.prepared-song-label {
+  display: block;
+
+  margin-bottom: 16px;
+
+  color: #7c3aed;
+
+  font-size: 0.65rem;
+  font-weight: 900;
+  letter-spacing: 1.4px;
+}
+
+.prepared-song-main {
+  display: flex;
+  align-items: center;
+
+  gap: 18px;
+}
+
+.prepared-song-cover {
+  flex-shrink: 0;
+
+  width: 110px;
+  height: 110px;
+
+  object-fit: cover;
+
+  border-radius: 18px;
+}
+
+.prepared-song-cover-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #ede9fe;
+
+  font-size: 2rem;
+}
+
+.prepared-song-info {
+  min-width: 0;
+}
+
+.prepared-song-info h2 {
+  margin: 0;
+
+  color: #27272a;
+
+  font-size: 1.5rem;
+}
+
+.prepared-song-info > strong {
+  display: block;
+
+  margin-top: 5px;
+
+  color: #7c3aed;
+
+  font-size: 0.9rem;
+}
+
+.prepared-song-info > p {
+  margin: 5px 0 0;
+
+  color: #71717a;
+
+  font-size: 0.78rem;
+}
+
+.prepared-song-meta {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 7px;
+
+  margin-top: 12px;
+}
+
+.prepared-song-meta span {
+  padding: 5px 8px;
+
+  background: #ffffff;
+  color: #52525b;
+
+  border-radius: 8px;
+
+  font-size: 0.66rem;
+  font-weight: 700;
+}
+
+
+/* Status */
+
+.lesson-preparation-status {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 15px;
+
+  margin-top: 22px;
+  padding: 20px;
+
+  background: #ffffff;
+
+  border: 1px solid #e4e4e7;
+  border-radius: 17px;
+}
+
+.lesson-preparation-icon {
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 46px;
+  height: 46px;
+
+  background: #f3e8ff;
+
+  border-radius: 13px;
+
+  font-size: 1.5rem;
+}
+
+.lesson-preparation-status span {
+  color: #7c3aed;
+
+  font-size: 0.62rem;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.lesson-preparation-status h3 {
+  margin: 4px 0 6px;
+
+  color: #27272a;
+
+  font-size: 1rem;
+}
+
+.lesson-preparation-status p {
+  margin: 0;
+
+  color: #71717a;
+
+  font-size: 0.76rem;
+  line-height: 1.55;
+}
+
+
+/* Ações */
+
+.prepared-song-actions {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 10px;
+
+  margin-top: 18px;
+}
+
+.prepared-spotify-button,
+.prepared-back-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 11px 15px;
+
+  border-radius: 11px;
+
+  font-size: 0.72rem;
+  font-weight: 800;
+
+  text-decoration: none;
+
+  cursor: pointer;
+}
+
+.prepared-spotify-button {
+  background: #18181b;
+  color: #ffffff;
+}
+
+.prepared-back-button {
+  background: #ffffff;
+  color: #7c3aed;
+
+  border: 1px solid #ddd6fe;
+}
+
+
+@media (max-width: 650px) {
+  .prepared-song {
+    padding: 18px;
+  }
+
+  .prepared-song-main {
+    align-items: flex-start;
+  }
+
+  .prepared-song-cover {
+    width: 78px;
+    height: 78px;
+  }
+
+  .prepared-song-info h2 {
+    font-size: 1.15rem;
+  }
+
+  .prepared-song-actions {
+    flex-direction: column;
+  }
+
+  .prepared-spotify-button,
+  .prepared-back-button {
+    width: 100%;
+  }
+}
+

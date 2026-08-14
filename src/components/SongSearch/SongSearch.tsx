@@ -10,11 +10,17 @@ type SongSearchProps = {
   selectedSongId: string;
 
   onSelectSong: (songId: string) => void;
+
+  onLearnSpotifyTrack: (track: SpotifyTrack) => Promise<void>;
 };
 
 const demoSongs = songService.getAllSongs();
 
-function SongSearch({ selectedSongId, onSelectSong }: SongSearchProps) {
+function SongSearch({
+  selectedSongId,
+  onSelectSong,
+  onLearnSpotifyTrack,
+}: SongSearchProps) {
   const [query, setQuery] = useState("");
 
   const [spotifyResults, setSpotifyResults] = useState<SpotifyTrack[]>([]);
@@ -22,6 +28,10 @@ function SongSearch({ selectedSongId, onSelectSong }: SongSearchProps) {
   const [isLoading, setIsLoading] = useState(false);
 
   const [error, setError] = useState<string | null>(null);
+
+  const [preparingTrackId, setPreparingTrackId] = useState<string | null>(null);
+
+  const [preparationError, setPreparationError] = useState<string | null>(null);
 
   const requestIdRef = useRef(0);
 
@@ -97,6 +107,30 @@ function SongSearch({ selectedSongId, onSelectSong }: SongSearchProps) {
     }
 
     void searchSpotify(cleanQuery);
+  }
+
+  async function handleLearnTrack(track: SpotifyTrack) {
+    if (preparingTrackId) {
+      return;
+    }
+
+    setPreparingTrackId(track.id);
+
+    setPreparationError(null);
+
+    try {
+      await onLearnSpotifyTrack(track);
+    } catch (prepareError) {
+      console.error("Erro ao preparar música:", prepareError);
+
+      if (prepareError instanceof Error) {
+        setPreparationError(prepareError.message);
+      } else {
+        setPreparationError("Não foi possível preparar esta música.");
+      }
+    } finally {
+      setPreparingTrackId(null);
+    }
   }
 
   const hasQuery = query.trim().length > 0;
@@ -211,7 +245,7 @@ function SongSearch({ selectedSongId, onSelectSong }: SongSearchProps) {
         </div>
       )}
 
-      {/* ERRO */}
+      {/* ERRO DE BUSCA */}
 
       {hasQuery && !isLoading && error !== null && (
         <div className="song-search-error" role="alert">
@@ -239,54 +273,77 @@ function SongSearch({ selectedSongId, onSelectSong }: SongSearchProps) {
             </span>
           </div>
 
+          {preparationError && (
+            <div className="song-prepare-error" role="alert">
+              ⚠️ {preparationError}
+            </div>
+          )}
+
           {spotifyResults.length > 0 ? (
             <div className="song-search-results">
-              {spotifyResults.map((track) => (
-                <article key={track.id} className="spotify-result">
-                  <div className="spotify-result-main">
-                    {track.image_url ? (
-                      <img
-                        className="spotify-result-cover"
-                        src={track.image_url}
-                        alt={`Capa de ${track.album}`}
-                      />
-                    ) : (
-                      <div className="spotify-result-cover-placeholder">🎵</div>
-                    )}
+              {spotifyResults.map((track) => {
+                const isPreparing = preparingTrackId === track.id;
 
-                    <div className="spotify-result-info">
-                      <div className="spotify-result-title">
-                        <strong>{track.title}</strong>
+                return (
+                  <article key={track.id} className="spotify-result">
+                    <div className="spotify-result-main">
+                      {track.image_url ? (
+                        <img
+                          className="spotify-result-cover"
+                          src={track.image_url}
+                          alt={`Capa de ${track.album}`}
+                        />
+                      ) : (
+                        <div className="spotify-result-cover-placeholder">
+                          🎵
+                        </div>
+                      )}
 
-                        {track.explicit && (
-                          <span className="explicit-badge">E</span>
-                        )}
+                      <div className="spotify-result-info">
+                        <div className="spotify-result-title">
+                          <strong>{track.title}</strong>
+
+                          {track.explicit && (
+                            <span className="explicit-badge">E</span>
+                          )}
+                        </div>
+
+                        <span className="spotify-result-artist">
+                          {track.artist}
+                        </span>
+
+                        <span className="spotify-result-album">
+                          {track.album}
+                        </span>
                       </div>
-
-                      <span className="spotify-result-artist">
-                        {track.artist}
-                      </span>
-
-                      <span className="spotify-result-album">
-                        {track.album}
-                      </span>
                     </div>
-                  </div>
 
-                  <div className="spotify-result-actions">
-                    {track.spotify_url && (
-                      <a
-                        className="spotify-open-button"
-                        href={track.spotify_url}
-                        target="_blank"
-                        rel="noreferrer"
+                    <div className="spotify-result-actions">
+                      <button
+                        type="button"
+                        className="spotify-learn-button"
+                        onClick={() => void handleLearnTrack(track)}
+                        disabled={preparingTrackId !== null}
                       >
-                        🟢 Abrir no Spotify
-                      </a>
-                    )}
-                  </div>
-                </article>
-              ))}
+                        {isPreparing
+                          ? "⏳ Preparando..."
+                          : "🎸 Aprender esta música"}
+                      </button>
+
+                      {track.spotify_url && (
+                        <a
+                          className="spotify-open-button"
+                          href={track.spotify_url}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          🟢 Abrir no Spotify
+                        </a>
+                      )}
+                    </div>
+                  </article>
+                );
+              })}
             </div>
           ) : (
             <div className="song-search-empty">
@@ -299,18 +356,6 @@ function SongSearch({ selectedSongId, onSelectSong }: SongSearchProps) {
               <button type="button" onClick={clearSearch}>
                 Limpar busca
               </button>
-            </div>
-          )}
-
-          {spotifyResults.length > 0 && (
-            <div className="spotify-search-note">
-              <span>🎸</span>
-
-              <p>
-                A busca real já está conectada. Na próxima etapa vamos
-                transformar uma faixa selecionada em uma música do GuitAI pronta
-                para receber aula.
-              </p>
             </div>
           )}
         </>
