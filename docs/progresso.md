@@ -1492,3 +1492,89 @@ futuro motor musical
      ↓
 completed / failed
 
+---
+
+## Etapa 28 — MusicAnalysisProvider
+
+### Status
+
+✅ Concluída
+
+### Objetivo
+
+Separar a descoberta de músicas da análise musical.
+
+O Spotify continua responsável por identificar
+músicas e fornecer metadados.
+
+A análise de acordes, ritmo, BPM e estrutura
+passa a possuir uma camada independente.
+
+### Interface criada
+
+Foi criada:
+
+`MusicAnalysisProvider`
+
+Todo provedor de análise musical deverá implementar
+essa interface.
+
+### Contrato de análise
+
+Uma análise poderá fornecer:
+
+- BPM;
+- tonalidade;
+- compasso;
+- acordes;
+- posição dos acordes na música;
+- nível de confiança.
+
+### Arquivos
+
+Foram criados:
+
+`schemas/music_analysis.py`
+
+`providers/music_analysis_base.py`
+
+`providers/unavailable_music_analysis.py`
+
+`services/music_analysis_service.py`
+
+`routes/music_analysis.py`
+
+### Provider atual
+
+O provider inicial é:
+
+`unavailable`
+
+Ele não inventa dados musicais.
+
+Quando nenhuma fonte confiável estiver configurada,
+a API retorna:
+
+`status: unavailable`
+
+### Endpoints
+
+`GET /music-analysis/status`
+
+`POST /music-analysis/{song_id}`
+
+### Arquitetura
+
+```text
+Spotify
+   ↓
+GuitAISong
+   ↓
+MusicAnalysisProvider
+   ↓
+MusicAnalysis
+   ↓
+Motor pedagógico
+   ↓
+Lesson
+

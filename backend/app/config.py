@@ -42,6 +42,10 @@ class Settings(BaseSettings):
 
     spotify_market: str = "BR"
 
+    music_analysis_provider: str = (
+    "unavailable"
+    )
+
     model_config = SettingsConfigDict(
         env_file=str(ENV_FILE),
         env_file_encoding="utf-8",

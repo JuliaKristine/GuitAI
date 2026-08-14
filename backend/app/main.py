@@ -17,6 +17,10 @@ from app.routes.lesson_generations import (
     router as lesson_generations_router,
 )
 
+from app.routes.music_analysis import (
+    router as music_analysis_router,
+)
+
 from app.routes.songs import (
     router as songs_router,
 )
@@ -77,4 +81,8 @@ app.include_router(
 
 app.include_router(
     lesson_generations_router
+)
+
+app.include_router(
+    music_analysis_router
 )
