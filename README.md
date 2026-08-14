@@ -139,12 +139,14 @@ O primeiro marco funcional será fazer o sistema receber um acorde e gerar autom
 
 - [x] Criar GuitAISong
 - [x] Criar contrato de geração de aula
-- [x] Criar estados pending / processing
+- [x] Criar estados de geração
 - [x] Criar interface MusicAnalysisProvider
 - [x] Criar contrato de análise musical
-- [ ] Conectar geração de aula à análise musical
-- [ ] Obter dados de acordes confiáveis
-- [ ] Simplificar acordes por dificuldade
+- [x] Conectar geração à análise musical
+- [x] Tratar análise indisponível
+- [ ] Criar provider musical controlado
+- [ ] Criar simplificador de acordes
+- [ ] Criar motor pedagógico
 - [ ] Gerar Lesson
 - [ ] Conectar Lesson ao modo Aula
 - [ ] Conectar Lesson ao modo Prática

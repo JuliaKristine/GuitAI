@@ -1,6 +1,10 @@
+import type { MusicAnalysis } from "./musicAnalysis";
+
 export type LessonGenerationStatus =
   | "pending"
   | "processing"
+  | "waiting_for_analysis"
+  | "analysis_ready"
   | "completed"
   | "failed";
 
@@ -57,7 +61,11 @@ export type LessonGeneration = {
 
   updated_at: string;
 
+  analysis: MusicAnalysis | null;
+
   lesson: GeneratedLesson | null;
+
+  message: string | null;
 
   error: string | null;
 };

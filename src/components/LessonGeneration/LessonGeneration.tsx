@@ -25,7 +25,7 @@ function LessonGeneration({ song }: LessonGenerationProps) {
 
   const [error, setError] = useState<string | null>(null);
 
-  async function generateLesson() {
+  async function createAndStart() {
     if (isLoading) {
       return;
     }
@@ -39,40 +39,98 @@ function LessonGeneration({ song }: LessonGenerationProps) {
 
       setGeneration(created);
 
-      const started = await lessonGenerationService.start(created.id);
+      const processed = await lessonGenerationService.start(created.id);
 
-      setGeneration(started);
+      setGeneration(processed);
     } catch (generationError) {
       console.error("Erro ao iniciar geração:", generationError);
 
-      if (generationError instanceof Error) {
-        setError(generationError.message);
-      } else {
-        setError("Não foi possível iniciar a geração.");
-      }
+      setError(
+        generationError instanceof Error
+          ? generationError.message
+          : "Não foi possível iniciar a geração.",
+      );
     } finally {
       setIsLoading(false);
     }
   }
 
-  function statusText() {
+  async function retryAnalysis() {
+    if (!generation || isLoading) {
+      return;
+    }
+
+    setIsLoading(true);
+
+    setError(null);
+
+    try {
+      const processed = await lessonGenerationService.start(generation.id);
+
+      setGeneration(processed);
+    } catch (retryError) {
+      console.error("Erro ao repetir análise:", retryError);
+
+      setError(
+        retryError instanceof Error
+          ? retryError.message
+          : "Não foi possível repetir a análise.",
+      );
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  function getStatusTitle() {
     if (!generation) {
       return "Aguardando início";
     }
 
-    if (generation.status === "pending") {
-      return "Na fila";
+    switch (generation.status) {
+      case "pending":
+        return "Na fila";
+
+      case "processing":
+        return "Analisando música";
+
+      case "waiting_for_analysis":
+        return "Aguardando fonte de análise";
+
+      case "analysis_ready":
+        return "Análise musical pronta";
+
+      case "completed":
+        return "Aula pronta";
+
+      case "failed":
+        return "Falha na geração";
+    }
+  }
+
+  function getStatusIcon() {
+    if (!generation) {
+      return "🧠";
     }
 
-    if (generation.status === "processing") {
-      return "Preparando análise";
-    }
+    switch (generation.status) {
+      case "pending":
+        return "🕐";
 
-    if (generation.status === "completed") {
-      return "Aula pronta";
-    }
+      case "processing":
+        return "⚙️";
 
-    return "Falha na geração";
+      case "waiting_for_analysis":
+        return "🔌";
+
+      case "analysis_ready":
+        return "🎼";
+
+      case "completed":
+        return "✅";
+
+      case "failed":
+        return "⚠️";
+    }
   }
 
   return (
@@ -144,31 +202,53 @@ function LessonGeneration({ song }: LessonGenerationProps) {
         <button
           type="button"
           className="lesson-generation-button"
-          onClick={() => void generateLesson()}
+          onClick={() => void createAndStart()}
           disabled={isLoading}
         >
           {isLoading ? "⏳ Preparando..." : "🧠 Preparar minha aula"}
         </button>
       ) : (
         <div className="generation-status-card">
-          <div className="generation-status-icon">
-            {generation.status === "processing" ? "⚙️" : "🧠"}
-          </div>
+          <div className="generation-status-icon">{getStatusIcon()}</div>
 
           <div>
             <span>STATUS</span>
 
-            <h4>{statusText()}</h4>
+            <h4>{getStatusTitle()}</h4>
+
+            {generation.message && (
+              <p className="generation-message">{generation.message}</p>
+            )}
 
             <p>
               Processo: <code>{generation.id}</code>
             </p>
 
-            {generation.status === "processing" && (
-              <small>
-                O contrato da geração está funcionando. O motor musical ainda
-                será conectado na próxima etapa.
-              </small>
+            {generation.analysis && (
+              <div className="analysis-summary">
+                <span>ANÁLISE MUSICAL</span>
+
+                <p>
+                  Provedor: <strong>{generation.analysis.provider}</strong>
+                </p>
+
+                <p>
+                  Status: <strong>{generation.analysis.status}</strong>
+                </p>
+              </div>
+            )}
+
+            {generation.status === "waiting_for_analysis" && (
+              <button
+                type="button"
+                className="retry-analysis-button"
+                onClick={() => void retryAnalysis()}
+                disabled={isLoading}
+              >
+                {isLoading
+                  ? "⏳ Verificando..."
+                  : "↻ Verificar análise novamente"}
+              </button>
             )}
           </div>
         </div>

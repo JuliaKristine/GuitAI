@@ -3592,3 +3592,79 @@ footer {
   }
 }
 
+/* ========================================
+   Integração com análise musical
+======================================== */
+
+.generation-message {
+  margin: 6px 0 10px !important;
+
+  color: #52525b !important;
+
+  font-size: 0.72rem !important;
+  line-height: 1.5;
+}
+
+
+.analysis-summary {
+  margin-top: 14px;
+  padding: 12px;
+
+  background: #ffffff;
+
+  border: 1px solid #ddd6fe;
+  border-radius: 11px;
+}
+
+
+.analysis-summary > span {
+  color: #7c3aed;
+
+  font-size: 0.58rem;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+
+.analysis-summary p {
+  margin: 5px 0 0;
+
+  color: #71717a;
+
+  font-size: 0.68rem;
+}
+
+
+.analysis-summary strong {
+  color: #27272a;
+}
+
+
+.retry-analysis-button {
+  margin-top: 13px;
+  padding: 9px 12px;
+
+  background: #ffffff;
+  color: #7c3aed;
+
+  border: 1px solid #c4b5fd;
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  font-size: 0.7rem;
+  font-weight: 800;
+}
+
+
+.retry-analysis-button:hover:not(:disabled) {
+  background: #f5f3ff;
+}
+
+
+.retry-analysis-button:disabled {
+  opacity: 0.6;
+
+  cursor: wait;
+}
+

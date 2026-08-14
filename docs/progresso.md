@@ -1578,3 +1578,27 @@ Motor pedagógico
    ↓
 Lesson
 
+---
+
+## Etapa 29 — Integração entre geração e análise musical
+
+### Status
+
+✅ Concluída
+
+### Implementado
+
+O processo de geração de aulas passou a consultar
+diretamente a camada `MusicAnalysisProvider`.
+
+### Novo fluxo
+
+```text
+LessonGeneration
+    ↓
+processing
+    ↓
+MusicAnalysisProvider
+    ↓
+MusicAnalysisResult
+

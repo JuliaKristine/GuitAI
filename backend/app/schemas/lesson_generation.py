@@ -3,14 +3,29 @@ from enum import Enum
 
 from pydantic import BaseModel, Field
 
+from app.schemas.music_analysis import (
+    MusicAnalysisResult,
+)
+
 
 class LessonGenerationStatus(
     str,
     Enum,
 ):
     pending = "pending"
+
     processing = "processing"
+
+    waiting_for_analysis = (
+        "waiting_for_analysis"
+    )
+
+    analysis_ready = (
+        "analysis_ready"
+    )
+
     completed = "completed"
+
     failed = "failed"
 
 
@@ -105,9 +120,16 @@ class LessonGenerationResponse(
 
     updated_at: datetime
 
+    analysis: (
+        MusicAnalysisResult
+        | None
+    ) = None
+
     lesson: (
         GeneratedLesson
         | None
     ) = None
+
+    message: str | None = None
 
     error: str | None = None

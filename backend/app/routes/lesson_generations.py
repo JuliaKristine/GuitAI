@@ -58,6 +58,7 @@ def read_lesson_generation(
     if not generation:
         raise HTTPException(
             status_code=404,
+
             detail=(
                 "Processo de geração "
                 "não encontrado."
@@ -73,11 +74,11 @@ def read_lesson_generation(
         LessonGenerationResponse
     ),
 )
-def start_lesson_generation(
+async def start_lesson_generation(
     generation_id: str,
 ):
     generation = (
-        start_generation(
+        await start_generation(
             generation_id
         )
     )
@@ -85,6 +86,7 @@ def start_lesson_generation(
     if not generation:
         raise HTTPException(
             status_code=404,
+
             detail=(
                 "Processo de geração "
                 "não encontrado."
