@@ -13,6 +13,10 @@ from app.routes.health import (
     router as health_router,
 )
 
+from app.routes.lesson_generations import (
+    router as lesson_generations_router,
+)
+
 from app.routes.songs import (
     router as songs_router,
 )
@@ -48,7 +52,9 @@ def root():
     return {
         "name": settings.app_name,
         "status": "online",
-        "environment": settings.app_env,
+        "environment": (
+            settings.app_env
+        ),
         "docs": "/docs",
     }
 
@@ -67,4 +73,8 @@ app.include_router(
 
 app.include_router(
     spotify_router
+)
+
+app.include_router(
+    lesson_generations_router
 )

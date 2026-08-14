@@ -1387,3 +1387,108 @@ POST /songs/prepare
 GuitAISong
     ↓
 waiting_for_lesson
+
+---
+
+## Etapa 27 — Contrato de geração de aula
+
+### Status
+
+✅ Concluída
+
+### Implementado
+
+Foi criado o primeiro pipeline estruturado
+para geração de aulas do GuitAI.
+
+### Estados
+
+Uma geração pode possuir os estados:
+
+- pending
+- processing
+- completed
+- failed
+
+### Entrada
+
+A geração recebe:
+
+- música interna do GuitAI;
+- nível de dificuldade.
+
+### Níveis
+
+- Iniciante absoluto
+- Iniciante
+- Em evolução
+
+### Saída planejada
+
+Quando uma geração for concluída, o contrato
+permite retornar:
+
+- acordes;
+- acordes simplificados;
+- ritmo;
+- BPM;
+- sequência de batidas;
+- passos da aula;
+- instruções;
+- dicas;
+- notas de simplificação.
+
+### Segurança pedagógica
+
+Nenhum acorde é inventado nesta etapa.
+
+O processo chega ao estado `processing`,
+mas só poderá produzir uma aula quando
+uma fonte de análise musical apropriada
+for conectada.
+
+### Backend
+
+Foram criados:
+
+`schemas/lesson_generation.py`
+
+`services/lesson_generation_service.py`
+
+`routes/lesson_generations.py`
+
+### Endpoints
+
+`POST /lesson-generations`
+
+`GET /lesson-generations/{id}`
+
+`POST /lesson-generations/{id}/start`
+
+### Frontend
+
+Foram criados:
+
+`types/lessonGeneration.ts`
+
+`services/lessonGenerationService.ts`
+
+`components/LessonGeneration`
+
+### Fluxo
+
+```text
+Spotify Track
+     ↓
+GuitAISong
+     ↓
+LessonGeneration
+     ↓
+pending
+     ↓
+processing
+     ↓
+futuro motor musical
+     ↓
+completed / failed
+

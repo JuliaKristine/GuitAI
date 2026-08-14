@@ -1,3 +1,5 @@
+import LessonGeneration from "./components/LessonGeneration/LessonGeneration";
+
 import { useState } from "react";
 
 import LessonPlayer from "./components/LessonPlayer/LessonPlayer";
@@ -151,6 +153,10 @@ function App() {
                 </p>
               </div>
             </div>
+
+            <LessonGeneration 
+              song={spotifySong}
+            />
 
             <div className="prepared-song-actions">
               {spotifySong.source_url && (

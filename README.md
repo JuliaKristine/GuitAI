@@ -137,7 +137,12 @@ O primeiro marco funcional será fazer o sistema receber um acorde e gerar autom
 
 ### Fase 5 — Reconhecimento do instrumento
 
-- [ ] Capturar áudio pelo microfone
-- [ ] Identificar acordes tocados
-- [ ] Comparar execução
-- [ ] Dar feedback ao aluno
+- [x] Criar GuitAISong
+- [x] Criar contrato de geração de aula
+- [x] Criar estados pending / processing
+- [ ] Criar camada de análise musical
+- [ ] Obter dados de acordes confiáveis
+- [ ] Simplificar acordes por dificuldade
+- [ ] Gerar Lesson
+- [ ] Conectar Lesson gerada ao modo Aula
+- [ ] Conectar Lesson gerada ao modo Prática

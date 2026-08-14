@@ -3357,3 +3357,238 @@ footer {
   }
 }
 
+/* ========================================
+   Geração de aula
+======================================== */
+
+.lesson-generation {
+  margin-top: 20px;
+  padding: 20px;
+
+  background: #ffffff;
+
+  border: 1px solid #e4e4e7;
+  border-radius: 18px;
+}
+
+.lesson-generation-header > span {
+  color: #7c3aed;
+
+  font-size: 0.64rem;
+  font-weight: 900;
+  letter-spacing: 1.2px;
+}
+
+.lesson-generation-header h3 {
+  margin: 5px 0;
+
+  color: #27272a;
+
+  font-size: 1rem;
+}
+
+.lesson-generation-header p {
+  margin: 0;
+
+  color: #71717a;
+
+  font-size: 0.76rem;
+}
+
+
+/* Níveis */
+
+.lesson-generation-levels {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 9px;
+
+  margin-top: 16px;
+}
+
+.lesson-level {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 5px;
+
+  padding: 14px 8px;
+
+  background: #fafafa;
+  color: #52525b;
+
+  border: 2px solid #e4e4e7;
+  border-radius: 13px;
+
+  cursor: pointer;
+}
+
+.lesson-level:hover:not(:disabled) {
+  border-color: #c4b5fd;
+}
+
+.lesson-level.active {
+  background: #f5f3ff;
+
+  border-color: #7c3aed;
+}
+
+.lesson-level:disabled {
+  opacity: 0.6;
+
+  cursor: default;
+}
+
+.lesson-level > span {
+  font-size: 1.5rem;
+}
+
+.lesson-level strong {
+  color: #27272a;
+
+  font-size: 0.72rem;
+}
+
+.lesson-level.active strong {
+  color: #7c3aed;
+}
+
+.lesson-level small {
+  color: #a1a1aa;
+
+  font-size: 0.62rem;
+}
+
+
+/* Botão */
+
+.lesson-generation-button {
+  width: 100%;
+
+  margin-top: 15px;
+  padding: 12px;
+
+  background: #7c3aed;
+  color: #ffffff;
+
+  border: none;
+  border-radius: 12px;
+
+  cursor: pointer;
+
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+.lesson-generation-button:disabled {
+  opacity: 0.6;
+
+  cursor: wait;
+}
+
+
+/* Status */
+
+.generation-status-card {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 13px;
+
+  margin-top: 16px;
+  padding: 15px;
+
+  background: #f5f3ff;
+
+  border: 1px solid #ddd6fe;
+  border-radius: 14px;
+}
+
+.generation-status-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 40px;
+  height: 40px;
+
+  background: #ffffff;
+
+  border-radius: 11px;
+
+  font-size: 1.3rem;
+}
+
+.generation-status-card > div:last-child {
+  min-width: 0;
+}
+
+.generation-status-card span {
+  color: #7c3aed;
+
+  font-size: 0.6rem;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.generation-status-card h4 {
+  margin: 3px 0 5px;
+
+  color: #27272a;
+
+  font-size: 0.9rem;
+}
+
+.generation-status-card p {
+  margin: 0;
+
+  color: #71717a;
+
+  font-size: 0.68rem;
+}
+
+.generation-status-card code {
+  word-break: break-all;
+
+  color: #7c3aed;
+}
+
+.generation-status-card small {
+  display: block;
+
+  margin-top: 8px;
+
+  color: #71717a;
+
+  font-size: 0.68rem;
+  line-height: 1.5;
+}
+
+
+/* Erro */
+
+.lesson-generation-error {
+  margin-top: 14px;
+  padding: 11px;
+
+  background: #fff7ed;
+  color: #9a3412;
+
+  border: 1px solid #fed7aa;
+  border-radius: 11px;
+
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+
+@media (max-width: 650px) {
+  .lesson-generation-levels {
+    grid-template-columns: 1fr;
+  }
+}
+
