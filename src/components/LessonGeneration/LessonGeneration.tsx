@@ -104,6 +104,9 @@ function LessonGeneration({ song }: LessonGenerationProps) {
 
       case "failed":
         return "Falha na geração";
+
+      case "simplification_ready":
+        return "Prática simplificada pronta";
     }
   }
 
@@ -130,6 +133,9 @@ function LessonGeneration({ song }: LessonGenerationProps) {
 
       case "failed":
         return "⚠️";
+
+      case "simplification_ready":
+        return "🎸";
     }
   }
 
@@ -235,6 +241,54 @@ function LessonGeneration({ song }: LessonGenerationProps) {
                 <p>
                   Status: <strong>{generation.analysis.status}</strong>
                 </p>
+              </div>
+            )}
+
+            {generation.simplification && (
+              <div className="simplification-summary">
+                <span>PLANO DE PRÁTICA</span>
+
+                <div className="simplification-row">
+                  <strong>Acordes originais</strong>
+
+                  <p>{generation.simplification.original_chords.join(" → ")}</p>
+                </div>
+
+                <div className="simplification-row">
+                  <strong>🎸 Pratique agora</strong>
+
+                  <p>
+                    {generation.simplification.practice_chords.length > 0
+                      ? generation.simplification.practice_chords.join(" → ")
+                      : "Nenhum acorde ainda"}
+                  </p>
+                </div>
+
+                {generation.simplification.deferred_chords.length > 0 && (
+                  <div className="simplification-row">
+                    <strong>🕐 Depois</strong>
+
+                    <p>
+                      {generation.simplification.deferred_chords.join(" → ")}
+                    </p>
+                  </div>
+                )}
+
+                {generation.simplification.review_chords.length > 0 && (
+                  <div className="simplification-row">
+                    <strong>⚠️ Precisa revisar</strong>
+
+                    <p>{generation.simplification.review_chords.join(" → ")}</p>
+                  </div>
+                )}
+
+                <div className="simplification-bpm">
+                  <span>VELOCIDADE RECOMENDADA</span>
+
+                  <strong>
+                    {generation.simplification.recommended_bpm} BPM
+                  </strong>
+                </div>
               </div>
             )}
 

@@ -15,6 +15,10 @@ from app.schemas.music_analysis import (
     MusicAnalysisStatus,
 )
 
+from app.services.chord_simplifier import (
+    simplify_chords,
+)
+
 from app.services.music_analysis_service import (
     analyze_song,
 )
@@ -33,7 +37,8 @@ def utc_now() -> datetime:
 
 
 def save_generation(
-    generation: LessonGenerationResponse,
+    generation:
+        LessonGenerationResponse,
 ):
     _generations[
         generation.id
@@ -41,7 +46,8 @@ def save_generation(
 
 
 def create_generation(
-    request: LessonGenerationRequest,
+    request:
+        LessonGenerationRequest,
 ) -> LessonGenerationResponse:
     generation_id = str(
         uuid4()
@@ -69,6 +75,8 @@ def create_generation(
             updated_at=now,
 
             analysis=None,
+
+            simplification=None,
 
             lesson=None,
 
@@ -117,6 +125,7 @@ async def start_generation(
     allowed_statuses = {
         LessonGenerationStatus.pending,
         LessonGenerationStatus.waiting_for_analysis,
+        LessonGenerationStatus.analysis_ready,
     }
 
     if (
@@ -137,8 +146,8 @@ async def start_generation(
 
                 "message":
                     (
-                        "Consultando o provedor "
-                        "de análise musical."
+                        "Processando dados "
+                        "musicais e pedagógicos."
                     ),
 
                 "error":
@@ -152,9 +161,20 @@ async def start_generation(
     )
 
     try:
-        analysis = await analyze_song(
-            processing_generation.song_id
+        analysis = (
+            processing_generation
+            .analysis
         )
+
+        if (
+            analysis is None
+            or analysis.status
+            != MusicAnalysisStatus.ready
+        ):
+            analysis = await analyze_song(
+                processing_generation
+                .song_id
+            )
 
     except Exception as error:
         failed_generation = (
@@ -204,6 +224,9 @@ async def start_generation(
                     "analysis":
                         analysis,
 
+                    "simplification":
+                        None,
+
                     "message":
                         (
                             analysis.message
@@ -242,6 +265,9 @@ async def start_generation(
                     "analysis":
                         analysis,
 
+                    "simplification":
+                        None,
+
                     "message":
                         (
                             "O provedor não conseguiu "
@@ -277,8 +303,8 @@ async def start_generation(
                 "message":
                     (
                         "Análise musical pronta. "
-                        "Aguardando o motor "
-                        "pedagógico."
+                        "Iniciando simplificação "
+                        "pedagógica."
                     ),
 
                 "error":
@@ -291,4 +317,80 @@ async def start_generation(
         analysis_ready_generation
     )
 
-    return analysis_ready_generation
+    try:
+        simplification = (
+            simplify_chords(
+                chords=analysis.chords,
+
+                difficulty=(
+                    generation
+                    .difficulty
+                    .value
+                ),
+            )
+        )
+
+    except Exception as error:
+        failed_generation = (
+            analysis_ready_generation
+            .model_copy(
+                update={
+                    "status":
+                        LessonGenerationStatus
+                        .failed,
+
+                    "updated_at":
+                        utc_now(),
+
+                    "message":
+                        (
+                            "Não foi possível "
+                            "simplificar os acordes."
+                        ),
+
+                    "error":
+                        str(error),
+                }
+            )
+        )
+
+        save_generation(
+            failed_generation
+        )
+
+        return failed_generation
+
+    simplification_ready_generation = (
+        analysis_ready_generation
+        .model_copy(
+            update={
+                "status":
+                    LessonGenerationStatus
+                    .simplification_ready,
+
+                "updated_at":
+                    utc_now(),
+
+                "simplification":
+                    simplification,
+
+                "message":
+                    (
+                        "Simplificação pedagógica "
+                        "pronta. Aguardando geração "
+                        "da aula."
+                    ),
+
+                "error":
+                    None,
+            }
+        )
+    )
+
+    save_generation(
+        simplification_ready_generation
+    )
+
+    return (
+        simplification_ready_generation
+    )

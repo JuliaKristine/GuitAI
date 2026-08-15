@@ -3668,3 +3668,74 @@ footer {
   cursor: wait;
 }
 
+/* ========================================
+   Simplificação pedagógica
+======================================== */
+
+.simplification-summary {
+  margin-top: 14px;
+  padding: 14px;
+
+  background: #ffffff;
+
+  border: 1px solid #ddd6fe;
+  border-radius: 12px;
+}
+
+.simplification-summary > span {
+  color: #7c3aed;
+
+  font-size: 0.58rem;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.simplification-row {
+  margin-top: 12px;
+}
+
+.simplification-row strong {
+  display: block;
+
+  color: #3f3f46;
+
+  font-size: 0.69rem;
+}
+
+.simplification-row p {
+  margin: 4px 0 0;
+
+  color: #7c3aed;
+
+  font-size: 0.82rem;
+  font-weight: 900;
+}
+
+.simplification-bpm {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 10px;
+
+  margin-top: 15px;
+  padding: 10px;
+
+  background: #f5f3ff;
+
+  border-radius: 10px;
+}
+
+.simplification-bpm span {
+  color: #6d28d9;
+
+  font-size: 0.58rem;
+  font-weight: 900;
+}
+
+.simplification-bpm strong {
+  color: #7c3aed;
+
+  font-size: 0.82rem;
+}
+

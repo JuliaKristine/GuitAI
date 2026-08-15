@@ -144,9 +144,10 @@ O primeiro marco funcional será fazer o sistema receber um acorde e gerar autom
 - [x] Criar contrato de análise musical
 - [x] Conectar geração à análise musical
 - [x] Criar DemoMusicAnalysisProvider
-- [x] Validar estado analysis_ready
-- [ ] Criar simplificador de acordes
+- [x] Criar ChordSimplifier
+- [x] Preservar acordes originais
 - [ ] Criar motor pedagógico
-- [ ] Gerar Lesson
+- [ ] Gerar Lesson automaticamente
+- [ ] Gerar dicas de troca de acordes
 - [ ] Conectar Lesson ao modo Aula
 - [ ] Conectar Lesson ao modo Prática

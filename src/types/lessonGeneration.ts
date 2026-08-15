@@ -1,3 +1,5 @@
+import type { ChordSimplification } from "./chordSimplification";
+
 import type { MusicAnalysis } from "./musicAnalysis";
 
 export type LessonGenerationStatus =
@@ -5,6 +7,7 @@ export type LessonGenerationStatus =
   | "processing"
   | "waiting_for_analysis"
   | "analysis_ready"
+  | "simplification_ready"
   | "completed"
   | "failed";
 
@@ -62,6 +65,8 @@ export type LessonGeneration = {
   updated_at: string;
 
   analysis: MusicAnalysis | null;
+
+  simplification: ChordSimplification | null;
 
   lesson: GeneratedLesson | null;
 

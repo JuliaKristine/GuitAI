@@ -1690,3 +1690,78 @@ ready
     ↓
 analysis_ready
 
+---
+
+## Etapa 31 — ChordSimplifier
+
+### Status
+
+✅ Concluída
+
+### Objetivo
+
+Criar a primeira camada de adaptação
+pedagógica dos acordes.
+
+### Princípio
+
+A simplificação não altera silenciosamente
+os dados musicais originais.
+
+O sistema mantém separadamente:
+
+- acordes originais;
+- acordes recomendados para prática;
+- acordes adiados;
+- acordes que precisam de revisão.
+
+### Biblioteca inicial
+
+Dificuldade 1:
+
+- G
+- Em
+- Am
+
+Dificuldade 2:
+
+- C
+- D
+
+### Iniciante absoluto
+
+- máximo de 2 acordes por sessão;
+- acordes de dificuldade 1;
+- 40 BPM.
+
+### Iniciante
+
+- máximo de 4 acordes;
+- dificuldade até 2;
+- 60 BPM.
+
+### Em evolução
+
+- máximo de 6 acordes;
+- dificuldade até 3;
+- 80 BPM.
+
+### Novo estado
+
+Foi criado:
+
+`simplification_ready`
+
+Fluxo atual:
+
+```text
+pending
+↓
+processing
+↓
+analysis_ready
+↓
+ChordSimplifier
+↓
+simplification_ready
+

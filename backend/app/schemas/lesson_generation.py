@@ -3,6 +3,10 @@ from enum import Enum
 
 from pydantic import BaseModel, Field
 
+from app.schemas.chord_simplification import (
+    ChordSimplificationResult,
+)
+
 from app.schemas.music_analysis import (
     MusicAnalysisResult,
 )
@@ -22,6 +26,10 @@ class LessonGenerationStatus(
 
     analysis_ready = (
         "analysis_ready"
+    )
+
+    simplification_ready = (
+        "simplification_ready"
     )
 
     completed = "completed"
@@ -122,6 +130,11 @@ class LessonGenerationResponse(
 
     analysis: (
         MusicAnalysisResult
+        | None
+    ) = None
+
+    simplification: (
+        ChordSimplificationResult
         | None
     ) = None
 
