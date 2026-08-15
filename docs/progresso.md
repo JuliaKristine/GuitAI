@@ -1834,3 +1834,30 @@ GeneratedLesson
     ↓
 completed
 
+---
+
+## Etapa 33 — Integração da aula gerada com o frontend
+
+### Status
+
+✅ Concluída
+
+### Objetivo
+
+Carregar uma GeneratedLesson criada pelo backend
+diretamente nos componentes educacionais existentes
+do frontend.
+
+### Adapter
+
+Foi criado:
+
+`src/adapters/generatedLessonAdapter.ts`
+
+O adapter converte:
+
+```text
+GeneratedLesson
+↓
+Lesson
+

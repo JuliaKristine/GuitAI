@@ -1,8 +1,10 @@
 import { useState } from "react";
 
+import { generatedLessonToLesson } from "../../adapters/generatedLessonAdapter";
+
 import { lessonGenerationService } from "../../services/lessonGenerationService";
 
-import type { GuitAISong } from "../../types/guitaiSong";
+import type { Lesson } from "../../data/lessons";
 
 import type {
   LessonDifficulty,
@@ -10,10 +12,12 @@ import type {
 } from "../../types/lessonGeneration";
 
 type LessonGenerationProps = {
-  song: GuitAISong;
+  songId: string;
+
+  onLessonReady?: (lesson: Lesson) => void;
 };
 
-function LessonGeneration({ song }: LessonGenerationProps) {
+function LessonGeneration({ songId, onLessonReady }: LessonGenerationProps) {
   const [difficulty, setDifficulty] =
     useState<LessonDifficulty>("absolute-beginner");
 
@@ -25,6 +29,20 @@ function LessonGeneration({ song }: LessonGenerationProps) {
 
   const [error, setError] = useState<string | null>(null);
 
+  function publishLesson(result: LessonGenerationType) {
+    if (result.status !== "completed") {
+      return;
+    }
+
+    if (!result.lesson) {
+      return;
+    }
+
+    const lesson = generatedLessonToLesson(result.lesson);
+
+    onLessonReady?.(lesson);
+  }
+
   async function createAndStart() {
     if (isLoading) {
       return;
@@ -35,21 +53,23 @@ function LessonGeneration({ song }: LessonGenerationProps) {
     setError(null);
 
     try {
-      const created = await lessonGenerationService.create(song.id, difficulty);
+      const created = await lessonGenerationService.create(songId, difficulty);
 
       setGeneration(created);
 
       const processed = await lessonGenerationService.start(created.id);
 
       setGeneration(processed);
-    } catch (generationError) {
-      console.error("Erro ao iniciar geração:", generationError);
 
-      setError(
-        generationError instanceof Error
-          ? generationError.message
-          : "Não foi possível iniciar a geração.",
-      );
+      publishLesson(processed);
+    } catch (generationError) {
+      console.error("Erro ao gerar aula:", generationError);
+
+      if (generationError instanceof Error) {
+        setError(generationError.message);
+      } else {
+        setError("Não foi possível gerar a aula.");
+      }
     } finally {
       setIsLoading(false);
     }
@@ -68,14 +88,16 @@ function LessonGeneration({ song }: LessonGenerationProps) {
       const processed = await lessonGenerationService.start(generation.id);
 
       setGeneration(processed);
-    } catch (retryError) {
-      console.error("Erro ao repetir análise:", retryError);
 
-      setError(
-        retryError instanceof Error
-          ? retryError.message
-          : "Não foi possível repetir a análise.",
-      );
+      publishLesson(processed);
+    } catch (retryError) {
+      console.error("Erro ao repetir geração:", retryError);
+
+      if (retryError instanceof Error) {
+        setError(retryError.message);
+      } else {
+        setError("Não foi possível repetir a geração.");
+      }
     } finally {
       setIsLoading(false);
     }
@@ -91,7 +113,7 @@ function LessonGeneration({ song }: LessonGenerationProps) {
         return "Na fila";
 
       case "processing":
-        return "Analisando música";
+        return "Processando música";
 
       case "waiting_for_analysis":
         return "Aguardando fonte de análise";
@@ -99,14 +121,14 @@ function LessonGeneration({ song }: LessonGenerationProps) {
       case "analysis_ready":
         return "Análise musical pronta";
 
+      case "simplification_ready":
+        return "Prática simplificada pronta";
+
       case "completed":
         return "Aula pronta";
 
       case "failed":
         return "Falha na geração";
-
-      case "simplification_ready":
-        return "Prática simplificada pronta";
     }
   }
 
@@ -128,14 +150,14 @@ function LessonGeneration({ song }: LessonGenerationProps) {
       case "analysis_ready":
         return "🎼";
 
+      case "simplification_ready":
+        return "🎸";
+
       case "completed":
         return "✅";
 
       case "failed":
         return "⚠️";
-
-      case "simplification_ready":
-        return "🎸";
     }
   }
 
@@ -146,7 +168,7 @@ function LessonGeneration({ song }: LessonGenerationProps) {
 
         <h3>Como devemos simplificar esta música?</h3>
 
-        <p>Escolha seu nível antes de iniciar a preparação.</p>
+        <p>Escolha seu nível antes de iniciar a geração.</p>
       </div>
 
       <div className="lesson-generation-levels">
@@ -211,7 +233,7 @@ function LessonGeneration({ song }: LessonGenerationProps) {
           onClick={() => void createAndStart()}
           disabled={isLoading}
         >
-          {isLoading ? "⏳ Preparando..." : "🧠 Preparar minha aula"}
+          {isLoading ? "⏳ Gerando..." : "🧠 Gerar minha aula"}
         </button>
       ) : (
         <div className="generation-status-card">
@@ -241,6 +263,19 @@ function LessonGeneration({ song }: LessonGenerationProps) {
                 <p>
                   Status: <strong>{generation.analysis.status}</strong>
                 </p>
+
+                {generation.analysis.key && (
+                  <p>
+                    Tom: <strong>{generation.analysis.key}</strong>
+                  </p>
+                )}
+
+                {generation.analysis.tempo_bpm && (
+                  <p>
+                    BPM analisado:{" "}
+                    <strong>{generation.analysis.tempo_bpm}</strong>
+                  </p>
+                )}
               </div>
             )}
 
@@ -260,7 +295,7 @@ function LessonGeneration({ song }: LessonGenerationProps) {
                   <p>
                     {generation.simplification.practice_chords.length > 0
                       ? generation.simplification.practice_chords.join(" → ")
-                      : "Nenhum acorde ainda"}
+                      : "Nenhum acorde"}
                   </p>
                 </div>
 
@@ -324,9 +359,7 @@ function LessonGeneration({ song }: LessonGenerationProps) {
                   </strong>
                 </div>
 
-                <p>
-                  A aula foi gerada com {generation.lesson.steps.length} passos.
-                </p>
+                <p>A aula foi carregada automaticamente no GuitAI.</p>
               </div>
             )}
 

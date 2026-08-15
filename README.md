@@ -147,7 +147,7 @@ O primeiro marco funcional será fazer o sistema receber um acorde e gerar autom
 - [x] Criar ChordSimplifier
 - [x] Criar PedagogicalLessonBuilder
 - [x] Gerar Lesson automaticamente
-- [x] Gerar dicas de troca de acordes
-- [ ] Carregar Lesson gerada no LessonPlayer
-- [ ] Carregar Lesson gerada no PracticeMode
+- [x] Carregar Lesson gerada no LessonPlayer
+- [x] Carregar Lesson gerada no PracticeMode
+- [ ] Unificar dificuldade entre geração e prática
 - [ ] Integrar provedor musical real
