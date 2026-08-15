@@ -3739,3 +3739,99 @@ footer {
   font-size: 0.82rem;
 }
 
+/* ========================================
+   Aula gerada
+======================================== */
+
+.generated-lesson-summary {
+  margin-top: 14px;
+  padding: 15px;
+
+  background: #f0fdf4;
+
+  border: 1px solid #bbf7d0;
+  border-radius: 12px;
+}
+
+.generated-lesson-summary > span {
+  color: #15803d;
+
+  font-size: 0.58rem;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.generated-lesson-summary h4 {
+  margin: 6px 0 0;
+
+  color: #166534;
+
+  font-size: 0.9rem;
+}
+
+.generated-lesson-rhythm {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, 1fr);
+
+  gap: 8px;
+
+  margin-top: 13px;
+}
+
+.generated-lesson-rhythm > div {
+  display: flex;
+  flex-direction: column;
+
+  gap: 3px;
+
+  padding: 10px;
+
+  background: #ffffff;
+
+  border-radius: 9px;
+}
+
+.generated-lesson-rhythm small,
+.generated-lesson-chords small {
+  color: #71717a;
+
+  font-size: 0.56rem;
+  font-weight: 800;
+}
+
+.generated-lesson-rhythm strong {
+  color: #15803d;
+
+  font-size: 0.84rem;
+}
+
+.generated-lesson-chords {
+  display: flex;
+  flex-direction: column;
+
+  gap: 4px;
+
+  margin-top: 8px;
+  padding: 10px;
+
+  background: #ffffff;
+
+  border-radius: 9px;
+}
+
+.generated-lesson-chords strong {
+  color: #7c3aed;
+
+  font-size: 0.82rem;
+}
+
+.generated-lesson-summary > p {
+  margin: 10px 0 0;
+
+  color: #52525b;
+
+  font-size: 0.68rem;
+}
+

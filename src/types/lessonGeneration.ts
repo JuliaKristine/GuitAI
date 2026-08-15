@@ -13,10 +13,12 @@ export type LessonGenerationStatus =
 
 export type LessonDifficulty = "absolute-beginner" | "beginner" | "developing";
 
-export type GeneratedChord = {
-  chord: string;
+export type GeneratedChordTransition = {
+  from: string;
 
-  simplified_from: string | null;
+  to: string;
+
+  instructions: string[];
 };
 
 export type GeneratedRhythm = {
@@ -24,7 +26,7 @@ export type GeneratedRhythm = {
 
   bpm: number;
 
-  beats: string[];
+  beats: ("down" | "up")[];
 };
 
 export type GeneratedLessonStep = {
@@ -35,18 +37,24 @@ export type GeneratedLessonStep = {
   instruction: string;
 
   tip: string;
+
+  transition: GeneratedChordTransition | null;
 };
 
 export type GeneratedLesson = {
+  id: string;
+
   title: string;
 
   description: string;
 
-  chords: GeneratedChord[];
-
   rhythm: GeneratedRhythm;
 
   steps: GeneratedLessonStep[];
+
+  original_chords: string[];
+
+  practice_chords: string[];
 
   simplification_notes: string[];
 };

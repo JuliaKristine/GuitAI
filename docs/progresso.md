@@ -1765,3 +1765,72 @@ ChordSimplifier
 ↓
 simplification_ready
 
+---
+
+## Etapa 32 — PedagogicalLessonBuilder
+
+### Status
+
+✅ Concluída
+
+### Objetivo
+
+Transformar análise musical e simplificação
+pedagógica em uma aula estruturada.
+
+### Componente
+
+Foi criado:
+
+`PedagogicalLessonBuilder`
+
+Arquivo:
+
+`services/pedagogical_lesson_builder.py`
+
+### Entrada
+
+O builder recebe:
+
+- identificação da música;
+- nível escolhido;
+- análise musical;
+- simplificação pedagógica.
+
+### Saída
+
+É gerada uma Lesson contendo:
+
+- identificador;
+- título;
+- descrição;
+- ritmo;
+- BPM;
+- batidas down/up;
+- passos;
+- instruções;
+- dicas;
+- transições entre acordes;
+- acordes originais;
+- acordes utilizados na aula;
+- notas de simplificação.
+
+### Compatibilidade
+
+A estrutura gerada foi projetada para ser
+compatível com o modelo utilizado pelo
+LessonPlayer do frontend.
+
+### Novo fluxo
+
+```text
+MusicAnalysis
+    ↓
+ChordSimplifier
+    ↓
+PedagogicalLessonBuilder
+    ↓
+GeneratedLesson
+    ↓
+completed
+

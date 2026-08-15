@@ -24,16 +24,12 @@ router = APIRouter(
 
 @router.post(
     "",
-    response_model=(
-        LessonGenerationResponse
-    ),
-    status_code=(
-        status.HTTP_201_CREATED
-    ),
+    response_model=LessonGenerationResponse,
+    response_model_by_alias=True,
+    status_code=status.HTTP_201_CREATED,
 )
 def create_lesson_generation(
-    request:
-        LessonGenerationRequest,
+    request: LessonGenerationRequest,
 ):
     return create_generation(
         request
@@ -42,23 +38,19 @@ def create_lesson_generation(
 
 @router.get(
     "/{generation_id}",
-    response_model=(
-        LessonGenerationResponse
-    ),
+    response_model=LessonGenerationResponse,
+    response_model_by_alias=True,
 )
 def read_lesson_generation(
     generation_id: str,
 ):
-    generation = (
-        get_generation(
-            generation_id
-        )
+    generation = get_generation(
+        generation_id
     )
 
     if not generation:
         raise HTTPException(
             status_code=404,
-
             detail=(
                 "Processo de geração "
                 "não encontrado."
@@ -70,23 +62,19 @@ def read_lesson_generation(
 
 @router.post(
     "/{generation_id}/start",
-    response_model=(
-        LessonGenerationResponse
-    ),
+    response_model=LessonGenerationResponse,
+    response_model_by_alias=True,
 )
 async def start_lesson_generation(
     generation_id: str,
 ):
-    generation = (
-        await start_generation(
-            generation_id
-        )
+    generation = await start_generation(
+        generation_id
     )
 
     if not generation:
         raise HTTPException(
             status_code=404,
-
             detail=(
                 "Processo de geração "
                 "não encontrado."

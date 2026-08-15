@@ -292,6 +292,44 @@ function LessonGeneration({ song }: LessonGenerationProps) {
               </div>
             )}
 
+            {generation.lesson && (
+              <div className="generated-lesson-summary">
+                <span>✅ AULA GERADA</span>
+
+                <h4>{generation.lesson.title}</h4>
+
+                <div className="generated-lesson-rhythm">
+                  <div>
+                    <small>BPM</small>
+
+                    <strong>{generation.lesson.rhythm.bpm}</strong>
+                  </div>
+
+                  <div>
+                    <small>BATIDA</small>
+
+                    <strong>
+                      {generation.lesson.rhythm.beats
+                        .map((beat) => (beat === "down" ? "↓" : "↑"))
+                        .join(" ")}
+                    </strong>
+                  </div>
+                </div>
+
+                <div className="generated-lesson-chords">
+                  <small>ACORDES DA AULA</small>
+
+                  <strong>
+                    {generation.lesson.practice_chords.join(" → ")}
+                  </strong>
+                </div>
+
+                <p>
+                  A aula foi gerada com {generation.lesson.steps.length} passos.
+                </p>
+              </div>
+            )}
+
             {generation.status === "waiting_for_analysis" && (
               <button
                 type="button"

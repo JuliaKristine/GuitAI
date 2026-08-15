@@ -1,5 +1,6 @@
 from datetime import datetime
 from enum import Enum
+from typing import Literal
 
 from pydantic import BaseModel, Field
 
@@ -60,12 +61,22 @@ class LessonGenerationRequest(
     )
 
 
-class GeneratedChord(
+StrumDirection = Literal[
+    "down",
+    "up",
+]
+
+
+class GeneratedChordTransition(
     BaseModel
 ):
-    chord: str
+    from_chord: str = Field(
+        serialization_alias="from",
+    )
 
-    simplified_from: str | None = None
+    to: str
+
+    instructions: list[str]
 
 
 class GeneratedRhythm(
@@ -78,7 +89,9 @@ class GeneratedRhythm(
         le=240,
     )
 
-    beats: list[str]
+    beats: list[
+        StrumDirection
+    ]
 
 
 class GeneratedLessonStep(
@@ -92,23 +105,30 @@ class GeneratedLessonStep(
 
     tip: str
 
+    transition: (
+        GeneratedChordTransition
+        | None
+    ) = None
+
 
 class GeneratedLesson(
     BaseModel
 ):
+    id: str
+
     title: str
 
     description: str
-
-    chords: list[
-        GeneratedChord
-    ]
 
     rhythm: GeneratedRhythm
 
     steps: list[
         GeneratedLessonStep
     ]
+
+    original_chords: list[str]
+
+    practice_chords: list[str]
 
     simplification_notes: list[str]
 

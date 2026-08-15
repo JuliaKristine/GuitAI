@@ -145,9 +145,9 @@ O primeiro marco funcional será fazer o sistema receber um acorde e gerar autom
 - [x] Conectar geração à análise musical
 - [x] Criar DemoMusicAnalysisProvider
 - [x] Criar ChordSimplifier
-- [x] Preservar acordes originais
-- [ ] Criar motor pedagógico
-- [ ] Gerar Lesson automaticamente
-- [ ] Gerar dicas de troca de acordes
-- [ ] Conectar Lesson ao modo Aula
-- [ ] Conectar Lesson ao modo Prática
+- [x] Criar PedagogicalLessonBuilder
+- [x] Gerar Lesson automaticamente
+- [x] Gerar dicas de troca de acordes
+- [ ] Carregar Lesson gerada no LessonPlayer
+- [ ] Carregar Lesson gerada no PracticeMode
+- [ ] Integrar provedor musical real
