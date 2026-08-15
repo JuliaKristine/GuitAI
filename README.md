@@ -149,5 +149,5 @@ O primeiro marco funcional será fazer o sistema receber um acorde e gerar autom
 - [x] Gerar Lesson automaticamente
 - [x] Carregar Lesson gerada no LessonPlayer
 - [x] Carregar Lesson gerada no PracticeMode
-- [ ] Unificar dificuldade entre geração e prática
+- [x] Unificar dificuldade entre geração e prática
 - [ ] Integrar provedor musical real

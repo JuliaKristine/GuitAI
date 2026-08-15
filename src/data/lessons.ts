@@ -1,3 +1,7 @@
+import type {
+  DifficultyId,
+} from './difficulty'
+
 export type ChordTransition = {
   from: string
   to: string
@@ -24,6 +28,7 @@ export type Lesson = {
   id: string
   title: string
   description: string
+  difficulty?: DifficultyId
   rhythm: RhythmPattern
   steps: LessonStep[]
 }

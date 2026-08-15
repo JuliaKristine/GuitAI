@@ -4,56 +4,68 @@ export type DifficultyId = "absolute-beginner" | "beginner" | "developing";
 
 export type DifficultyProfile = {
   id: DifficultyId;
+
   emoji: string;
+
   name: string;
+
   description: string;
+
   chords: string[];
+
   speedLevel: SpeedLevelId;
+
   rhythmId: string;
 };
 
 export const difficultyProfiles: DifficultyProfile[] = [
   {
     id: "absolute-beginner",
+
     emoji: "🧸",
+
     name: "Iniciante absoluto",
-    description:
-      "Para quem está começando do zero. Poucos acordes e bastante tempo para trocar os dedos.",
+
+    description: "Comece com poucos acordes e bastante calma.",
+
     chords: ["G", "Em"],
+
     speedLevel: "very-slow",
+
     rhythmId: "easy",
   },
 
   {
     id: "beginner",
+
     emoji: "🌱",
+
     name: "Iniciante",
-    description:
-      "Quatro acordes simples com uma velocidade confortável para praticar.",
-    chords: ["G", "Em", "C", "D"],
+
+    description: "Pratique mais acordes e uma batida simples.",
+
+    chords: ["G", "Em", "C", "D", "Am"],
+
     speedLevel: "learning",
-    rhythmId: "easy",
+
+    rhythmId: "pop",
   },
 
   {
     id: "developing",
+
     emoji: "🎸",
+
     name: "Em evolução",
-    description:
-      "Mais velocidade e uma batida com movimentos para baixo e para cima.",
-    chords: ["G", "Em", "C", "D"],
+
+    description: "Treine mais velocidade e alternância de batidas.",
+
+    chords: ["G", "Em", "C", "D", "Am"],
+
     speedLevel: "normal",
-    rhythmId: "pop",
+
+    rhythmId: "rock",
   },
 ];
 
-export const defaultDifficultyProfile: DifficultyProfile = {
-  id: "absolute-beginner",
-  emoji: "🧸",
-  name: "Iniciante absoluto",
-  description:
-    "Para quem está começando do zero. Poucos acordes e bastante tempo para trocar os dedos.",
-  chords: ["G", "Em"],
-  speedLevel: "very-slow",
-  rhythmId: "easy",
-};
+export const defaultDifficultyProfile = difficultyProfiles[0];

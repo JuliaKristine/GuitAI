@@ -1861,3 +1861,84 @@ GeneratedLesson
 ↓
 Lesson
 
+---
+
+## Etapa 34 — Dificuldade compartilhada com PracticeMode
+
+### Status
+
+✅ Concluída
+
+### Objetivo
+
+Garantir que o nível selecionado durante a
+geração da aula seja utilizado também pelo
+PracticeMode.
+
+### Lesson
+
+O modelo Lesson do frontend passou a aceitar:
+
+`difficulty`
+
+### Adapter
+
+O `generatedLessonAdapter` agora transporta
+a dificuldade do `LessonGeneration` para
+a `Lesson`.
+
+### PracticeMode
+
+Quando uma Lesson gerada possui dificuldade,
+o PracticeMode inicia automaticamente com
+esse nível.
+
+### Bloqueio
+
+O seletor de dificuldade fica bloqueado para
+aulas geradas.
+
+Isso evita que uma aula criada para um nível
+seja reinterpretada imediatamente como outro.
+
+### Simplificação
+
+Uma Lesson gerada não é filtrada novamente
+pelo PracticeMode.
+
+A simplificação definida pelo backend é
+preservada.
+
+### Perfis alinhados
+
+#### Iniciante absoluto
+
+- G / Em
+- 40 BPM
+- ↓ ↓ ↓ ↓
+
+#### Iniciante
+
+- até 4 acordes da biblioteca inicial
+- 60 BPM
+- ↓ ↓ ↑ ↑
+
+#### Em evolução
+
+- até 6 acordes
+- 80 BPM
+- ↓ ↑ ↓ ↑
+
+### Fluxo
+
+```text
+LessonGeneration difficulty
+        ↓
+GeneratedLesson
+        ↓
+generatedLessonAdapter
+        ↓
+Lesson.difficulty
+        ↓
+PracticeMode
+

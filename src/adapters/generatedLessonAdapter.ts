@@ -3,6 +3,7 @@ import type { Lesson, LessonStep } from "../data/lessons";
 import type {
   GeneratedLesson,
   GeneratedLessonStep,
+  LessonDifficulty,
 } from "../types/lessonGeneration";
 
 function adaptStep(step: GeneratedLessonStep): LessonStep {
@@ -32,6 +33,7 @@ function adaptStep(step: GeneratedLessonStep): LessonStep {
 
 export function generatedLessonToLesson(
   generatedLesson: GeneratedLesson,
+  difficulty: LessonDifficulty,
 ): Lesson {
   return {
     id: generatedLesson.id,
@@ -39,6 +41,8 @@ export function generatedLessonToLesson(
     title: generatedLesson.title,
 
     description: generatedLesson.description,
+
+    difficulty,
 
     rhythm: {
       name: generatedLesson.rhythm.name,

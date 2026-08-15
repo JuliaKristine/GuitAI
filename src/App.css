@@ -317,3 +317,61 @@ footer {
   font-size: 0.9rem;
   font-weight: 700;
 }
+
+
+/* ========================================
+   Dificuldade herdada da aula
+======================================== */
+
+.practice-locked-difficulty {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 10px;
+
+  margin-top: 10px;
+  padding: 11px 12px;
+
+  background: #f5f3ff;
+
+  border: 1px solid #ddd6fe;
+  border-radius: 11px;
+}
+
+
+.practice-locked-difficulty > span {
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 30px;
+  height: 30px;
+
+  background: #ffffff;
+
+  border-radius: 8px;
+
+  font-size: 0.9rem;
+}
+
+
+.practice-locked-difficulty strong {
+  display: block;
+
+  color: #6d28d9;
+
+  font-size: 0.7rem;
+}
+
+
+.practice-locked-difficulty p {
+  margin: 3px 0 0;
+
+  color: #71717a;
+
+  font-size: 0.65rem;
+  line-height: 1.45;
+}
+

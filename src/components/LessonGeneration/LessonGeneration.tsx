@@ -38,7 +38,7 @@ function LessonGeneration({ songId, onLessonReady }: LessonGenerationProps) {
       return;
     }
 
-    const lesson = generatedLessonToLesson(result.lesson);
+    const lesson = generatedLessonToLesson(result.lesson, result.difficulty);
 
     onLessonReady?.(lesson);
   }
