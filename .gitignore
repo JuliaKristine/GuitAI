@@ -32,3 +32,6 @@ __pycache__/
 # Environment
 .env
 backend/.env
+
+# Áudios locais usados para análise
+backend/.data/

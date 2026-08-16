@@ -1,9 +1,16 @@
 from fastapi import FastAPI
+
 from fastapi.middleware.cors import (
     CORSMiddleware,
 )
 
-from app.config import get_settings
+from app.config import (
+    get_settings,
+)
+
+from app.routes.audio_assets import (
+    router as audio_assets_router,
+)
 
 from app.routes.config import (
     router as config_router,
@@ -54,12 +61,17 @@ app.add_middleware(
 @app.get("/")
 def root():
     return {
-        "name": settings.app_name,
-        "status": "online",
-        "environment": (
-            settings.app_env
-        ),
-        "docs": "/docs",
+        "name":
+            settings.app_name,
+
+        "status":
+            "online",
+
+        "environment":
+            settings.app_env,
+
+        "docs":
+            "/docs",
     }
 
 
@@ -85,4 +97,8 @@ app.include_router(
 
 app.include_router(
     music_analysis_router
+)
+
+app.include_router(
+    audio_assets_router
 )

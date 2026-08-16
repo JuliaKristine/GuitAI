@@ -151,3 +151,16 @@ O primeiro marco funcional será fazer o sistema receber um acorde e gerar autom
 - [x] Carregar Lesson gerada no PracticeMode
 - [x] Unificar dificuldade entre geração e prática
 - [ ] Integrar provedor musical real
+
+### Fase 6 — Análise de áudio real
+
+- [x] Definir separação entre Spotify e análise musical
+- [x] Criar AudioAsset
+- [x] Criar upload de áudio
+- [x] Proteger arquivos de áudio no Git
+- [ ] Instalar motor local de análise
+- [ ] Detectar andamento
+- [ ] Extrair representação harmônica
+- [ ] Criar candidatos de acordes
+- [ ] Adicionar nível de confiança
+- [ ] Validar análise antes de gerar aula

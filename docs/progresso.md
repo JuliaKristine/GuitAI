@@ -1942,3 +1942,72 @@ Lesson.difficulty
         ↓
 PracticeMode
 
+---
+
+## Etapa 35 — Fonte de áudio para análise real
+
+### Status
+
+✅ Concluída
+
+### Decisão arquitetural
+
+O Spotify continuará sendo utilizado para
+descoberta de músicas e metadados.
+
+O áudio utilizado pelo motor de análise musical
+não será obtido do Spotify.
+
+O usuário poderá fornecer uma fonte de áudio
+separadamente para processamento.
+
+### AudioAsset
+
+Foi criado um sistema local de armazenamento
+temporário de áudio.
+
+### Endpoints
+
+`POST /audio-assets/{song_id}`
+
+`GET /audio-assets/{song_id}`
+
+### Formatos iniciais
+
+- WAV
+- MP3
+- FLAC
+- OGG
+
+### Segurança
+
+Os arquivos ficam em:
+
+`backend/.data/audio`
+
+A pasta está ignorada pelo Git.
+
+Os caminhos locais dos arquivos não são
+expostos através da API.
+
+### Limite
+
+O limite inicial de upload é:
+
+`50 MB`
+
+Configurável através de:
+
+`AUDIO_MAX_UPLOAD_MB`
+
+### Arquitetura
+
+```text
+Spotify
+    ↓
+GuitAISong
+    ↓
+AudioAsset
+    ↓
+MusicAnalysisProvider
+

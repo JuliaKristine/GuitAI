@@ -43,8 +43,10 @@ class Settings(BaseSettings):
     spotify_market: str = "BR"
 
     music_analysis_provider: str = (
-    "unavailable"
+        "demo"
     )
+
+    audio_max_upload_mb: int = 50
 
     model_config = SettingsConfigDict(
         env_file=str(ENV_FILE),
