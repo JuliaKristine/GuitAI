@@ -6,6 +6,10 @@ from app.providers.demo_music_analysis import (
     DemoMusicAnalysisProvider,
 )
 
+from app.providers.local_audio_music_analysis import (
+    LocalAudioMusicAnalysisProvider,
+)
+
 from app.providers.music_analysis_base import (
     MusicAnalysisProvider,
 )
@@ -23,6 +27,10 @@ _demo_provider = (
     DemoMusicAnalysisProvider()
 )
 
+_local_audio_provider = (
+    LocalAudioMusicAnalysisProvider()
+)
+
 _unavailable_provider = (
     UnavailableMusicAnalysisProvider()
 )
@@ -32,13 +40,27 @@ def get_music_analysis_provider(
 ) -> MusicAnalysisProvider:
     settings = get_settings()
 
-    if (
-        settings.music_analysis_provider
-        == "demo"
-    ):
+    provider_name = (
+        settings
+        .music_analysis_provider
+        .strip()
+        .lower()
+    )
+
+    if provider_name == "demo":
         return _demo_provider
 
-    return _unavailable_provider
+    if provider_name in {
+        "local-audio",
+        "local_audio",
+    }:
+        return (
+            _local_audio_provider
+        )
+
+    return (
+        _unavailable_provider
+    )
 
 
 async def analyze_song(

@@ -1,29 +1,53 @@
-export type MusicAnalysisStatus = "ready" | "unavailable" | "failed";
+export type MusicAnalysisStatus =
+  | 'ready'
+  | 'experimental'
+  | 'unavailable'
+  | 'failed'
+
 
 export type ChordEvent = {
-  chord: string;
-  measure: number;
-  beat: number;
-};
+  chord: string
+
+  measure:
+    number | null
+
+  beat:
+    number | null
+
+  time_seconds:
+    number | null
+
+  confidence:
+    number | null
+}
+
 
 export type MusicAnalysis = {
-  song_id: string;
+  song_id: string
 
-  provider: string;
+  provider: string
 
-  status: MusicAnalysisStatus;
+  status:
+    MusicAnalysisStatus
 
-  tempo_bpm: number | null;
+  tempo_bpm:
+    number | null
 
-  key: string | null;
+  key:
+    string | null
 
-  time_signature: string | null;
+  time_signature:
+    string | null
 
-  chords: string[];
+  chords:
+    string[]
 
-  chord_events: ChordEvent[];
+  chord_events:
+    ChordEvent[]
 
-  confidence: number | null;
+  confidence:
+    number | null
 
-  message: string | null;
-};
+  message:
+    string | null
+}

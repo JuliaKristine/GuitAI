@@ -1,84 +1,116 @@
-import type { ChordSimplification } from "./chordSimplification";
+import type {
+  ChordSimplification,
+} from './chordSimplification'
 
-import type { MusicAnalysis } from "./musicAnalysis";
+import type {
+  MusicAnalysis,
+} from './musicAnalysis'
+
 
 export type LessonGenerationStatus =
-  | "pending"
-  | "processing"
-  | "waiting_for_analysis"
-  | "analysis_ready"
-  | "simplification_ready"
-  | "completed"
-  | "failed";
+  | 'pending'
+  | 'processing'
+  | 'waiting_for_analysis'
+  | 'waiting_for_validation'
+  | 'analysis_ready'
+  | 'simplification_ready'
+  | 'completed'
+  | 'failed'
 
-export type LessonDifficulty = "absolute-beginner" | "beginner" | "developing";
+
+export type LessonDifficulty =
+  | 'absolute-beginner'
+  | 'beginner'
+  | 'developing'
+
 
 export type GeneratedChordTransition = {
-  from: string;
+  from: string
 
-  to: string;
+  to: string
 
-  instructions: string[];
-};
+  instructions: string[]
+}
+
 
 export type GeneratedRhythm = {
-  name: string;
+  name: string
 
-  bpm: number;
+  bpm: number
 
-  beats: ("down" | "up")[];
-};
+  beats: (
+    | 'down'
+    | 'up'
+  )[]
+}
+
 
 export type GeneratedLessonStep = {
-  chord: string;
+  chord: string
 
-  title: string;
+  title: string
 
-  instruction: string;
+  instruction: string
 
-  tip: string;
+  tip: string
 
-  transition: GeneratedChordTransition | null;
-};
+  transition:
+    GeneratedChordTransition
+    | null
+}
+
 
 export type GeneratedLesson = {
-  id: string;
+  id: string
 
-  title: string;
+  title: string
 
-  description: string;
+  description: string
 
-  rhythm: GeneratedRhythm;
+  rhythm:
+    GeneratedRhythm
 
-  steps: GeneratedLessonStep[];
+  steps:
+    GeneratedLessonStep[]
 
-  original_chords: string[];
+  original_chords:
+    string[]
 
-  practice_chords: string[];
+  practice_chords:
+    string[]
 
-  simplification_notes: string[];
-};
+  simplification_notes:
+    string[]
+}
+
 
 export type LessonGeneration = {
-  id: string;
+  id: string
 
-  song_id: string;
+  song_id: string
 
-  difficulty: LessonDifficulty;
+  difficulty:
+    LessonDifficulty
 
-  status: LessonGenerationStatus;
+  status:
+    LessonGenerationStatus
 
-  created_at: string;
+  created_at: string
 
-  updated_at: string;
+  updated_at: string
 
-  analysis: MusicAnalysis | null;
+  analysis:
+    MusicAnalysis | null
 
-  simplification: ChordSimplification | null;
+  simplification:
+    ChordSimplification | null
 
-  lesson: GeneratedLesson | null;
+  lesson:
+    GeneratedLesson | null
 
-  message: string | null;
+  message:
+    string | null
 
-  error: string | null;
-};
+  error:
+    string | null
+}

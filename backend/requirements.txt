@@ -4,3 +4,5 @@ pydantic-settings
 python-dotenv
 httpx
 python-multipart
+librosa==1.0.0
+numpy

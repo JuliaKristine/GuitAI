@@ -1,6 +1,9 @@
 from enum import Enum
 
-from pydantic import BaseModel, Field
+from pydantic import (
+    BaseModel,
+    Field,
+)
 
 
 class MusicAnalysisStatus(
@@ -8,19 +11,40 @@ class MusicAnalysisStatus(
     Enum,
 ):
     ready = "ready"
-    unavailable = "unavailable"
+
+    experimental = (
+        "experimental"
+    )
+
+    unavailable = (
+        "unavailable"
+    )
+
     failed = "failed"
 
 
 class ChordEvent(BaseModel):
     chord: str
 
-    measure: int = Field(
+    measure: int | None = Field(
+        default=None,
         ge=1,
     )
 
-    beat: float = Field(
+    beat: float | None = Field(
+        default=None,
         ge=1,
+    )
+
+    time_seconds: float | None = Field(
+        default=None,
+        ge=0,
+    )
+
+    confidence: float | None = Field(
+        default=None,
+        ge=0,
+        le=1,
     )
 
 
@@ -37,11 +61,15 @@ class MusicAnalysisResult(BaseModel):
 
     time_signature: str | None = None
 
-    chords: list[str] = []
+    chords: list[str] = Field(
+        default_factory=list
+    )
 
     chord_events: list[
         ChordEvent
-    ] = []
+    ] = Field(
+        default_factory=list
+    )
 
     confidence: float | None = Field(
         default=None,

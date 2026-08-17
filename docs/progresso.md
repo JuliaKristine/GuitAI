@@ -2011,3 +2011,69 @@ AudioAsset
     ↓
 MusicAnalysisProvider
 
+---
+
+## Etapa 36 — Análise experimental de áudio local
+
+### Status
+
+✅ Concluída
+
+### Motor
+
+Foi integrado o librosa 1.0.0 ao backend.
+
+### Provider
+
+Foi criado:
+
+`LocalAudioMusicAnalysisProvider`
+
+### Entrada
+
+O provider utiliza um AudioAsset previamente
+enviado para o GuitAI.
+
+### Análises iniciais
+
+O pipeline experimental calcula:
+
+- andamento aproximado;
+- eventos de batida;
+- representação chroma;
+- tonalidade candidata;
+- acordes maiores e menores candidatos;
+- confiança aproximada dos candidatos.
+
+### Segurança
+
+Toda análise automática local possui:
+
+`status: experimental`
+
+O resultado não pode alimentar diretamente
+o ChordSimplifier.
+
+### Novo estado
+
+Foi criado:
+
+`waiting_for_validation`
+
+### Fluxo
+
+```text
+AudioAsset
+    ↓
+LocalAudioMusicAnalysisProvider
+    ↓
+librosa
+    ↓
+BPM + chroma
+    ↓
+candidatos harmônicos
+    ↓
+experimental
+    ↓
+waiting_for_validation
+

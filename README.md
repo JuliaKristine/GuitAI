@@ -154,13 +154,17 @@ O primeiro marco funcional será fazer o sistema receber um acorde e gerar autom
 
 ### Fase 6 — Análise de áudio real
 
-- [x] Definir separação entre Spotify e análise musical
 - [x] Criar AudioAsset
 - [x] Criar upload de áudio
-- [x] Proteger arquivos de áudio no Git
-- [ ] Instalar motor local de análise
-- [ ] Detectar andamento
-- [ ] Extrair representação harmônica
-- [ ] Criar candidatos de acordes
-- [ ] Adicionar nível de confiança
-- [ ] Validar análise antes de gerar aula
+- [x] Integrar librosa
+- [x] Criar LocalAudioMusicAnalysisProvider
+- [x] Estimar BPM
+- [x] Extrair chroma
+- [x] Criar candidatos de tonalidade
+- [x] Criar candidatos de acordes
+- [x] Marcar análise como experimental
+- [x] Bloquear geração antes da validação
+- [ ] Criar validação de análise musical
+- [ ] Permitir correção de acordes
+- [ ] Aprovar análise
+- [ ] Gerar aula a partir da análise aprovada

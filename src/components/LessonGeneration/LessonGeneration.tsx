@@ -1,385 +1,620 @@
-import { useState } from "react";
+import {
+  useState,
+} from 'react'
 
-import { generatedLessonToLesson } from "../../adapters/generatedLessonAdapter";
+import {
+  generatedLessonToLesson,
+} from '../../adapters/generatedLessonAdapter'
 
-import { lessonGenerationService } from "../../services/lessonGenerationService";
+import {
+  lessonGenerationService,
+} from '../../services/lessonGenerationService'
 
-import type { Lesson } from "../../data/lessons";
+import type {
+  Lesson,
+} from '../../data/lessons'
 
 import type {
   LessonDifficulty,
   LessonGeneration as LessonGenerationType,
-} from "../../types/lessonGeneration";
+} from '../../types/lessonGeneration'
+
 
 type LessonGenerationProps = {
-  songId: string;
+  songId: string
 
-  onLessonReady?: (lesson: Lesson) => void;
-};
+  onLessonReady?: (
+    lesson: Lesson
+  ) => void
+}
 
-function LessonGeneration({ songId, onLessonReady }: LessonGenerationProps) {
-  const [difficulty, setDifficulty] =
-    useState<LessonDifficulty>("absolute-beginner");
 
-  const [generation, setGeneration] = useState<LessonGenerationType | null>(
-    null,
-  );
+function LessonGeneration({
+  songId,
+  onLessonReady,
+}: LessonGenerationProps) {
+  const [
+    difficulty,
+    setDifficulty,
+  ] = useState<LessonDifficulty>(
+    'absolute-beginner'
+  )
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [
+    generation,
+    setGeneration,
+  ] = useState<
+    LessonGenerationType | null
+  >(null)
 
-  const [error, setError] = useState<string | null>(null);
+  const [
+    isLoading,
+    setIsLoading,
+  ] = useState(false)
 
-  function publishLesson(result: LessonGenerationType) {
-    if (result.status !== "completed") {
-      return;
+  const [
+    error,
+    setError,
+  ] = useState<string | null>(
+    null
+  )
+
+
+  function publishLesson(
+    result: LessonGenerationType
+  ) {
+    if (
+      result.status !== 'completed'
+      || !result.lesson
+    ) {
+      return
     }
 
-    if (!result.lesson) {
-      return;
-    }
+    const lesson =
+      generatedLessonToLesson(
+        result.lesson,
+        result.difficulty
+      )
 
-    const lesson = generatedLessonToLesson(result.lesson, result.difficulty);
-
-    onLessonReady?.(lesson);
+    onLessonReady?.(
+      lesson
+    )
   }
+
 
   async function createAndStart() {
     if (isLoading) {
-      return;
+      return
     }
 
-    setIsLoading(true);
-
-    setError(null);
+    setIsLoading(true)
+    setError(null)
 
     try {
-      const created = await lessonGenerationService.create(songId, difficulty);
+      const created =
+        await lessonGenerationService.create(
+          songId,
+          difficulty
+        )
 
-      setGeneration(created);
+      setGeneration(
+        created
+      )
 
-      const processed = await lessonGenerationService.start(created.id);
+      const processed =
+        await lessonGenerationService.start(
+          created.id
+        )
 
-      setGeneration(processed);
+      setGeneration(
+        processed
+      )
 
-      publishLesson(processed);
+      publishLesson(
+        processed
+      )
     } catch (generationError) {
-      console.error("Erro ao gerar aula:", generationError);
+      console.error(
+        'Erro ao gerar aula:',
+        generationError
+      )
 
-      if (generationError instanceof Error) {
-        setError(generationError.message);
-      } else {
-        setError("Não foi possível gerar a aula.");
-      }
+      setError(
+        generationError instanceof Error
+          ? generationError.message
+          : 'Não foi possível gerar a aula.'
+      )
     } finally {
-      setIsLoading(false);
+      setIsLoading(false)
     }
   }
+
 
   async function retryAnalysis() {
-    if (!generation || isLoading) {
-      return;
+    if (
+      !generation
+      || isLoading
+    ) {
+      return
     }
 
-    setIsLoading(true);
-
-    setError(null);
+    setIsLoading(true)
+    setError(null)
 
     try {
-      const processed = await lessonGenerationService.start(generation.id);
+      const processed =
+        await lessonGenerationService.start(
+          generation.id
+        )
 
-      setGeneration(processed);
+      setGeneration(
+        processed
+      )
 
-      publishLesson(processed);
+      publishLesson(
+        processed
+      )
     } catch (retryError) {
-      console.error("Erro ao repetir geração:", retryError);
+      console.error(
+        'Erro ao repetir geração:',
+        retryError
+      )
 
-      if (retryError instanceof Error) {
-        setError(retryError.message);
-      } else {
-        setError("Não foi possível repetir a geração.");
-      }
+      setError(
+        retryError instanceof Error
+          ? retryError.message
+          : 'Não foi possível repetir a geração.'
+      )
     } finally {
-      setIsLoading(false);
+      setIsLoading(false)
     }
   }
+
 
   function getStatusTitle() {
     if (!generation) {
-      return "Aguardando início";
+      return 'Aguardando início'
     }
 
     switch (generation.status) {
-      case "pending":
-        return "Na fila";
+      case 'pending':
+        return 'Na fila'
 
-      case "processing":
-        return "Processando música";
+      case 'processing':
+        return 'Processando música'
 
-      case "waiting_for_analysis":
-        return "Aguardando fonte de análise";
+      case 'waiting_for_analysis':
+        return 'Aguardando fonte de análise'
 
-      case "analysis_ready":
-        return "Análise musical pronta";
+      case 'waiting_for_validation':
+        return 'Análise aguardando validação'
 
-      case "simplification_ready":
-        return "Prática simplificada pronta";
+      case 'analysis_ready':
+        return 'Análise musical pronta'
 
-      case "completed":
-        return "Aula pronta";
+      case 'simplification_ready':
+        return 'Prática simplificada pronta'
 
-      case "failed":
-        return "Falha na geração";
+      case 'completed':
+        return 'Aula pronta'
+
+      case 'failed':
+        return 'Falha na geração'
     }
   }
+
 
   function getStatusIcon() {
     if (!generation) {
-      return "🧠";
+      return '🧠'
     }
 
     switch (generation.status) {
-      case "pending":
-        return "🕐";
+      case 'pending':
+        return '🕐'
 
-      case "processing":
-        return "⚙️";
+      case 'processing':
+        return '⚙️'
 
-      case "waiting_for_analysis":
-        return "🔌";
+      case 'waiting_for_analysis':
+        return '🔌'
 
-      case "analysis_ready":
-        return "🎼";
+      case 'waiting_for_validation':
+        return '🧪'
 
-      case "simplification_ready":
-        return "🎸";
+      case 'analysis_ready':
+        return '🎼'
 
-      case "completed":
-        return "✅";
+      case 'simplification_ready':
+        return '🎸'
 
-      case "failed":
-        return "⚠️";
+      case 'completed':
+        return '✅'
+
+      case 'failed':
+        return '⚠️'
     }
   }
+
 
   return (
     <section className="lesson-generation">
       <div className="lesson-generation-header">
-        <span>🧠 GERADOR DE AULA</span>
+        <span>
+          🧠 GERADOR DE AULA
+        </span>
 
-        <h3>Como devemos simplificar esta música?</h3>
+        <h3>
+          Como devemos simplificar esta música?
+        </h3>
 
-        <p>Escolha seu nível antes de iniciar a geração.</p>
+        <p>
+          Escolha seu nível antes de iniciar a geração.
+        </p>
       </div>
+
 
       <div className="lesson-generation-levels">
         <button
           type="button"
           className={
-            difficulty === "absolute-beginner"
-              ? "lesson-level active"
-              : "lesson-level"
+            difficulty === 'absolute-beginner'
+              ? 'lesson-level active'
+              : 'lesson-level'
           }
-          onClick={() => setDifficulty("absolute-beginner")}
-          disabled={Boolean(generation)}
+          onClick={() =>
+            setDifficulty(
+              'absolute-beginner'
+            )
+          }
+          disabled={
+            Boolean(generation)
+          }
         >
           <span>🧸</span>
 
-          <strong>Iniciante absoluto</strong>
+          <strong>
+            Iniciante absoluto
+          </strong>
 
-          <small>Máxima simplificação</small>
+          <small>
+            Máxima simplificação
+          </small>
         </button>
+
 
         <button
           type="button"
           className={
-            difficulty === "beginner" ? "lesson-level active" : "lesson-level"
+            difficulty === 'beginner'
+              ? 'lesson-level active'
+              : 'lesson-level'
           }
-          onClick={() => setDifficulty("beginner")}
-          disabled={Boolean(generation)}
+          onClick={() =>
+            setDifficulty(
+              'beginner'
+            )
+          }
+          disabled={
+            Boolean(generation)
+          }
         >
           <span>🌱</span>
 
-          <strong>Iniciante</strong>
+          <strong>
+            Iniciante
+          </strong>
 
-          <small>Poucos acordes</small>
+          <small>
+            Poucos acordes
+          </small>
         </button>
+
 
         <button
           type="button"
           className={
-            difficulty === "developing" ? "lesson-level active" : "lesson-level"
+            difficulty === 'developing'
+              ? 'lesson-level active'
+              : 'lesson-level'
           }
-          onClick={() => setDifficulty("developing")}
-          disabled={Boolean(generation)}
+          onClick={() =>
+            setDifficulty(
+              'developing'
+            )
+          }
+          disabled={
+            Boolean(generation)
+          }
         >
           <span>🎸</span>
 
-          <strong>Em evolução</strong>
+          <strong>
+            Em evolução
+          </strong>
 
-          <small>Mais próximo da música</small>
+          <small>
+            Mais próximo da música
+          </small>
         </button>
       </div>
 
+
       {error && (
-        <div className="lesson-generation-error" role="alert">
+        <div
+          className="lesson-generation-error"
+          role="alert"
+        >
           ⚠️ {error}
         </div>
       )}
+
 
       {!generation ? (
         <button
           type="button"
           className="lesson-generation-button"
-          onClick={() => void createAndStart()}
-          disabled={isLoading}
+          onClick={() =>
+            void createAndStart()
+          }
+          disabled={
+            isLoading
+          }
         >
-          {isLoading ? "⏳ Gerando..." : "🧠 Gerar minha aula"}
+          {isLoading
+            ? '⏳ Gerando...'
+            : '🧠 Gerar minha aula'}
         </button>
       ) : (
         <div className="generation-status-card">
-          <div className="generation-status-icon">{getStatusIcon()}</div>
+          <div className="generation-status-icon">
+            {getStatusIcon()}
+          </div>
 
           <div>
-            <span>STATUS</span>
+            <span>
+              STATUS
+            </span>
 
-            <h4>{getStatusTitle()}</h4>
+            <h4>
+              {getStatusTitle()}
+            </h4>
+
 
             {generation.message && (
-              <p className="generation-message">{generation.message}</p>
+              <p className="generation-message">
+                {generation.message}
+              </p>
             )}
 
+
             <p>
-              Processo: <code>{generation.id}</code>
+              Processo:{' '}
+
+              <code>
+                {generation.id}
+              </code>
             </p>
+
 
             {generation.analysis && (
               <div className="analysis-summary">
-                <span>ANÁLISE MUSICAL</span>
+                <span>
+                  ANÁLISE MUSICAL
+                </span>
 
                 <p>
-                  Provedor: <strong>{generation.analysis.provider}</strong>
+                  Provedor:{' '}
+
+                  <strong>
+                    {generation.analysis.provider}
+                  </strong>
                 </p>
 
                 <p>
-                  Status: <strong>{generation.analysis.status}</strong>
+                  Status:{' '}
+
+                  <strong>
+                    {generation.analysis.status}
+                  </strong>
                 </p>
 
-                {generation.analysis.key && (
+
+                {generation.analysis.tempo_bpm !== null && (
                   <p>
-                    Tom: <strong>{generation.analysis.key}</strong>
+                    BPM estimado:{' '}
+
+                    <strong>
+                      {generation.analysis.tempo_bpm}
+                    </strong>
                   </p>
                 )}
 
-                {generation.analysis.tempo_bpm && (
+
+                {generation.analysis.key && (
                   <p>
-                    BPM analisado:{" "}
-                    <strong>{generation.analysis.tempo_bpm}</strong>
+                    Tom candidato:{' '}
+
+                    <strong>
+                      {generation.analysis.key}
+                    </strong>
+                  </p>
+                )}
+
+
+                {generation.analysis.confidence !== null && (
+                  <p>
+                    Confiança:{' '}
+
+                    <strong>
+                      {Math.round(
+                        generation.analysis.confidence
+                        * 100
+                      )}
+                      %
+                    </strong>
+                  </p>
+                )}
+
+
+                {generation.analysis.chords.length > 0 && (
+                  <p>
+                    Acordes candidatos:{' '}
+
+                    <strong>
+                      {generation.analysis.chords.join(
+                        ' → '
+                      )}
+                    </strong>
                   </p>
                 )}
               </div>
             )}
 
+
+            {generation.status ===
+              'waiting_for_validation' && (
+              <div className="lesson-generation-error">
+                🧪 A análise automática ainda não
+                foi aprovada. Nenhuma aula será
+                gerada até a validação dos acordes.
+              </div>
+            )}
+
+
             {generation.simplification && (
               <div className="simplification-summary">
-                <span>PLANO DE PRÁTICA</span>
+                <span>
+                  PLANO DE PRÁTICA
+                </span>
 
                 <div className="simplification-row">
-                  <strong>Acordes originais</strong>
-
-                  <p>{generation.simplification.original_chords.join(" → ")}</p>
-                </div>
-
-                <div className="simplification-row">
-                  <strong>🎸 Pratique agora</strong>
+                  <strong>
+                    Acordes originais
+                  </strong>
 
                   <p>
-                    {generation.simplification.practice_chords.length > 0
-                      ? generation.simplification.practice_chords.join(" → ")
-                      : "Nenhum acorde"}
+                    {generation
+                      .simplification
+                      .original_chords
+                      .join(' → ')}
                   </p>
                 </div>
 
-                {generation.simplification.deferred_chords.length > 0 && (
-                  <div className="simplification-row">
-                    <strong>🕐 Depois</strong>
+                <div className="simplification-row">
+                  <strong>
+                    🎸 Pratique agora
+                  </strong>
 
-                    <p>
-                      {generation.simplification.deferred_chords.join(" → ")}
-                    </p>
-                  </div>
-                )}
-
-                {generation.simplification.review_chords.length > 0 && (
-                  <div className="simplification-row">
-                    <strong>⚠️ Precisa revisar</strong>
-
-                    <p>{generation.simplification.review_chords.join(" → ")}</p>
-                  </div>
-                )}
+                  <p>
+                    {generation
+                      .simplification
+                      .practice_chords
+                      .length > 0
+                      ? generation
+                          .simplification
+                          .practice_chords
+                          .join(' → ')
+                      : 'Nenhum acorde'}
+                  </p>
+                </div>
 
                 <div className="simplification-bpm">
-                  <span>VELOCIDADE RECOMENDADA</span>
+                  <span>
+                    VELOCIDADE RECOMENDADA
+                  </span>
 
                   <strong>
-                    {generation.simplification.recommended_bpm} BPM
+                    {generation
+                      .simplification
+                      .recommended_bpm}{' '}
+                    BPM
                   </strong>
                 </div>
               </div>
             )}
 
+
             {generation.lesson && (
               <div className="generated-lesson-summary">
-                <span>✅ AULA GERADA</span>
+                <span>
+                  ✅ AULA GERADA
+                </span>
 
-                <h4>{generation.lesson.title}</h4>
+                <h4>
+                  {generation.lesson.title}
+                </h4>
 
                 <div className="generated-lesson-rhythm">
                   <div>
-                    <small>BPM</small>
+                    <small>
+                      BPM
+                    </small>
 
-                    <strong>{generation.lesson.rhythm.bpm}</strong>
+                    <strong>
+                      {generation.lesson.rhythm.bpm}
+                    </strong>
                   </div>
 
                   <div>
-                    <small>BATIDA</small>
+                    <small>
+                      BATIDA
+                    </small>
 
                     <strong>
-                      {generation.lesson.rhythm.beats
-                        .map((beat) => (beat === "down" ? "↓" : "↑"))
-                        .join(" ")}
+                      {generation
+                        .lesson
+                        .rhythm
+                        .beats
+                        .map(
+                          (beat) =>
+                            beat === 'down'
+                              ? '↓'
+                              : '↑'
+                        )
+                        .join(' ')}
                     </strong>
                   </div>
                 </div>
 
                 <div className="generated-lesson-chords">
-                  <small>ACORDES DA AULA</small>
+                  <small>
+                    ACORDES DA AULA
+                  </small>
 
                   <strong>
-                    {generation.lesson.practice_chords.join(" → ")}
+                    {generation
+                      .lesson
+                      .practice_chords
+                      .join(' → ')}
                   </strong>
                 </div>
-
-                <p>A aula foi carregada automaticamente no GuitAI.</p>
               </div>
             )}
 
-            {generation.status === "waiting_for_analysis" && (
+
+            {generation.status ===
+              'waiting_for_analysis' && (
               <button
                 type="button"
                 className="retry-analysis-button"
-                onClick={() => void retryAnalysis()}
-                disabled={isLoading}
+                onClick={() =>
+                  void retryAnalysis()
+                }
+                disabled={
+                  isLoading
+                }
               >
                 {isLoading
-                  ? "⏳ Verificando..."
-                  : "↻ Verificar análise novamente"}
+                  ? '⏳ Verificando...'
+                  : '↻ Verificar análise novamente'}
               </button>
             )}
           </div>
         </div>
       )}
     </section>
-  );
+  )
 }
 
-export default LessonGeneration;
+export default LessonGeneration
